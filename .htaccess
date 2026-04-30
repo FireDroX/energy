@@ -1,0 +1,18 @@
+# Empêche accès aux fichiers sensibles
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Bloque accès direct à server/
+RedirectMatch 403 ^/server/
+
+# Redirige tout vers client si besoin
+RewriteEngine On
+
+# Si fichier ou dossier existe dans client → OK
+RewriteCond %{DOCUMENT_ROOT}/client%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/client%{REQUEST_URI} -d
+RewriteRule ^(.*)$ client/$1 [L]
+
+# Sinon fallback vers index.php
+RewriteRule ^ client/index.php [L]
