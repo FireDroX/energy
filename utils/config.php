@@ -1,4 +1,6 @@
 <?php
+    require_once __DIR__ . '/functions.php';
+
     $host = $_ENV['DB_HOST'];
     $port = $_ENV['DB_PORT'];
     $db   = $_ENV['DB_NAME'];

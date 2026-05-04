@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/../server/index.php' ?>
+<?php require_once './utils/config.php' ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +9,7 @@
   <script src="app.js" defer></script>
 </head>
 <body>
+  <?php require_once './components/navbar.php' ?>
   <h1>Titre</h1>
   <button id="fetch">Fetch</button>
 </body>
