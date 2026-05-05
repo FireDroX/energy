@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS monsters (
     id_monsters INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(50),
     description VARCHAR(255),
-    image VARCHAR(255)
+    image TEXT
 );
 
 CREATE TABLE IF NOT EXISTS roles (
