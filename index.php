@@ -1,5 +1,3 @@
-<?php require_once './utils/config.php' ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
