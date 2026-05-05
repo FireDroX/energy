@@ -3,8 +3,9 @@
 ## Projet Annuel : Application web “Monster Energy Carousel”
 
 ## 0. Groupe
-* Hassrol
-* Adrien
+
+- Hassrol
+- Adrien
 
 ---
 
@@ -14,9 +15,33 @@
 
 Créer une application web permettant de :
 
-* Gérer une collection de boissons **Monster Energy**
-* Ajouter / modifier / supprimer des items
-* Afficher ces boissons sous forme de **carousel interactif**
+- Gérer une collection de boissons **Monster Energy**
+  - Affichage des 3 meilleures boissons sur la page principale avec leur note, visuel et description
+  - Page complète regroupant toutes les boissons existantes
+    - Carrousel par tags
+    - Barre de recherche par nom
+
+- Ajouter / modifier / supprimer des items
+- Afficher les boissons sous forme de **carousel interactif**
+- Gestion des utilisateurs permettant :
+  - Envoyer des commentaires
+  - Répondre (reply)
+  - Transférer des messages
+  - Ajouter des réactions
+  - Épingler des messages (admins)
+  - Liker et noter les boissons (note globale sur 10 calculée à partir de toutes les notes)
+
+- Gestion de messages en temps semi-réel avec modération
+  - Envoi de GIFs (Tenor), avec barre de recherche de GIFs
+  - Réactions sur les messages
+
+- Filtrage des boissons avec des tags :
+  Original, Collaboration, Juice, Ultra, Coffee, Java, Espresso, Rehab, Reserve, Dragon Tea, Muscle, Nitro, Maxx, Extra Strength, Nitrous, Punch, Dub Edition, Hydro Series, Mutant Series, Beast
+- Page des mentions légales
+- Différents rôles :
+  - users (aucune permission spécifique)
+  - contributors (accès complet aux boissons mais pas à la modération des messages)
+  - admins (accès complet + modération)
 
 ---
 
@@ -24,56 +49,102 @@ Créer une application web permettant de :
 
 ### 2.1 Authentification
 
-* Formulaire de connexion (login / mot de passe)
-* Vérification via base de données SQL
-* Accès sécurisé au panneau admin
+- Formulaire de connexion (login / mot de passe)
+- Vérification via base de données SQL
+- Gestion des sessions ou tokens
+- Accès sécurisé aux routes admin et contributor
 
 ---
 
-### 2.2 Panneau d’administration
+### 2.2 Gestion des boissons (CRUD)
 
-#### Ajouter un item
+#### Ajouter une boisson
 
 Champs :
 
-* Nom
-* Description
-* Image (URL ou upload (base64))
-* Note (sur 10)
-* Lieu d’achat
+- Nom
+- Description
+- Image (URL)
 
-#### Modifier un item
+#### Modifier une boisson
 
-* Pré-remplissage des champs
-* Mise à jour en base
+- Mise à jour en base de données
 
-#### Supprimer un item
+#### Supprimer une boisson
 
-* Bouton de suppression avec confirmation
+- Bouton de suppression avec confirmation
 
 ---
 
-### 2.3 Carousel d’items
+### 2.3 Page principale (Home)
 
-* Affichage dynamique des boissons
-* Navigation :
+- Affichage des **3 a 5 meilleures boissons**
+  - Basé sur la note globale (/10)
 
-  * Boutons précédent / suivant
-  * Swipe (optionnel)
-* Contenu affiché :
-
-  * Image
-  * Nom
-  * Description
-  * Note
-  * Lieu d’achat
+- Contenu affiché :
+  - Image
+  - Nom
+  - Description
+  - Note
 
 ---
 
-### 2.4 Consultation publique
+### 2.4 Page catalogue
 
-* Accès libre au carousel sans login
-* Interface responsive
+- Affichage de toutes les boissons
+- Organisation via :
+  - Carousel interactif
+  - Filtrage par tags
+
+- Barre de recherche par nom
+
+---
+
+### 2.5 Carousel interactif
+
+- Navigation :
+  - Boutons précédent / suivant
+  - Swipe (optionnel)
+
+- Affichage :
+  - Image
+  - Nom
+  - Description
+  - Note
+
+---
+
+### 2.6 Système utilisateur et interactions
+
+- Gestion des rôles :
+  - users
+  - contributors
+  - admins
+
+- Interactions :
+  - Commentaires sur boissons
+  - Réponses (reply)
+  - Likes
+  - Réactions
+  - Épinglage de messages (admins)
+  - Notes utilisateur sur boissons
+
+---
+
+### 2.7 Chat semi temps réel
+
+- Envoi / réception de messages
+- Réponses à des messages
+- Réactions sur messages
+- Envoi de GIFs via API Tenor
+- Recherche de GIFs
+- Modération des messages (admins)
+
+---
+
+### 2.8 Pages annexes
+
+- Page des mentions légales
 
 ---
 
@@ -81,14 +152,18 @@ Champs :
 
 ### Contraintes
 
-* Design moderne (inspiré gaming / énergie)
-* Responsive (mobile + desktop)
+- Interface responsive (mobile / desktop)
+- Navigation fluide entre :
+  - Home
+  - Catalogue
+  - Chat
 
 ### Pages principales
 
-* Page accueil (carousel)
-* Page login
-* Dashboard admin
+- Page accueil (top 3 + accès carousel)
+- Page catalogue (toutes les boissons)
+- Page login
+- Dashboard admin
 
 ---
 
@@ -96,20 +171,18 @@ Champs :
 
 ### Frontend
 
-Design :
-
-* Figma
-
 Technologies :
 
-* HTML5
-* CSS3
-* JavaScript (vanilla)
+- HTML5
+- CSS3
+- JavaScript / PHP
 
 Fonctions :
 
-* Affichage du carousel
-* Requêtes API (fetch)
+- Affichage du carousel
+- Affichage des top 3 boissons
+- Gestion des filtres et recherche
+- Communication API (fetch)
 
 ---
 
@@ -117,78 +190,105 @@ Fonctions :
 
 Technologie :
 
-* PHP :(
+- PHP
 
 Fonctions :
 
-* API REST
-* Authentification
-* Gestion Create, Read, Update et Delete des items
+- API REST
+- Authentification
+- Gestion CRUD des boissons
+- Gestion utilisateurs et rôles
+- Gestion chat (messages, réactions, GIFs)
 
 ---
 
 ### Base de données
 
-* SQL (MySQL)
-* Modèle Conceptuel de Données
-* Modèle Logique de Données
+- SQL (MySQL)
+- Modèle Conceptuel de Données (MCD)
+- Modèle Logique de Données (MLD)
 
+---
 
 ## 5. API (Backend)
 
 ### Auth
 
-* `POST /login`
+- `POST /login`
 
 ---
 
-### Items
+### Items (boissons)
 
-* `GET /items` → récupérer tous les items
-* `GET /items/:id` → récupérer un item
-* `POST /items` → ajouter un item
-* `PUT /items/:id` → modifier
-* `DELETE /items/:id` → supprimer
+- `GET /items` → récupérer toutes les boissons
+- `GET /items/:id` → récupérer une boisson
+- `POST /items` → ajouter une boisson
+- `PUT /items/:id` → modifier une boisson
+- `DELETE /items/:id` → supprimer une boisson
+
+---
+
+### Interactions
+
+- `POST /items/:id/comment` → ajouter un commentaire
+- `POST /comment/:id/reply` → répondre à un commentaire
+- `POST /comment/:id/react` → réaction
+- `POST /items/:id/rate` → noter une boisson
+
+---
+
+### Chat
+
+- `GET /messages`
+- `POST /messages`
+- `POST /messages/:id/reply`
+- `POST /messages/:id/react`
+- `DELETE /messages/:id` (admin)
+- Intégration GIF via API Tenor
 
 ---
 
 ## 6. Fonctionnement global
 
-1. L’utilisateur arrive sur le site → voit le carousel
-2. L’admin se connecte
-3. Il accède au dashboard :
-
-   * Ajoute/modifie/supprime des boissons
-4. Les données sont stockées en SQL
-5. Le frontend récupère les données via API
-6. Le carousel se met à jour dynamiquement
+1. L’utilisateur arrive sur le site et voit les 3 meilleures boissons
+2. Il peut accéder au catalogue complet via carousel et recherche
+3. Les utilisateurs interagissent via commentaires, likes et chat
+4. Les contributors et admins gèrent les boissons
+5. Les admins modèrent les messages et interactions
+6. Toutes les données sont stockées en base SQL
+7. Le frontend consomme l’API REST pour afficher les données dynamiques
 
 ---
 
 ## 7. Sécurité
 
-* Protection des routes admin (token/session)
-* Validation des données (backend)
+- Protection des routes via session ou token
+- Vérification des rôles (users / contributors / admins)
+- Validation des données côté backend
+- Protection des actions sensibles (delete, moderation)
 
 ---
 
 ## 8. Contraintes techniques
 
-* Séparation frontend / backend
-* Utilisation de Git (versioning)
+- Séparation frontend / backend
+- Utilisation de Git pour le versioning
+  - dépôt : [https://github.com/FireDroX/energy](https://github.com/FireDroX/energy)
 
 ---
 
 ## 9. Livrables
 
-* Code source complet
-* Base de données
-* Documentation (README)
-* Démo fonctionnelle
+- Code source complet
+- Base de données SQL
+- Documentation technique (README)
+- MCD / MLD
+- Démonstration fonctionnelle
 
 ---
 
-## 10. Mise en prod
+## 10. Mise en production
 
-* Sur le serv qu'on achetera + nom de domaine
-* Sur mon serv local (backup) pa.addrien.fr
+- Déploiement sur serveur avec nom de domaine
+- Hébergement principal (serveur acheté)
+- Serveur local de backup : pa.addrien.fr
