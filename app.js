@@ -1,5 +1,5 @@
 document.getElementById("fetch").addEventListener("click", () => {
-  fetch("api/health.php")
+  fetch("api/users/get.php")
     .then((response) => response.json())
     .then((data) => console.log(data));
 });
