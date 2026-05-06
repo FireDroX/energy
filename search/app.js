@@ -1,5 +1,9 @@
-let selectedTags = [];
-let allMonsters = [];
+let selectedTags = [],
+  allMonsters = [],
+  searchText = "",
+  debounceTimeout;
+
+const formatName = (name) => name.replaceAll("_", " ").toUpperCase();
 
 const getMonsters = async () => {
   try {
@@ -16,6 +20,12 @@ const getMonsters = async () => {
       );
     }
 
+    if (searchText.trim() !== "") {
+      const search = searchText.trim().toUpperCase();
+
+      res = res.filter((monster) => formatName(monster.nom).includes(search));
+    }
+
     const el = document.getElementById("monstersCaroussel");
     el.innerHTML = "";
 
@@ -28,9 +38,22 @@ const getMonsters = async () => {
           <img src="${monster.image}" alt="${monster.nom}" />
         </div>
         <div class="monster-text">
-          <h4>${monster.nom.replaceAll("_", " ").toUpperCase()}</h4>
+          <h4>${formatName(monster.nom)}</h4>
         </div>
       `;
+
+      element.addEventListener("click", () => {
+        document.getElementsByClassName("modal-title")[0].innerHTML =
+          formatName(monster.nom);
+        const img = document.getElementsByClassName("modal-image")[0];
+        img.src = monster.image;
+        img.alt = monster.nom;
+
+        const modal = new bootstrap.Modal(
+          document.getElementById("monsterModal"),
+        );
+        modal.show();
+      });
 
       el.appendChild(element);
     });
@@ -70,6 +93,15 @@ const getTags = async () => {
     console.log(err);
   }
 };
+
+document.getElementById("monsterSearch").addEventListener("input", (e) => {
+  clearTimeout(debounceTimeout);
+
+  debounceTimeout = setTimeout(() => {
+    searchText = e.target.value;
+    getMonsters();
+  }, 150);
+});
 
 getMonsters();
 getTags();
