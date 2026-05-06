@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +9,16 @@
     <?php require_once './components/scripts.php' ?>
   </head>
 
-  <body>
+  <body class="container">
     <header>
       <?php require_once './components/navbar.php' ?>
     </header>
 
-    <button id="fetch">Fetch</button>
+    <main>
+      <button type="button" class="btn btn-outline-dark" id="fetch">Fetch</button>
+    </main>
+
+    <footer>
+    </footer>
   </body>
 </html>
