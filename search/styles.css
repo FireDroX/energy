@@ -94,7 +94,6 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0.25rem 0.75rem;
-  color: #fff;
   border: 1px solid #fff;
   box-shadow: 0px 0px 8px #fff;
 }
@@ -103,6 +102,7 @@ body {
   background-color: transparent;
   border: none;
   width: 18rem;
+  color: #fff;
 }
 
 .monster-input > svg {
