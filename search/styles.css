@@ -1,0 +1,60 @@
+#monstersCaroussel {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.monster-text > h3 {
+  width: 12rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.monster-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-direction: column;
+  background-color: gray;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  height: 6rem;
+  width: 8rem;
+}
+
+.monster-image > img {
+  position: absolute;
+  height: 90%;
+}
+
+#monstersTags {
+  width: 95%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#monstersTags > li {
+  padding: 0.25rem 0.5rem;
+  border-radius: 16px;
+  background-color: gray;
+  width: max-content;
+  text-align: center;
+  list-style: none;
+  cursor: pointer;
+}
+
+#monstersTags > li:hover {
+  background-color: orange;
+}

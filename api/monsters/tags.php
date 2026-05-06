@@ -8,12 +8,12 @@ try {
     $pdo = new PDO(
         "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};port={$_ENV['DB_PORT']};charset=utf8",
         $_ENV['DB_USER'],
-        "",
+        ""
     );
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $pdo->query("SELECT `id_users`,`pseudo` FROM `users` INNER JOIN `roles` WHERE `roles`.`role` = 'User'");
+    $stmt = $pdo->query("SELECT * FROM tags");
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($data);
