@@ -1,3 +1,7 @@
 <nav>
-  <a href="/">Home</a><a href="/login">Login</a>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/search">Search</a></li>
+    <li><a href="/login">Login</a></li>
+  </ul>
 </nav>
