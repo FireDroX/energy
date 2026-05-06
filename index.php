@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monster</title>
 
+    <?php require_once './components/meta.php' ?>
     <?php require_once './components/link.php' ?>
     <?php require_once './components/scripts.php' ?>
   </head>
