@@ -1,4 +1,9 @@
+
+
+
 <?php
+
+session_start();
 
 require_once __DIR__ . '/../utils/functions.php';
 
@@ -37,6 +42,10 @@ try {
         die("Aucun compte trouvé avec cet email.");
     }
 
+    if ($user['mdp'] == null) {
+        die("Faux compte.");
+    }
+
     if (!password_verify($password, $user['mdp'])) {
         die("Mot de passe incorrect.");
     }
@@ -57,7 +66,8 @@ try {
         );
     }
 
-    echo "Connexion réussie !";
+    header("Location: ../index.php");
+    exit;
 
 } catch (PDOException $e) {
     die("Erreur BDD : " . $e->getMessage());

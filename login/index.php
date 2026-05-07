@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION['user'])) {
+    echo "Connecté en tant que : " . $_SESSION['user']['pseudo'];
+} else {
+    echo "Utilisateur non connecté";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
