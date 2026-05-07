@@ -1,5 +1,8 @@
-<?php
-session_start();
+<?php 
+
+session_start(); 
+$isLogged = isset($_SESSION['user']);
+
 ?>
 
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
@@ -10,7 +13,7 @@ session_start();
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
         <li class="nav-item">
-          <a class="nav-link active" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
 
         <li class="nav-item">
