@@ -63,7 +63,8 @@ try {
         'id_role' => 2
     ]);
 
-    echo "Utilisateur enregistré avec succès !";
+    header("Location: ../login/index.php");
+    exit;
 
 } catch (PDOException $e) {
     die("Erreur BDD : " . $e->getMessage());

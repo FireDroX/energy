@@ -1,4 +1,9 @@
+
+
+
 <?php
+
+session_start();
 
 require_once __DIR__ . '/../utils/functions.php';
 
@@ -61,7 +66,8 @@ try {
         );
     }
 
-    echo "Connexion réussie !";
+    header("Location: ../index.php");
+    exit;
 
 } catch (PDOException $e) {
     die("Erreur BDD : " . $e->getMessage());
