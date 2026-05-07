@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION['user'])) {
+    echo "Connecté en tant que : " . $_SESSION['user']['pseudo'];
+} else {
+    echo "Utilisateur non connecté";
+}
+?>
+
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Monster Energy</a>
