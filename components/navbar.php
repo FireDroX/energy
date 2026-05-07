@@ -1,48 +1,34 @@
 <?php 
 
-session_start(); 
-$isLogged = isset($_SESSION['user']);
+session_start();
 
 ?>
 
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Monster Energy</a>
+<link rel="stylesheet" href="/components/navbar.css">
 
-    <div class="collapse navbar-collapse center" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<nav class="navbar">
+  <a class="navbar-logo" href="/"><img src="/favicon.png" alt="Logo"></a>
+  <ul class="navbar-content">
+    <li><a href="/">Home</a></li>
+    <li><a href="/search">Recherche</a></li>
+    <li><a href="/">Contact</a></li>
+    <?php if(!isset($_SESSION['user'])) { ?>
+      <li><a href="/login">Login</a></li>
+    <?php } ?>
+  </ul>
 
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/search">Search</a>
-        </li>
-
-        <?php if (isset($_SESSION['user'])): ?>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/account">Compte</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Déconnexion</a>
-          </li>
-
-        <?php else: ?>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-
-        <?php endif; ?>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/">Contact</a>
-        </li>
-
+  <div class="navbar-dropdown dropdown">
+    <?php if(isset($_SESSION['user'])) { ?>
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <?= $_SESSION['user']['pseudo'] ?>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/account">Compte</a></li>
+        <?php if($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 3) { ?>
+          <li><a class="dropdown-item" href="/">Panel</a></li>
+        <?php } ?>
+        <li><a class="dropdown-item" href="/logout">Déconnexion</a></li>
       </ul>
-    </div>
+    <?php } ?>
   </div>
 </nav>

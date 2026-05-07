@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once __DIR__ . '/../utils/functions.php';
 
 if (
@@ -61,7 +63,7 @@ try {
         );
     }
 
-    header("Location: ../index.php");
+    header("Location: ../");
     exit;
 
 } catch (PDOException $e) {
