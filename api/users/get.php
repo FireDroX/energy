@@ -13,7 +13,11 @@ try {
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $pdo->query("SELECT `id_users`,`pseudo` FROM `users` INNER JOIN `roles` WHERE `roles`.`role` = 'User'");
+    $stmt = $pdo->query("
+        SELECT id_users, pseudo FROM users
+        INNER JOIN roles ON roles.id_role = users.id_role
+        WHERE roles.role = 'User'
+    ");
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($data);
