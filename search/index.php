@@ -14,7 +14,9 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <?php require_once '../components/navbar.php' ?>
+  <header>
+    <?php require_once '../components/navbar.php'; ?>
+  </header>
   <div class="monster-input container">
     <input type="text" id="monsterSearch" placeholder="Rechercher une monstrer..." />
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
