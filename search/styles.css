@@ -1,11 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap");
-
-body {
-  font-family: Metal Mania;
-  background-color: #000;
-  user-select: none;
-}
-
 #monstersCaroussel {
   display: flex;
   align-items: center;

@@ -63,7 +63,7 @@ try {
         'id_role' => 2
     ]);
 
-    header("Location: ../login/index.php");
+    header("Location: ../login/");
     exit;
 
 } catch (PDOException $e) {

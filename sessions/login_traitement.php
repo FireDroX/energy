@@ -63,7 +63,7 @@ try {
         );
     }
 
-    header("Location: ../index.php");
+    header("Location: ../");
     exit;
 
 } catch (PDOException $e) {
