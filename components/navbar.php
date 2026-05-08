@@ -9,44 +9,45 @@ if (isset($_SESSION['user'])) {
 }
 ?>
 
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Monster Energy</a>
+<link rel="stylesheet" href="/css/navbar_style.css">
 
-    <div class="collapse navbar-collapse center" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/search">Search</a>
-        </li>
-
-        <?php if (isset($_SESSION['user'])): ?>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/account">Compte</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Déconnexion</a>
-          </li>
-
-        <?php else: ?>
-
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-
-        <?php endif; ?>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/">Contact</a>
-        </li>
-
-      </ul>
-    </div>
+<nav class="monster-navbar">
+  <div class="monster-logo">
+    <a href="/">Monster Energy</a>
   </div>
+
+  <ul class="monster-links me-auto">
+
+    <li>
+      <a href="/">Home</a>
+    </li>
+
+    <li>
+      <a href="/search">Search</a>
+    </li>
+
+    <li>
+      <a href="/">Contact</a>
+    </li>
+    </ul>
+  
+    <ul class="monster-links">
+    <?php if (isset($_SESSION['user'])): ?>
+
+      <li>
+        <a href="/account">Compte</a>
+      </li>
+
+      <li>
+        <a href="/logout">Déconnexion</a>
+      </li>
+
+    <?php else: ?>
+
+      <li>
+        <a href="/login">Login</a>
+      </li>
+
+    <?php endif; ?>
+  </ul>
 </nav>
