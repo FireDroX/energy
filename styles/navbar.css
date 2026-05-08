@@ -1,7 +1,17 @@
-* {
+@import url("https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap");
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: Metal Mania;
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  user-select: none;
 }
 
 .monster-navbar {
@@ -9,26 +19,47 @@
   background: linear-gradient(90deg, #000000, #111111, #000000);
   border-bottom: 2px solid #ffffff;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  padding: 20px 50px;
+  padding: 0.75rem 1rem;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2rem;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-direction: row;
 }
 
 .monster-logo a {
   color: #ffffff;
-  font-size: 28px;
   font-weight: bold;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 2px;
   text-shadow: 0 0 10px #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-left: 3rem;
+}
+
+.navbar-logo {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  height: 3rem;
+  filter: invert();
 }
 
 .monster-links {
   display: flex;
-  gap: 35px;
+  gap: 1rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -41,6 +72,10 @@
   text-transform: uppercase;
   position: relative;
   transition: 0.3s;
+}
+
+.monster-links svg {
+  display: none;
 }
 
 .monster-links a:hover {
@@ -64,6 +99,19 @@
   width: 100%;
 }
 
-ul.monster-links {
-  margin-left: 50px;
+@media (max-width: 850px) {
+  .monster-links span,
+  .monster-logo span {
+    display: none;
+  }
+
+  .monster-logo a {
+    margin-left: 1rem;
+  }
+
+  .monster-links svg {
+    display: initial;
+    color: #fff;
+    height: 20px;
+  }
 }
