@@ -2,9 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 require_once '../components/panel.php';
 
-if (!isset($_SESSION['user']) ||
-    !$_SESSION['user']['role'] == 1 || 
-    !$_SESSION['user']['role'] == 3) {
+if (!isset($_SESSION['user']) || ($_SESSION['user']['role'] != 1 && $_SESSION['user']['role'] != 3)) {
   header("Location: /");
   exit;
 }
