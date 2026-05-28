@@ -1,0 +1,51 @@
+.panel {
+  width: 22rem;
+  height: 14rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-decoration: none;
+  transition: 0.3s;
+  background: #1a1a1a;
+}
+
+.panel.panel-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.panel-icon svg {
+  position: relative;
+  width: 8rem;
+  fill: #fff;
+}
+
+.panel-titre {
+  margin-top: 1.5rem;
+  color: #fff;
+}
+
+.panel:hover {
+  text-shadow: 0 0 8px #fff;
+  box-shadow: 0 0 16px #fff;
+}
+
+.panel-container {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  grid-template-rows: repeat(2, min-content);
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+@media (max-width: 775px) {
+  .panel-container {
+    grid-template-columns: min-content;
+    grid-template-rows: repeat(4, min-content);
+  }
+}
