@@ -1,4 +1,5 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 require_once __DIR__ . '/../utils/functions.php';
 
@@ -6,7 +7,8 @@ if (
     !isset($_POST['pseudo']) ||
     !isset($_POST['email']) ||
     !isset($_POST['password']) ||
-    !isset($_POST['confirm_password'])
+    !isset($_POST['confirm_password']) ||
+    !isset($_POST['captcha'])
 ) {
     die('Veuillez remplir tous les champs du formulaire');
 }
@@ -18,6 +20,13 @@ $confirmPassword = trim($_POST['confirm_password']);
 
 if ($password !== $confirmPassword) {
     die("Les mots de passe ne correspondent pas.");
+}
+
+$captcha = trim($_POST['captcha']);
+$captcha_answer = $_SESSION['captcha_answer'];
+
+if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
+    die("Captcha incorrect.");
 }
 
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
