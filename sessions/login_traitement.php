@@ -1,12 +1,12 @@
 <?php
-
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 require_once __DIR__ . '/../utils/functions.php';
 
 if (
     !isset($_POST['email']) ||
-    !isset($_POST['password'])
+    !isset($_POST['password']) ||
+    !isset($_POST['captcha'])
 ) {
     die("Veuillez remplir tous les champs.");
 }
@@ -14,6 +14,13 @@ if (
 $email = trim($_POST['email']);
 $password = trim($_POST['password']);
 $keepConnect = isset($_POST['keepConnected']) && $_POST['keepConnected'] == 'on';
+
+$captcha = trim($_POST['captcha']);
+$captcha_answer = $_SESSION['captcha_answer'];
+
+if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
+    die("Captcha incorrect.");
+}
 
 try {
     $pdo = new PDO(
