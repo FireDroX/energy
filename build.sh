@@ -12,7 +12,7 @@ docker rm monsters 2>/dev/null
 echo "🚀 Lancement container..."
 docker run -d \
   --network mariadb-network \
-  -p 10000:80 \
+  -p 127.0.0.1:10000:80 \
   --name monsters \
   --restart unless-stopped \
   monsters-image:latest
