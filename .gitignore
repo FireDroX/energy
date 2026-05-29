@@ -1,2 +1,6 @@
 .env
 /assets
+
+# Build docker pour le server de backup
+build.sh
+Dockerfile
