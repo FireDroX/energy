@@ -25,8 +25,8 @@ try {
 } catch (PDOException $e) {
   $captchas = [[
     'id_captcha' => 0,
-    'question' => 'Quels sont les 2 délégués de la classe ?',
-    'reponse' => '["hassrol","alex"]'
+    'question' => 'Quels sont les 2 VRAI délégués de la classe ?',
+    'reponse' => '["hassrol","adrien"]'
   ]];
 }
 ?>

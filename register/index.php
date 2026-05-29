@@ -17,7 +17,7 @@ function generateCaptcha() {
 
 		$captcha = $stmt->fetch(PDO::FETCH_ASSOC);
 	} catch (PDOException $e) {
-		$captcha = ['id_captcha' => 0, 'question' => 'Quels sont les 2 délégués de la classe ?', 'reponse' => '["hassrol","alex"]'];
+		$captcha = ['id_captcha' => 0, 'question' => 'Quels sont les 2 VRAI délégués de la classe ?', 'reponse' => '["hassrol","adrien"]'];
 	}
 
 	$_SESSION['captcha_answer'] = json_decode($captcha['reponse'], true);
