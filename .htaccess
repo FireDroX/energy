@@ -1,4 +1,11 @@
-<Files .env>
+<FilesMatch "\.env|\.gitignore|\.htaccess|README\.md">
     Order allow,deny
     Deny from all
-</Files>
+</FilesMatch>
+
+RewriteEngine on
+RewriteRule ^api/$ - [R=403,L]
+RewriteRule ^assets/$ - [R=403,L]
+RewriteRule ^components/$ - [R=403,L]
+RewriteRule ^styles/$ - [R=403,L]
+RewriteRule ^utils/$ - [R=403,L]

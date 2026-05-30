@@ -43,16 +43,7 @@ const getMonsters = async () => {
       `;
 
       element.addEventListener("click", () => {
-        document.getElementsByClassName("modal-title")[0].innerHTML =
-          formatName(monster.nom);
-        const img = document.getElementsByClassName("modal-image")[0];
-        img.src = monster.image;
-        img.alt = monster.nom;
-
-        const modal = new bootstrap.Modal(
-          document.getElementById("monsterModal"),
-        );
-        modal.show();
+        window.location.href = `/monster?name=${monster.nom}`;
       });
 
       el.appendChild(element);

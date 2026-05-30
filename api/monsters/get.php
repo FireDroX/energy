@@ -1,18 +1,10 @@
 <?php
-require_once __DIR__ . '/../../utils/functions.php';
+require_once __DIR__ . '/../../utils/database.php';
 
 header('Content-Type: application/json');
 http_response_code(200);
 
 try {
-    $pdo = new PDO(
-        "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};port={$_ENV['DB_PORT']};charset=utf8",
-        $_ENV['DB_USER'],
-        $_ENV['DB_PASSWORD']
-    );
-
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     $stmt = $pdo->query("
         SELECT 
             m.id_monsters,
