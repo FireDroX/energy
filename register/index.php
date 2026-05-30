@@ -1,30 +1,9 @@
 <?php 
-require_once __DIR__ . '/../utils/session.php'; 
+require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../utils/functions.php';
+require_once __DIR__ . '/../utils/database.php'; 
 
-
-function generateCaptcha() {
-	try {
-		$pdo = new PDO(
-			"mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};port={$_ENV['DB_PORT']};charset=utf8",
-			$_ENV['DB_USER'],
-			$_ENV['DB_PASSWORD']
-		);
-
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-		$stmt = $pdo->query("SELECT * FROM captcha ORDER BY RAND() LIMIT 1");
-
-		$captcha = $stmt->fetch(PDO::FETCH_ASSOC);
-	} catch (PDOException $e) {
-		$captcha = ['id_captcha' => 0, 'question' => 'Quels sont les 2 VRAI délégués de la classe ?', 'reponse' => '["hassrol","adrien"]'];
-	}
-
-	$_SESSION['captcha_answer'] = json_decode($captcha['reponse'], true);
-	return $captcha;
-}
-
-$captcha = generateCaptcha();
+$captcha = generateCaptcha($pdo);
 ?>
 
 <!DOCTYPE html>

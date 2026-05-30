@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/session.php'; 
-require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/session.php';
+require_once __DIR__ . '/database.php';
 
 if (
     !isset($_POST['pseudo']) ||
@@ -43,14 +43,6 @@ if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
 try {
-    $pdo = new PDO(
-        "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};port={$_ENV['DB_PORT']};charset=utf8",
-        $_ENV['DB_USER'],
-        $_ENV['DB_PASSWORD']
-    );
-
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     $checkSql = "SELECT mail FROM users WHERE mail = :mail";
     $checkStmt = $pdo->prepare($checkSql);
     $checkStmt->execute([
@@ -58,7 +50,11 @@ try {
     ]);
 
     if ($checkStmt->fetch()) {
-        die("Cet utilisateur existe déjà.");
+        echo "<script>
+            alert('Cet utilisateur existe déjà.');
+            window.location.href = '/register';
+        </script>" ;
+        exit;
     }
 
     $checkPseudoSql = "SELECT pseudo FROM users WHERE pseudo = :pseudo";
@@ -68,7 +64,11 @@ try {
     ]);
 
     if ($checkPseudoStmt->fetch()) {
-        die("Ce pseudo est déjà utilisé.");
+        echo "<script>
+            alert('Ce pseudo est déjà utilisé.');
+            window.location.href = '/register';
+        </script>" ;
+        exit;
     }
 
     $sql = "INSERT INTO users (pseudo, mail, mdp, id_role)

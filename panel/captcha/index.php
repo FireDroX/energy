@@ -1,5 +1,6 @@
 <?php 
 require_once __DIR__ . '/../../utils/session.php'; 
+require_once __DIR__ . '/../../utils/database.php'; 
 
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
   header("Location: /");
@@ -11,14 +12,6 @@ require_once __DIR__ . '/../../utils/functions.php';
 $_SESSION['csrf'] = $_SESSION['csrf'] ?? bin2hex(random_bytes(32));
 
 try {
-  $pdo = new PDO(
-    "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};port={$_ENV['DB_PORT']};charset=utf8",
-    $_ENV['DB_USER'],
-    $_ENV['DB_PASSWORD']
-  );
-
-  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
   $stmt = $pdo->query("SELECT * FROM captcha");
   $captchas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
