@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../utils/session.php'; 
-require_once __DIR__ . '/../utils/functions.php';
+require_once __DIR__ . '/session.php'; 
+require_once __DIR__ . '/functions.php';
 
 if (
     !isset($_POST['pseudo']) ||
@@ -9,7 +9,11 @@ if (
     !isset($_POST['confirm_password']) ||
     !isset($_POST['captcha'])
 ) {
-    die('Veuillez remplir tous les champs du formulaire');
+    echo "<script>
+        alert('Veuillez remplir tous les champs.');
+        window.location.href = '/register';
+    </script>" ;
+    exit;
 }
 
 $pseudo = trim($_POST['pseudo']);
@@ -18,14 +22,22 @@ $password = trim($_POST['password']);
 $confirmPassword = trim($_POST['confirm_password']);
 
 if ($password !== $confirmPassword) {
-    die("Les mots de passe ne correspondent pas.");
+    echo "<script>
+        alert('Les mots de passe ne correspondent pas.');
+        window.location.href = '/register';
+    </script>" ;
+    exit;
 }
 
 $captcha = trim($_POST['captcha']);
 $captcha_answer = $_SESSION['captcha_answer'];
 
 if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
-    die("Captcha incorrect.");
+    echo "<script>
+        alert('Captcha incorrect.');
+        window.location.href = '/register';
+    </script>" ;
+    exit;
 }
 
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);

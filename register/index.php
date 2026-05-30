@@ -50,7 +50,7 @@ $captcha = generateCaptcha();
 
             <h1 class="mb-4">Inscription</h1>
 
-            <form method="POST" action="../sessions/register_traitement.php">
+            <form method="POST" action="../utils/register_traitement.php">
 
                 <div class="mb-3">
                     <label for="pseudo" class="form-label">Pseudo</label>

@@ -1,13 +1,17 @@
 <?php
-require_once __DIR__ . '/../utils/session.php'; 
-require_once __DIR__ . '/../utils/functions.php';
+require_once __DIR__ . '/session.php'; 
+require_once __DIR__ . '/functions.php';
 
 if (
     !isset($_POST['email']) ||
     !isset($_POST['password']) ||
     !isset($_POST['captcha'])
 ) {
-    die("Veuillez remplir tous les champs.");
+    echo "<script>
+        alert('Veuillez remplir tous les champs.');
+        window.location.href = '/login';
+    </script>" ;
+    exit;
 }
 
 $email = trim($_POST['email']);
@@ -18,7 +22,11 @@ $captcha = trim($_POST['captcha']);
 $captcha_answer = $_SESSION['captcha_answer'];
 
 if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
-    die("Captcha incorrect.");
+    echo "<script>
+        alert('Captcha incorrect.');
+        window.location.href = '/login';
+    </script>" ;
+    exit;
 }
 
 try {

@@ -47,7 +47,7 @@ $captcha = generateCaptcha();
 		<div class=container>
 			<main class="mt-5">
 				<h1 class="mb-4">Connexion</h1>
-				<form method="POST" action="../sessions/login_traitement.php">
+				<form method="POST" action="../utils/login_traitement.php">
 					<div class="mb-3">
 						<label for="email" class="form-label">Adresse email</label>
 						<input type="email" name="email" class="form-control" id="email" required>
