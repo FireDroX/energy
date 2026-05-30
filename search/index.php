@@ -31,26 +31,6 @@ require_once __DIR__ . '/../utils/session.php';
   <ul id="monstersTags"></ul>
   <br />
   <section id="monstersCaroussel" class="container" ></section>
-
-  <div class="modal fade" id="monsterModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <p>/* Description Image Commentaires Likes Note etc.. */</p>
-        <img class="modal-image w-25" src="" alt="">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Fermer
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>
 
