@@ -10,11 +10,14 @@ try {
             m.id_monsters,
             m.nom,
             m.image,
-            GROUP_CONCAT(t.nom) as tags
+            GROUP_CONCAT(t.nom) as tags,
+            ROUND(AVG(n.note), 2) as note
         FROM monsters m
         LEFT JOIN monster_tags mt ON m.id_monsters = mt.id_monsters
         LEFT JOIN tags t ON mt.id_tags = t.id_tags
+        LEFT JOIN notes n ON n.id_monsters = m.id_monsters
         GROUP BY m.id_monsters
+        ORDER BY note DESC
     ");
 
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
