@@ -1,5 +1,5 @@
 .panel {
-  width: 22rem;
+  width: 18rem;
   height: 14rem;
   border-radius: 16px;
   display: flex;
@@ -36,7 +36,7 @@
 .panel-container {
   margin-top: 4rem;
   display: grid;
-  grid-template-columns: repeat(2, min-content);
+  grid-template-columns: repeat(3, min-content);
   grid-template-rows: repeat(2, min-content);
   justify-content: center;
   align-items: center;

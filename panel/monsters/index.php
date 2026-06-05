@@ -13,7 +13,7 @@ if (!isset($_SESSION['user']) || ($_SESSION['user']['role'] != 1 && $_SESSION['u
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monster | Panel - Monsters</title>
+  <title>Monster | Monsters</title>
 
   <link rel="shortcut icon" href="/favicon.png" type="image/png">
 

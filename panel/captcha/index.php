@@ -29,7 +29,7 @@ try {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monster | Panel - Captcha</title>
+  <title>Monster | Captcha</title>
 
   <link rel="shortcut icon" href="/favicon.png" type="image/png">
 
