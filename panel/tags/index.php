@@ -1,7 +1,7 @@
 <?php 
 require_once __DIR__ . '/../../utils/session.php'; 
 
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
+if (!isset($_SESSION['user']) || ($_SESSION['user']['role'] != 1 && $_SESSION['user']['role'] != 3)) {
   header("Location: /");
   exit;
 }
@@ -13,7 +13,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monster | Logs</title>
+  <title>Monster | Tags</title>
 
   <link rel="shortcut icon" href="/favicon.png" type="image/png">
 
