@@ -7,10 +7,7 @@ if (
     !isset($_POST['password']) ||
     !isset($_POST['captcha'])
 ) {
-    echo "<script>
-        alert('Veuillez remplir tous les champs.');
-        window.location.href = '/login';
-    </script>" ;
+    header("Location: ../login?error=missing_fields");
     exit;
 }
 
@@ -22,10 +19,7 @@ $captcha = trim($_POST['captcha']);
 $captcha_answer = $_SESSION['captcha_answer'];
 
 if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
-    echo "<script>
-        alert('Captcha incorrect.');
-        window.location.href = '/login';
-    </script>" ;
+    header("Location: ../login?error=captcha_incorrect");
     exit;
 }
 
@@ -42,15 +36,18 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        die("Aucun compte trouvé avec cet email.");
+        header("Location: ../login?error=no_account");
+        exit;
     }
 
     if ($user['mdp'] == null) {
-        die("Faux compte.");
+        header("Location: ../login?error=fake_account");
+        exit;
     }
 
     if (!password_verify($password, $user['mdp'])) {
-        die("Mot de passe incorrect.");
+        header("Location: ../login?error=incorrect_password");
+        exit;
     }
 
     $_SESSION['user'] = [
@@ -70,7 +67,7 @@ try {
         );
     }
 
-    header("Location: ../");
+    header("Location: ../?logged=true");
     exit;
 
 } catch (PDOException $e) {

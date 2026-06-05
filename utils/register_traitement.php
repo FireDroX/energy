@@ -9,10 +9,7 @@ if (
     !isset($_POST['confirm_password']) ||
     !isset($_POST['captcha'])
 ) {
-    echo "<script>
-        alert('Veuillez remplir tous les champs.');
-        window.location.href = '/register';
-    </script>" ;
+    header("Location: ../register?error=missing_fields");
     exit;
 }
 
@@ -22,10 +19,7 @@ $password = trim($_POST['password']);
 $confirmPassword = trim($_POST['confirm_password']);
 
 if ($password !== $confirmPassword) {
-    echo "<script>
-        alert('Les mots de passe ne correspondent pas.');
-        window.location.href = '/register';
-    </script>" ;
+    header("Location: ../register?error=password_mismatch");
     exit;
 }
 
@@ -33,10 +27,7 @@ $captcha = trim($_POST['captcha']);
 $captcha_answer = $_SESSION['captcha_answer'];
 
 if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
-    echo "<script>
-        alert('Captcha incorrect.');
-        window.location.href = '/register';
-    </script>" ;
+    header("Location: ../register?error=captcha_incorrect");
     exit;
 }
 
@@ -50,24 +41,7 @@ try {
     ]);
 
     if ($checkStmt->fetch()) {
-        echo "<script>
-            alert('Cet utilisateur existe déjà.');
-            window.location.href = '/register';
-        </script>" ;
-        exit;
-    }
-
-    $checkPseudoSql = "SELECT pseudo FROM users WHERE pseudo = :pseudo";
-    $checkPseudoStmt = $pdo->prepare($checkPseudoSql);
-    $checkPseudoStmt->execute([
-        'pseudo' => $pseudo
-    ]);
-
-    if ($checkPseudoStmt->fetch()) {
-        echo "<script>
-            alert('Ce pseudo est déjà utilisé.');
-            window.location.href = '/register';
-        </script>" ;
+        header("Location: ../register?error=email_exists");
         exit;
     }
 
@@ -83,7 +57,7 @@ try {
         'id_role' => 2
     ]);
 
-    header("Location: ../login/");
+    header("Location: ../login/?registered=true");
     exit;
 
 } catch (PDOException $e) {
