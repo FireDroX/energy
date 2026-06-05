@@ -3,6 +3,8 @@ require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../utils/functions.php';
 require_once __DIR__ . '/../utils/database.php';
 
+require_once __DIR__ . '/../components/alert.php';
+
 $captcha = generateCaptcha($pdo);
 ?>
 
@@ -22,6 +24,30 @@ $captcha = generateCaptcha($pdo);
 		<header>
 			<?php require_once '../components/navbar.php'; ?>
 		</header>
+
+		<?php if (isset($_GET['error'])) { 
+			switch($_GET['error']) {
+				case 'missing_fields':
+					echo createAlert("Veuillez remplir tous les champs !", "danger");
+					break;
+				case 'captcha_incorrect':
+					echo createAlert("Captcha incorrect !", "danger");
+					break;
+				case 'no_account':
+					echo createAlert("Aucun compte trouvé avec cet email !", "danger");
+					break;
+				case 'fake_account':
+					echo createAlert("Cet email est un faux compte de test !", "danger");
+					break;
+				case 'incorrect_password':
+					echo createAlert("Mot de passe incorrect !", "danger");
+					break;
+			}
+    } ?>
+
+		<?php if (isset($_GET['registered']) && $_GET['registered'] == 'true') { 
+			echo createAlert("Compte créé avec succès !", "success");
+		} ?>
 
 		<div class=container>
 			<main class="mt-5">
@@ -50,7 +76,7 @@ $captcha = generateCaptcha($pdo);
 					<button type="submit" class="btn btn-primary">Se connecter</button>
 
 					<div class="mt-3">
-							<a href="../register/index.php">Pas encore de compte ? S'inscrire</a>
+							<a href="../register/">Pas encore de compte ? S'inscrire</a>
 					</div>
 				</form>
 			</main>
