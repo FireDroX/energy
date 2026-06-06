@@ -6,6 +6,10 @@ $alerts = [
     'captcha_deleted' => 'Captcha supprimé !',
     'captcha_updated' => 'Captcha mis à jour !',
     'captcha_created' => 'Captcha créé !',
+    'user_desactivated' => 'Utilisateur désactivé / modifié !',
+    'user_activated' => 'Utilisateur réactivé / modifié !',
+    'user_updated' => 'Utilisateur mis à jour !',
+    'user_created' => 'Utilisateur créé !'
   ],
 
   'error' => [
@@ -22,6 +26,7 @@ $alerts = [
     'incorrect_password' => 'Mot de passe incorrect !',
     'no_account' => 'Aucun compte trouvé avec cet email !',
     'invalid_json' => 'La réponse doit être un JSON valide (array)',
+    'non_existant_role' => 'Ce role n\'existe pas !'
   ],
 
   'info' => [
