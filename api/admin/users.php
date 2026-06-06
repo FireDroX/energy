@@ -10,7 +10,7 @@ if (
     !$_SESSION['user']['is_active']
 ) {
     http_response_code(403);
-    echo json_encode(['error' => 'Vous n\'avez pas acces a cette page !']);
+    echo json_encode(['error' => 'no_access']);
     exit;
 }
 
@@ -23,7 +23,7 @@ $active = isset($_POST['active']) ? (int) $_POST['active'] : 1;
 
 function checkInputs($p, $m, $r, $pdo) {
   if ($p === '' || $m === '') {
-    echo json_encode(['warning' => 'Pseudo et Mail sont requis !']);
+    echo json_encode(['warning' => 'missing_fields']);
     exit;
   }
 
@@ -32,7 +32,7 @@ function checkInputs($p, $m, $r, $pdo) {
 
   if (!$stmt->fetch(PDO::FETCH_ASSOC)) {
     http_response_code(400);
-    echo json_encode(['warning' => 'Role non existant !']);
+    echo json_encode(['warning' => 'non_existant_role']);
     exit;
   }
 }
@@ -66,7 +66,7 @@ try {
 
       echo json_encode([
         'success' => true,
-        'message' => 'Utilisateur désactivé / modifié'
+        'message' => 'user_desactivated'
       ]);
       exit;
     } else if (!is_null($prevUser['deactivated']) && $active === 1) {
@@ -90,7 +90,7 @@ try {
 
       echo json_encode([
         'success' => true,
-        'message' => 'Utilisateur réactivé / modifié'
+        'message' => 'user_activated'
       ]);
       exit;
     }
@@ -114,7 +114,7 @@ try {
 
     echo json_encode([
       'success' => true,
-      'message' => 'Utilisateur mis à jour'
+      'message' => 'user_updated'
     ]);
     exit;
   }
@@ -125,7 +125,7 @@ try {
   $stmt->execute([':mail' => $mail]);
 
   if ($stmt->fetch()) {
-    echo json_encode(['warning' => 'Mail existant !']);
+    echo json_encode(['warning' => 'email_exists']);
     exit;
   }
 
@@ -141,11 +141,11 @@ try {
     ':role' => $role,
   ]);
 
-  echo json_encode(['success' => true, 'message' => 'Utilisateur créé']);
+  echo json_encode(['success' => true, 'message' => 'user_created']);
 } catch (PDOException $e) {
   http_response_code(500);
   echo json_encode([
-    'error' => 'Database error',
+    'error' => 'database_error',
     'details' => $e->getMessage()
   ]);
 }
