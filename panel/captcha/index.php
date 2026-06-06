@@ -3,17 +3,18 @@ require_once __DIR__ . '/../../utils/session.php';
 require_once __DIR__ . '/../../utils/database.php'; 
 require_once __DIR__ . '/../../components/alert.php';
 
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
+if (
+    !isset($_SESSION['user']) || 
+    $_SESSION['user']['role'] != 1 ||
+    !$_SESSION['user']['is_active']
+  ) {
   header("Location: /");
   exit;
 }
 
-require_once __DIR__ . '/../../utils/functions.php';
-
 try {
   $stmt = $pdo->query("SELECT * FROM captcha");
   $captchas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
   $captchas = [[
     'id_captcha' => 0,
@@ -48,6 +49,8 @@ try {
       <div class="mb-3">
         <label for="captchaSelect" class="form-label">Sélectionnez un captcha</label>
         <select class="form-select" id="captchaSelect">
+          <option value="" disabled selected>Sélectionnez un captcha</option>
+          <option value="separator" disabled></option>
           <?php foreach ($captchas as $captcha) { ?>
             <option value="<?= $captcha['id_captcha'] ?>">
               <?= htmlspecialchars($captcha['question']) ?>
@@ -58,13 +61,14 @@ try {
         </select>
       </div>
       <form id="captchaForm">
+        <input type="hidden" name="id_captcha" id="id_captcha" value="0">
         <div class="mb-3">
           <label class="form-label">Question</label>
-          <input type="text" class="form-control" id="question" name="question" required>
+          <input type="text" class="form-control" id="question" name="question">
         </div>
         <div class="mb-3">
           <label class="form-label">Réponse (JSON array)</label>
-          <input type="text" class="form-control" id="reponse" name="reponse" required>
+          <input type="text" class="form-control" id="reponse" name="reponse">
         </div>
         <button type="submit" class="btn btn-primary">
           Sauvegarder
@@ -85,12 +89,13 @@ try {
         const val = select.value;
         if (val === "new") {
           idInput.value = 0;
-          question.value = "";
-          reponse.value = "";
+          question.value = "Quels sont les 2 VRAI délégués de la classe ?";
+          reponse.value = "[\"hassrol\",\"adrien\"]";
           return;
         }
         const captcha = captchas.find(c => c.id_captcha == val);
         if (!captcha) return;
+        console.log(captcha);
         idInput.value = captcha.id_captcha;
         question.value = captcha.question;
         reponse.value = captcha.reponse;

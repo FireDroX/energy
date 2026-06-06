@@ -24,7 +24,7 @@ if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
 }
 
 try {
-    $sql = "SELECT id_users, pseudo, mail, mdp, id_role
+    $sql = "SELECT id_users, pseudo, mail, mdp, id_role, deactivated
             FROM users
             WHERE mail = :mail";
 
@@ -50,11 +50,17 @@ try {
         exit;
     }
 
+    if(!is_null($user['deactivated'])) {
+        header("Location: ../login?error=deactivated_account");
+        exit;
+    }
+
     $_SESSION['user'] = [
         'id' => $user['id_users'],
         'pseudo' => $user['pseudo'],
         'email' => $user['mail'],
         'role' => $user['id_role'],
+        'is_active' => is_null($user['deactivated']),
         'lastUpdate' => time()
     ];
 
