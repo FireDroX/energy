@@ -1,7 +1,11 @@
 <?php 
 require_once __DIR__ . '/../../utils/session.php'; 
 
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
+if (
+    !isset($_SESSION['user']) || 
+    $_SESSION['user']['role'] != 1 ||
+    !$_SESSION['user']['is_active']
+  ) {
   header("Location: /");
   exit;
 }

@@ -42,6 +42,9 @@ $captcha = generateCaptcha($pdo);
 				case 'incorrect_password':
 					echo createAlert("Mot de passe incorrect !", "danger");
 					break;
+				case 'deactivated_account':
+					echo createAlert("Ce compte est désactivé !", "danger");
+					break;
 			}
     } ?>
 

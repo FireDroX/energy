@@ -4,17 +4,13 @@ require_once __DIR__ . '/../../utils/database.php';
 
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
+if (
+    !isset($_SESSION['user']) || 
+    $_SESSION['user']['role'] != 1 || 
+    !$_SESSION['user']['is_active']
+  ) {
   http_response_code(403);
   echo json_encode(['error' => 'Forbidden']);
-  exit;
-}
-
-require_once __DIR__ . '/../../utils/functions.php';
-
-if (!isset($_POST['csrf']) || !isset($_SESSION['csrf']) || $_POST['csrf'] !== $_SESSION['csrf']) {
-  http_response_code(403);
-  echo json_encode(['error' => 'Invalid CSRF token']);
   exit;
 }
 
@@ -22,21 +18,32 @@ $id = isset($_POST['id_captcha']) ? (int) $_POST['id_captcha'] : 0;
 $question = trim($_POST['question'] ?? '');
 $reponse = trim($_POST['reponse'] ?? '');
 
-if ($question === '' || $reponse === '') {
-  http_response_code(400);
-  echo json_encode(['error' => 'Question et réponse obligatoires']);
-  exit;
-}
-
 $json = json_decode($reponse, true);
-if (json_last_error() !== JSON_ERROR_NONE || !is_array($json)) {
-  http_response_code(400);
-  echo json_encode(['error' => 'La réponse doit être un JSON valide (array)']);
-  exit;
+
+function checkInputs($q, $r, $j) {
+  if ($q === '' || $r === '') {
+    echo json_encode(['error' => 'Question et réponse obligatoires']);
+    exit;
+  }
+
+  if (json_last_error() !== JSON_ERROR_NONE || !is_array($j)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'La réponse doit être un JSON valide (array)']);
+    exit;
+  }
 }
 
 try {
   if ($id > 0) {
+    if ($question === '' && $reponse === '') {
+      $stmt = $pdo->prepare("DELETE FROM captcha WHERE id_captcha = :id");
+      $stmt->execute([':id' => $id]);
+      echo json_encode(['success' => true, 'message' => 'Captcha Supprimé !']);
+      exit;
+    }
+
+    checkInputs($question, $reponse, $json);
+
     $stmt = $pdo->prepare("
       UPDATE captcha 
       SET question = :question, reponse = :reponse 
@@ -52,6 +59,8 @@ try {
     echo json_encode(['success' => true, 'message' => 'Captcha mis à jour']);
 
   } else {
+    checkInputs($question, $reponse, $json);
+
     $stmt = $pdo->prepare("
       INSERT INTO captcha (question, reponse)
       VALUES (:question, :reponse)

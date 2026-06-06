@@ -9,7 +9,7 @@ if (isset($_SESSION['user']) && isset($_SESSION['user']['lastUpdate']) && $_SESS
   require_once __DIR__ . '/functions.php';
 
   try {
-    $sql = "SELECT id_users, pseudo, mail, id_role
+    $sql = "SELECT id_users, pseudo, mail, id_role, deactivated
             FROM users
             WHERE mail = :mail";
 
@@ -31,6 +31,7 @@ if (isset($_SESSION['user']) && isset($_SESSION['user']['lastUpdate']) && $_SESS
         'pseudo' => $user['pseudo'],
         'email' => $user['mail'],
         'role' => $user['id_role'],
+        'is_active' => is_null($user['deactivated']),
         'lastUpdate' => time()
     ];
   } catch (PDOException $e) {
