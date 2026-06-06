@@ -32,6 +32,15 @@
           </svg>
         </a>
       </li>
+      <li>
+        <a href="/leaderboard">
+          <span>Classement</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9a1.5 1.5 0 0 1-1.5-1.5V6.108c0-.548.295-1.054.771-1.324l5.25-2.979a1.5 1.5 0 0 1 1.458 0l5.25 2.979c.476.27.771.776.771 1.324V17.25a1.5 1.5 0 0 1-1.5 1.5Z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l2.25 2.25L15 9.75"/>
+          </svg>
+        </a>
+      </li>
     </ul>
   </div>
   <ul class="monster-links">

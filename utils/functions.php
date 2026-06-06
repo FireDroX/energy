@@ -83,4 +83,72 @@
     $_SESSION['captcha_answer'] = json_decode($captcha['reponse'], true);
     return $captcha;
   }
+
+  function getClassementMonsters(PDO $pdo, string $type = 'commentaires', string $periode = 'mois') {
+    $dates = [
+      'jour' => "NOW() - INTERVAL 1 DAY",
+      'semaine' => "NOW() - INTERVAL 7 DAY",
+      'mois' => "NOW() - INTERVAL 30 DAY"
+    ];
+
+    if (!isset($dates[$periode])) {
+      $periode = 'mois';
+    }
+
+    $dateCondition = $dates[$periode];
+
+    if ($type === 'commentaires') {
+      $sql = "
+        SELECT m.id_monsters, m.nom, m.image, COUNT(c.id_commentaires) AS total
+        FROM monsters m
+        INNER JOIN commentaires c 
+          ON c.id_monsters = m.id_monsters
+          AND c.date >= {$dateCondition}
+        GROUP BY m.id_monsters
+        ORDER BY total DESC
+        LIMIT 10
+      ";
+    } elseif ($type === 'vues') {
+      $sql = "
+        SELECT m.id_monsters, m.nom, m.image, COUNT(v.id_view) AS total
+        FROM monsters m
+        INNER JOIN monster_views v
+          ON v.id_monsters = m.id_monsters
+          AND v.date_view >= {$dateCondition}
+        GROUP BY m.id_monsters
+        ORDER BY total DESC
+        LIMIT 10
+      ";
+    } elseif ($type === 'bus') {
+      $sql = "
+        SELECT m.id_monsters, m.nom, m.image, COUNT(d.id_drink) AS total
+        FROM monsters m
+        INNER JOIN monster_drinks d
+          ON d.id_monsters = m.id_monsters
+          AND d.date_drink >= {$dateCondition}
+        GROUP BY m.id_monsters
+        ORDER BY total DESC
+        LIMIT 10
+      ";
+    } else {
+      $sql = "
+        SELECT
+          m.id_monsters,
+          m.nom,
+          m.image,
+          ROUND(AVG(n.note), 2) AS total,
+          COUNT(n.note) AS nb_notes
+        FROM monsters m
+        INNER JOIN notes n
+          ON n.id_monsters = m.id_monsters
+          AND n.date_note >= {$dateCondition}
+        GROUP BY m.id_monsters
+        ORDER BY total DESC, nb_notes DESC
+        LIMIT 10
+      ";
+    }
+
+    $stmt = $pdo->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 ?>

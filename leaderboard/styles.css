@@ -1,0 +1,116 @@
+.leaderboard-page {
+  min-height: 100vh;
+  background: #000000;
+  color: #ffffff;
+  padding-bottom: 4rem;
+}
+
+.leaderboard-container {
+  width: min(1200px, 92%);
+  margin: auto;
+}
+
+.leaderboard-title {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.leaderboard-filter {
+  background: #0d0d0d;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.leaderboard-filter label {
+  color: #ffffff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.leaderboard-filter select {
+  background: #0d0d0d;
+  color: #ffffff;
+  border: 1px solid #2a2a2a;
+}
+
+.leaderboard-filter select:focus {
+  background: #0d0d0d;
+  color: #ffffff;
+  border-color: #e5e5e5;
+  box-shadow: none;
+}
+
+.leaderboard-filter button {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.leaderboard-filter button:hover {
+  background: #e5e5e5;
+  color: #000000;
+}
+
+.ranking-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  transition: 0.2s ease;
+}
+
+.ranking-card:hover {
+  transform: translateY(-3px);
+  background: #202020;
+  border-color: #e5e5e5;
+}
+
+.ranking-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.rank-number {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: bold;
+  min-width: 60px;
+}
+
+.ranking-name {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.ranking-stat {
+  color: #bfbfbf;
+}
+
+.ranking-stat-muted {
+  color: #7a7a7a;
+}
+
+@media (max-width: 768px) {
+  .ranking-card .card-body {
+    gap: 1rem;
+  }
+
+  .ranking-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .rank-number {
+    font-size: 1.5rem;
+    min-width: 45px;
+  }
+}

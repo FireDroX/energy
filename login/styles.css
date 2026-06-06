@@ -1,0 +1,92 @@
+.login-page {
+  min-height: 100vh;
+  background: #000000;
+  color: #ffffff;
+  padding-bottom: 4rem;
+}
+
+.login-container {
+  width: min(700px, 92%);
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.login-title {
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 2rem;
+}
+
+.login-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.login-card label {
+  color: #bfbfbf;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.login-card input[type="email"],
+.login-card input[type="password"],
+.login-card input[type="text"] {
+  background: #0d0d0d;
+  color: #ffffff;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.login-card input:focus {
+  background: #0d0d0d;
+  color: #ffffff;
+  border-color: #e5e5e5;
+  box-shadow: none;
+}
+
+.login-card input::placeholder {
+  color: #7a7a7a;
+}
+
+.login-card .form-check-label {
+  color: #bfbfbf;
+}
+
+.login-card .form-check-input {
+  background-color: #0d0d0d;
+  border: 1px solid #2a2a2a;
+}
+
+.login-card .form-check-input:checked {
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+
+.login-btn {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+}
+
+.login-btn:hover {
+  background: #e5e5e5;
+  color: #000000;
+}
+
+.login-link {
+  color: #bfbfbf;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
