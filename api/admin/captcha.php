@@ -12,12 +12,6 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 1) {
 
 require_once __DIR__ . '/../../utils/functions.php';
 
-if (!isset($_POST['csrf']) || !isset($_SESSION['csrf']) || $_POST['csrf'] !== $_SESSION['csrf']) {
-  http_response_code(403);
-  echo json_encode(['error' => 'Invalid CSRF token']);
-  exit;
-}
-
 $id = isset($_POST['id_captcha']) ? (int) $_POST['id_captcha'] : 0;
 $question = trim($_POST['question'] ?? '');
 $reponse = trim($_POST['reponse'] ?? '');
