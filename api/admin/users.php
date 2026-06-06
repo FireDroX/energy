@@ -10,7 +10,7 @@ if (
     !$_SESSION['user']['is_active']
 ) {
     http_response_code(403);
-    echo json_encode(['error' => 'Forbidden']);
+    echo json_encode(['error' => 'Vous n\'avez pas acces a cette page !']);
     exit;
 }
 
@@ -23,7 +23,7 @@ $active = isset($_POST['active']) ? (int) $_POST['active'] : 1;
 
 function checkInputs($p, $m, $r, $pdo) {
   if ($p === '' || $m === '') {
-    echo json_encode(['error' => 'Pseudo et Mail sont requis !']);
+    echo json_encode(['warning' => 'Pseudo et Mail sont requis !']);
     exit;
   }
 
@@ -32,7 +32,7 @@ function checkInputs($p, $m, $r, $pdo) {
 
   if (!$stmt->fetch(PDO::FETCH_ASSOC)) {
     http_response_code(400);
-    echo json_encode(['error' => 'Role non existant !']);
+    echo json_encode(['warning' => 'Role non existant !']);
     exit;
   }
 }
@@ -125,7 +125,7 @@ try {
   $stmt->execute([':mail' => $mail]);
 
   if ($stmt->fetch()) {
-    echo json_encode(['error' => 'Mail existant !']);
+    echo json_encode(['warning' => 'Mail existant !']);
     exit;
   }
 

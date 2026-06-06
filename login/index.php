@@ -3,8 +3,6 @@ require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../utils/functions.php';
 require_once __DIR__ . '/../utils/database.php';
 
-require_once __DIR__ . '/../components/alert.php';
-
 $captcha = generateCaptcha($pdo);
 ?>
 
@@ -24,34 +22,7 @@ $captcha = generateCaptcha($pdo);
 		<header>
 			<?php require_once '../components/navbar.php'; ?>
 		</header>
-
-		<?php if (isset($_GET['error'])) { 
-			switch($_GET['error']) {
-				case 'missing_fields':
-					echo createAlert("Veuillez remplir tous les champs !", "danger");
-					break;
-				case 'captcha_incorrect':
-					echo createAlert("Captcha incorrect !", "danger");
-					break;
-				case 'no_account':
-					echo createAlert("Aucun compte trouvé avec cet email !", "danger");
-					break;
-				case 'fake_account':
-					echo createAlert("Cet email est un faux compte de test !", "danger");
-					break;
-				case 'incorrect_password':
-					echo createAlert("Mot de passe incorrect !", "danger");
-					break;
-				case 'deactivated_account':
-					echo createAlert("Ce compte est désactivé !", "danger");
-					break;
-			}
-    } ?>
-
-		<?php if (isset($_GET['registered']) && $_GET['registered'] == 'true') { 
-			echo createAlert("Compte créé avec succès !", "success");
-		} ?>
-
+		<?php require_once '../components/alert.php'; ?>
 		<div class=container>
 			<main class="mt-5">
 				<h1 class="mb-4">Connexion</h1>

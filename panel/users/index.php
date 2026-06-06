@@ -1,7 +1,6 @@
 <?php 
 require_once __DIR__ . '/../../utils/session.php'; 
 require_once __DIR__ . '/../../utils/database.php'; 
-require_once __DIR__ . '/../../components/alert.php';
 
 if (
     !isset($_SESSION['user']) || 
@@ -58,11 +57,7 @@ try {
   </head>
   <body>
     <header><?php require_once '../../components/navbar.php'; ?></header>
-    <?php if (isset($_GET['success'])) {
-      echo createAlert($_GET['success']); 
-    } else if (isset($_GET['error'])) {
-      echo createAlert($_GET['error'], 'danger'); 
-    } ?>
+    <?php require_once '../../components/alert.php' ?>
     <main class="container-fluid admin-users">
       <h1>Gestion des utilisateurs</h1>
       <div class="user-grid">
@@ -176,8 +171,10 @@ try {
         const json = await res.json();
         if (json.success) {
           location.href = `/panel/users?success=${encodeURIComponent(json.message)}`;
+        } else if (json.warning) {
+          location.href = `/panel/users?warning=${encodeURIComponent(json.warning)}`;
         } else {
-          location.href = `/panel/users?error=${encodeURIComponent(json.error || 'Erreur')}`;
+          location.href = `/panel/users?error=${encodeURIComponent(json.error)}`;
         }
       });
     </script>
