@@ -7,7 +7,7 @@ if (
     !isset($_POST['password']) ||
     !isset($_POST['captcha'])
 ) {
-    header("Location: ../login?error=missing_fields");
+    header("Location: ../login?warning=missing_fields");
     exit;
 }
 
@@ -19,7 +19,7 @@ $captcha = trim($_POST['captcha']);
 $captcha_answer = $_SESSION['captcha_answer'];
 
 if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
-    header("Location: ../login?error=captcha_incorrect");
+    header("Location: ../login?warning=captcha_incorrect");
     exit;
 }
 
@@ -36,22 +36,22 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        header("Location: ../login?error=no_account");
+        header("Location: ../login?warning=no_account");
         exit;
     }
 
     if ($user['mdp'] == null) {
-        header("Location: ../login?error=fake_account");
+        header("Location: ../login?warning=deactivated_account");
         exit;
     }
 
     if (!password_verify($password, $user['mdp'])) {
-        header("Location: ../login?error=incorrect_password");
+        header("Location: ../login?warning=incorrect_password");
         exit;
     }
 
     if(!is_null($user['deactivated'])) {
-        header("Location: ../login?error=deactivated_account");
+        header("Location: ../login?warning=deactivated_account");
         exit;
     }
 
@@ -73,7 +73,7 @@ try {
         );
     }
 
-    header("Location: ../?logged=true");
+    header("Location: ../?info=logged");
     exit;
 
 } catch (PDOException $e) {

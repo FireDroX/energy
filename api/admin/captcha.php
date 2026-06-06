@@ -10,7 +10,7 @@ if (
     !$_SESSION['user']['is_active']
   ) {
   http_response_code(403);
-  echo json_encode(['error' => 'Forbidden']);
+  echo json_encode(['error' => 'no_access']);
   exit;
 }
 
@@ -22,13 +22,13 @@ $json = json_decode($reponse, true);
 
 function checkInputs($q, $r, $j) {
   if ($q === '' || $r === '') {
-    echo json_encode(['error' => 'Question et réponse obligatoires']);
+    echo json_encode(['warning' => 'missing_fields']);
     exit;
   }
 
   if (json_last_error() !== JSON_ERROR_NONE || !is_array($j)) {
     http_response_code(400);
-    echo json_encode(['error' => 'La réponse doit être un JSON valide (array)']);
+    echo json_encode(['warning' => 'invalid_json']);
     exit;
   }
 }
@@ -38,7 +38,7 @@ try {
     if ($question === '' && $reponse === '') {
       $stmt = $pdo->prepare("DELETE FROM captcha WHERE id_captcha = :id");
       $stmt->execute([':id' => $id]);
-      echo json_encode(['success' => true, 'message' => 'Captcha Supprimé !']);
+      echo json_encode(['success' => true, 'message' => 'captcha_deleted']);
       exit;
     }
 
@@ -56,7 +56,7 @@ try {
       ':id' => $id
     ]);
 
-    echo json_encode(['success' => true, 'message' => 'Captcha mis à jour']);
+    echo json_encode(['success' => true, 'message' => 'captcha_updated']);
 
   } else {
     checkInputs($question, $reponse, $json);
@@ -71,13 +71,13 @@ try {
       ':reponse' => json_encode($json)
     ]);
 
-    echo json_encode(['success' => true, 'message' => 'Captcha créé']);
+    echo json_encode(['success' => true, 'message' => 'captcha_created']);
   }
 
 } catch (PDOException $e) {
   http_response_code(500);
   echo json_encode([
-    'error' => 'Database error',
+    'error' => 'database_error',
     'details' => $e->getMessage()
   ]);
 }

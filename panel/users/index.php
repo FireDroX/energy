@@ -1,7 +1,6 @@
 <?php 
 require_once __DIR__ . '/../../utils/session.php'; 
 require_once __DIR__ . '/../../utils/database.php'; 
-require_once __DIR__ . '/../../components/alert.php';
 
 if (
     !isset($_SESSION['user']) || 
@@ -19,8 +18,10 @@ try {
       u.pseudo,
       u.mail,
       u.mdp,
-      u.id_role
-    FROM users u;
+      u.id_role,
+      u.deactivated
+    FROM users u
+    ORDER BY u.created DESC;
   ");
   $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -38,70 +39,93 @@ try {
 }
 ?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Monster | Users</title>
 
-    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header><?php require_once '../../components/navbar.php'; ?></header>
-    <?php if (isset($_GET['success'])) {
-      echo createAlert($_GET['success']);
-    } else if (isset($_GET['error'])) {
-      echo createAlert($_GET['error'], 'danger');
-    } ?>
-    <main class="container mt-4">
-      <h1>Gestion des users</h1>
-      <div class="mb-3">
-        <label for="userSelect" class="form-label">Sélectionnez un Utilisateur</label>
-        <select class="form-select" id="userSelect">
-          <option value="" disabled selected>Sélectionnez un Utilisateur</option>
-          <option value="separator" disabled></option>
-          <?php foreach ($users as $user) { ?>
-            <option value="<?= $user['id_users'] ?>">
-              <?= htmlspecialchars($user['pseudo']) ?>
-            </option>
-          <?php } ?>
-          <option value="separator" disabled></option>
-          <option value="new">Ajouter un Utilisateur</option>
-        </select>
-      </div>
-      <form id="userForm">
-        <input type="hidden" name="id_user" id="id_user" value="0">
-        <div class="mb-3">
-          <label class="form-label">Pseudo</label>
-          <input type="text" class="form-control" id="pseudo" name="pseudo">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control" id="mail" name="mail">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Hashed Password</label>
-          <input type="text" class="form-control" id="mdp" name="mdp">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Rôle</label>
-          <select class="form-select" id="id_role" name="id_role">
-            <option value="">Sélectionnez un rôle</option>
-            <?php foreach ($roles as $role) { ?>
-              <option value="<?= $role['id_role'] ?>">
-                <?= htmlspecialchars($role['role']) ?>
+    <?php require_once '../../components/alert.php' ?>
+    <main class="container-fluid admin-users">
+      <h1>Gestion des utilisateurs</h1>
+      <div class="user-grid">
+        <div class="panel-card">
+          <h2>Utilisateur</h2>
+          <div class="mb-3">
+            <label for="userSelect" class="form-label">
+              Sélectionnez un utilisateur
+            </label>
+            <select class="form-select" id="userSelect">
+              <option value="" disabled selected>
+                Sélectionnez un utilisateur
               </option>
-            <?php } ?>
-          </select>
+              <option value="separator" disabled></option>
+              <?php foreach ($users as $user) { ?>
+              <option value="<?= $user['id_users'] ?>">
+                <?= htmlspecialchars($user['pseudo']) ?>
+              </option>
+              <?php } ?>
+              <option value="separator" disabled></option>
+              <option value="new">Ajouter un utilisateur</option>
+            </select>
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary">
-          Sauvegarder
-        </button>
-      </form>
+        <div class="panel-card">
+          <h2>Informations</h2>
+          <form id="userForm">
+            <input type="hidden" name="id_user" id="id_user" value="0" />
+            <div class="mb-3">
+              <label class="form-label">Pseudo</label>
+              <input
+                type="text"
+                class="form-control"
+                id="pseudo"
+                name="pseudo"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" id="mail" name="mail" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Mot de passe hashé</label>
+              <input type="text" class="form-control" id="mdp" name="mdp" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Rôle</label>
+              <select class="form-select" id="id_role" name="id_role">
+                <option value="">Sélectionnez un rôle</option>
+                <?php foreach ($roles as $role) { ?>
+                <option value="<?= $role['id_role'] ?>">
+                  <?= htmlspecialchars($role['role']) ?>
+                </option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="status-switch">
+              <span>Désactivé</span>
+              <label class="switch">
+                <input type="checkbox" id="active" name="active" />
+                <span class="slider"></span>
+              </label>
+              <span>Actif</span>
+            </div>
+            <button type="submit" class="btn btn-primary">Sauvegarder</button>
+          </form>
+        </div>
+      </div>
     </main>
     <script>
       const users = <?= json_encode($users) ?>;
@@ -114,6 +138,7 @@ try {
       const mail = document.getElementById('mail');
       const mdp = document.getElementById('mdp');
       const id_role = document.getElementById('id_role');
+      const slider = document.getElementById('active');
 
       select.addEventListener('change', () => {
         const val = select.value;
@@ -132,17 +157,24 @@ try {
         mail.value = user.mail;
         mdp.value = user.mdp
         id_role.value = user.id_role;
+        slider.checked = user.deactivated == null;
       });
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const data = new FormData(form);
+        
+        const active = document.getElementById("active").checked ? 1 : 0;
+        data.append("active", active);
+
         const res = await fetch('/api/admin/users.php', { method: 'POST', body: data });
         const json = await res.json();
         if (json.success) {
           location.href = `/panel/users?success=${encodeURIComponent(json.message)}`;
+        } else if (json.warning) {
+          location.href = `/panel/users?warning=${encodeURIComponent(json.warning)}`;
         } else {
-          location.href = `/panel/users?error=${encodeURIComponent(json.error || 'Erreur')}`;
+          location.href = `/panel/users?error=${encodeURIComponent(json.error)}`;
         }
       });
     </script>

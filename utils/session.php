@@ -6,8 +6,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 }
 
 if (isset($_SESSION['user']) && isset($_SESSION['user']['lastUpdate']) && $_SESSION['user']['lastUpdate'] + 300 < time()) {
-  require_once __DIR__ . '/functions.php';
-
   try {
     $sql = "SELECT id_users, pseudo, mail, id_role, deactivated
             FROM users
@@ -15,7 +13,7 @@ if (isset($_SESSION['user']) && isset($_SESSION['user']['lastUpdate']) && $_SESS
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
-        'mail' => $_SESSION['user']['email']
+      'mail' => $_SESSION['user']['email']
     ]);
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -27,12 +25,12 @@ if (isset($_SESSION['user']) && isset($_SESSION['user']['lastUpdate']) && $_SESS
     }
 
     $_SESSION['user'] = [
-        'id' => $user['id_users'],
-        'pseudo' => $user['pseudo'],
-        'email' => $user['mail'],
-        'role' => $user['id_role'],
-        'is_active' => is_null($user['deactivated']),
-        'lastUpdate' => time()
+      'id' => $user['id_users'],
+      'pseudo' => $user['pseudo'],
+      'email' => $user['mail'],
+      'role' => $user['id_role'],
+      'is_active' => is_null($user['deactivated']),
+      'lastUpdate' => time()
     ];
   } catch (PDOException $e) {
     exit;

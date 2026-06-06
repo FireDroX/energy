@@ -2,7 +2,6 @@
 require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../utils/functions.php';
 require_once __DIR__ . '/../utils/database.php'; 
-require_once __DIR__ . '/../components/alert.php';
 
 $captcha = generateCaptcha($pdo);
 ?>
@@ -27,23 +26,7 @@ $captcha = generateCaptcha($pdo);
 
     <div class="container">
         <main class="mt-5">
-
-        <?php if (isset($_GET['error'])) { 
-			switch($_GET['error']) {
-				case 'missing_fields':
-					echo createAlert("Veuillez remplir tous les champs !", "danger");
-					break;
-				case 'captcha_incorrect':
-					echo createAlert("Captcha incorrect !", "danger");
-					break;
-				case 'password_mismatch':
-					echo createAlert("Les mots de passe ne correspondent pas !", "danger");
-					break;
-				case 'email_exists':
-					echo createAlert("Cet email est déjà utilisé !", "danger");
-					break;
-			}
-    } ?>
+        <?php require_once '../components/alert.php'; ?>
 
             <h1 class="mb-4">Inscription</h1>
 

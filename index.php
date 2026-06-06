@@ -1,6 +1,5 @@
 <?php 
 require_once __DIR__ . '/utils/session.php'; 
-require_once __DIR__ . '/components/alert.php';
 ?>
 
 <!DOCTYPE html>
@@ -20,9 +19,7 @@ require_once __DIR__ . '/components/alert.php';
     <header>
       <?php require_once './components/navbar.php' ?>
     </header>
-    <?php if (isset($_GET['logged']) && $_GET['logged'] === 'true') { 
-      echo createAlert("Connecté en tant que " . htmlspecialchars($_SESSION['user']['pseudo']) . " !");
-    } ?>
+    <?php require_once './components/alert.php'; ?>
     <footer>
     </footer>
   </body>

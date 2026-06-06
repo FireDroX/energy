@@ -1,59 +1,53 @@
-<?php 
+<?php
+
+$alerts = [
+  'success' => [
+    'registered' => 'Compte créé avec succès !',
+    'captcha_deleted' => 'Captcha supprimé !',
+    'captcha_updated' => 'Captcha mis à jour !',
+    'captcha_created' => 'Captcha créé !',
+  ],
+
+  'error' => [
+    'no_access' => "Vous n'avez pas accès à cette page !",
+    'database_error' => 'Erreur avec la connexion DB',
+  ],
+
+  'warning' => [
+    'missing_fields' => 'Veuillez remplir tous les champs !',
+    'captcha_incorrect' => 'Captcha incorrect !',
+    'password_mismatch' => 'Les mots de passe ne correspondent pas !',
+    'email_exists' => 'Cet email est déjà utilisé !',
+    'deactivated_account' => 'Ce compte est désactivé !',
+    'incorrect_password' => 'Mot de passe incorrect !',
+    'no_account' => 'Aucun compte trouvé avec cet email !',
+    'invalid_json' => 'La réponse doit être un JSON valide (array)',
+  ],
+
+  'info' => [
+    'logged' =>'Connecté en tant que <strong>' . htmlspecialchars($_SESSION['user']['pseudo'] ?? '') . '</strong> !'
+  ]
+];
+
+foreach (['success', 'error', 'warning', 'info'] as $type) {
+  if (!isset($_GET[$type])) {
+      continue;
+  }
+  $key = $_GET[$type];
+  $message = $alerts[$type][$key] ?? 'Erreur sur la popup';
+
+  echo createAlert($message, $type === 'error' ? 'danger' : $type);
+  break;
+}
 
 function createAlert($message, $type = 'success') {
   $id = 'alert_' . uniqid();
-
-  return "
-  <style>
-    .custom-alert {
-      position: absolute;
-      top: 5rem;
-      right: 1.5rem;
-      display: inline-block;
-      width: fit-content;
-      max-width: 400px;
-      padding: 12px 18px;
-      border-radius: 8px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      transform: translateY(0);
-      font-family: sans-serif;
-    }
-
-    .custom-alert.alert-success {
-      background: #d1e7dd;
-      color: #0f5132;
-      border: 1px solid #badbcc;
-    }
-
-    .custom-alert.alert-danger {
-      background: #f8d7da;
-      color: #842029;
-      border: 1px solid #f5c2c7;
-    }
-
-    .custom-alert.alert-warning {
-      background: #fff3cd;
-      color: #664d03;
-      border: 1px solid #ffecb5;
-    }
-
-    .custom-alert.alert-info {
-      background: #cff4fc;
-      color: #055160;
-      border: 1px solid #b6effb;
-    }
-  </style>
-
-  <div id=\"$id\" class=\"custom-alert alert alert-$type\" role=\"alert\">
-    $message
-  </div>
-
+?>
+  <link rel="stylesheet" href="/styles/alert.css">
+  <div id="<?= $id ?>" class="custom-alert alert alert-<?= $type ?>" role="alert"><?= $message ?></div>
   <script>
     setTimeout(function() {
-      var el = document.getElementById('$id');
+      var el = document.getElementById('<?= $id ?>');
       if (el) {
         el.style.opacity = '0';
         el.style.transform = 'translateY(-10px)';
@@ -61,6 +55,4 @@ function createAlert($message, $type = 'success') {
       }
     }, 2000);
   </script>
-  ";
-}
-?>
+<?php }; ?>
