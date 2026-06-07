@@ -1,13 +1,7 @@
-body {
-  margin: 0;
-  background: #000;
-  color: #fff;
-  font-family: Arial, sans-serif;
-}
-
 .roulette-page {
   padding: 50px;
   text-align: center;
+  color: #fff;
 }
 
 .roulette-page h1 {

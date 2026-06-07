@@ -41,11 +41,12 @@ if ($mode === 'never_tried' && $userId) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Roulette Monster</title>
+        <title>Monster | Roulette</title>
 
         <link rel="shortcut icon" href="/favicon.png" type="image/png">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="/roulette/styles.css">
     </head>
@@ -81,8 +82,7 @@ if ($mode === 'never_tried' && $userId) {
                     Lancer la roulette
                 </button>
 
-                <form method="GET" class="roulette-options">
-                <select name="mode">
+                <select name="mode" id="select-roulette">
                     <option value="all" <?= $mode === 'all' ? 'selected' : '' ?>>
                     Toutes les Monsters
                     </option>
@@ -95,12 +95,6 @@ if ($mode === 'never_tried' && $userId) {
                     Mes favorites
                     </option>
                 </select>
-
-                <button type="submit">
-                    Appliquer
-                </button>
-                </form>
-
             </div>
 
         </div>

@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../utils/session.php';
-require_once __DIR__ . '/../components/navbar.php';
 require_once __DIR__ . '/../components/alert.php';
 
 
@@ -14,17 +13,23 @@ $classement = getClassementMonsters($pdo, $type, $periode);
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Classement Monster</title>
+  <title>Monster | Classement</title>
+
+  <link rel="shortcut icon" href="/favicon.png" type="image/png">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/leaderboard/styles.css">
 </head>
 
-<body class="bg-dark text-light">
+<body>
 
+  <header>
+    <?php require_once __DIR__ . '/../components/navbar.php'; ?>
+  </header>
 <div class="container py-5">
 
-  <h1 class="text-center mb-4">Classement Monster</h1>
+  <h1 class="text-center mb-4 text-light">Classement Monster</h1>
 
   <form method="GET" class="card bg-black text-light border-secondary p-4 mb-5">
     <div class="row g-3">
