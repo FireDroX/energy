@@ -37,12 +37,56 @@ const getMonsters = async () => {
         <div class="monster-image">
           <img src="${monster.image}" alt="${monster.nom}" />
         </div>
+
         <div class="monster-text">
           <h4>${formatName(monster.nom)}</h4>
         </div>
+
+        <div class="favorite-btn ${monster.favorite ? "active" : ""}">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 21s-7-4.35-10-9c-2.5-3.9-.5-9 4-9 2.4 0 4 1.6 6 3.6C14 4.6 15.6 3 18 3c4.5 0 6.5 5.1 4 9-3 4.65-10 9-10 9z"/>
+          </svg>
+        </div>
       `;
 
-      element.addEventListener("click", () => {
+      const favoriteBtn = element.querySelector(".favorite-btn");
+
+      favoriteBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        try {
+          const request = await fetch("/api/favorites/toggle.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              monster_id: monster.id_monsters,
+            }),
+          });
+
+          if (request.status === 401) {
+            showLoginPopup();
+            return;
+          }
+
+          const data = await request.json();
+
+          if (data.success) {
+            favoriteBtn.classList.toggle("active");
+            monster.favorite = !monster.favorite;
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      });
+
+      element.addEventListener("click", (e) => {
+        if (e.target.closest(".favorite-btn")) {
+          return;
+        }
+
         window.location.href = `/monster?name=${monster.nom}`;
       });
 
@@ -93,6 +137,44 @@ document.getElementById("monsterSearch").addEventListener("input", (e) => {
     getMonsters();
   }, 150);
 });
+
+function showLoginPopup() {
+  const popup = document.createElement("div");
+
+  popup.className = "login-popup-overlay";
+
+  popup.innerHTML = `
+    <div class="login-popup">
+      <h3>Connexion requise</h3>
+
+      <p>
+        Vous devez être connecté pour ajouter une Monster à vos favoris.
+      </p>
+
+      <div class="popup-actions">
+        <a href="/login/" class="popup-login-btn">
+          Se connecter
+        </a>
+
+        <button class="popup-close-btn">
+          Fermer
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  popup.querySelector(".popup-close-btn").addEventListener("click", () => {
+    popup.remove();
+  });
+
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) {
+      popup.remove();
+    }
+  });
+}
 
 getMonsters();
 getTags();

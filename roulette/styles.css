@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.roulette-page {
+  padding: 50px;
+  text-align: center;
+}
+
+.roulette-page h1 {
+  text-transform: uppercase;
+}
+
+.roulette-container {
+  margin-top: 50px;
+}
+
+#roulette-slot {
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#roulette-slot img {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+}
+
+#roulette-slot h2 {
+  margin-top: 15px;
+  text-transform: uppercase;
+}
+
+#spinBtn {
+  margin-top: 30px;
+
+  background: white;
+  color: black;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 15px 30px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#spinBtn:hover {
+  background: #ddd;
+}
+
+.winner-animation {
+  animation: winnerPulse 1s ease infinite alternate;
+}
+
+.roulette-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.roulette-popup.active {
+  display: flex;
+}
+
+.roulette-popup-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 2rem;
+  width: min(420px, 90%);
+  text-align: center;
+  position: relative;
+  animation: popupScale 0.25s ease;
+}
+
+.roulette-popup-card h2,
+.roulette-popup-card h3 {
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.roulette-popup-card img {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  margin: 1rem auto;
+  display: block;
+}
+
+.popup-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  background: transparent;
+  color: #ffffff;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.roulette-empty-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.roulette-empty-popup {
+  width: 420px;
+  max-width: 90%;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.roulette-empty-popup h3 {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.roulette-empty-popup p {
+  color: #bfbfbf;
+}
+
+@keyframes popupScale {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes winnerPulse {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
+}
