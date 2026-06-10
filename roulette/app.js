@@ -4,6 +4,11 @@ const popup = document.getElementById("roulette-popup");
 const popupImg = document.getElementById("popup-img");
 const popupName = document.getElementById("popup-name");
 const popupClose = document.getElementById("popup-close");
+const selectRoulette = document.getElementById("select-roulette");
+
+selectRoulette.addEventListener("change", (e) => {
+  document.location.href = `/roulette?mode=${e.target.value}`;
+})
 
 button.addEventListener("click", async () => {
   if (!monsters || monsters.length === 0) {
