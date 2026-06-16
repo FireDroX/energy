@@ -82,6 +82,10 @@
   animation: popupScale 0.25s ease;
 }
 
+#popup-img:hover {
+  cursor: pointer;
+}
+
 .roulette-popup-card h2,
 .roulette-popup-card h3 {
   color: #ffffff;

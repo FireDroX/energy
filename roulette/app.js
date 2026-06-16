@@ -54,6 +54,10 @@ button.addEventListener("click", async () => {
   popup.classList.add("active");
 
   button.disabled = false;
+
+  popupImg.addEventListener("click", () => {
+    location.href = `/monster?name=${finalMonster.nom}`;
+  })
 });
 
 popupClose.addEventListener("click", () => {

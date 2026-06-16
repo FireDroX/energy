@@ -62,7 +62,10 @@ $classement = getClassementMonsters($pdo, $type, $periode);
   <div class="row g-4">
     <?php foreach ($classement as $i => $monster): ?>
       <div class="col-md-6">
-        <div class="card ranking-card bg-black text-light border-secondary shadow">
+        <div 
+          class="card ranking-card bg-black text-light border-secondary shadow"
+          data-monster-name="<?= $monster['nom']; ?>"
+        >
           <div class="card-body d-flex align-items-center gap-3">
             
             <div class="rank-number text-success">
@@ -107,4 +110,13 @@ $classement = getClassementMonsters($pdo, $type, $periode);
 </div>
 
 </body>
+<script defer>
+  const cards = document.querySelectorAll(".ranking-card");
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      location.href = `/monster/?name=${card.dataset.monsterName}`;
+    })
+  })
+</script>
 </html>

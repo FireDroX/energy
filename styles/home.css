@@ -19,6 +19,7 @@
 
 * {
   box-sizing: border-box;
+  user-select: none;
 }
 
 html {
@@ -234,6 +235,7 @@ body::after {
     linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 25%),
     var(--card);
   box-shadow: 0 34px 90px rgba(0, 0, 0, 0.72);
+  cursor: pointer;
 }
 
 .podium-1 {
@@ -286,8 +288,7 @@ body::after {
 
 .podium-card:hover img {
   transform: scale(1.04) rotate(-1deg);
-  filter: grayscale(1) contrast(1.25)
-    drop-shadow(0 30px 34px rgba(0, 0, 0, 0.85));
+  filter: none;
 }
 
 .podium-card h3 {
