@@ -43,7 +43,7 @@ $topMonsters = array_slice($topMonsters, 0, 3);
         <?php else: ?>
           <div class="home-podium">
             <?php foreach ($topMonsters as $i => $monster): ?>
-              <article class="podium-card podium-<?= $i + 1 ?>">
+              <article class="podium-card podium-<?= $i + 1 ?>" data-monster-name="<?= $monster['nom'] ?>">
                 <div class="podium-medal">
                   <?= ['#1', '#2', '#3'][$i] ?>
                 </div>
@@ -83,4 +83,13 @@ $topMonsters = array_slice($topMonsters, 0, 3);
 
     <footer></footer>
   </body>
+  <script defer>
+    const cards = document.querySelectorAll(".podium-card");
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        location.href = `/monster/?name=${card.dataset.monsterName}`;
+      })
+    })
+  </script>
 </html>

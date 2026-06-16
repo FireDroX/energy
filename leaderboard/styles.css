@@ -69,6 +69,7 @@
   transform: translateY(-3px);
   background: #202020;
   border-color: #e5e5e5;
+  cursor: pointer;
 }
 
 .ranking-img {
@@ -76,6 +77,11 @@
   height: 90px;
   object-fit: contain;
   filter: grayscale(100%) contrast(1.1);
+  transition: all 0.3s ease;
+}
+
+.ranking-card:hover .ranking-img {
+  filter: none;
 }
 
 .rank-number {
