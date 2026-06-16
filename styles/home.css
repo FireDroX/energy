@@ -74,10 +74,6 @@ body::after {
   mix-blend-mode: screen;
 }
 
-img {
-  max-width: 100%;
-}
-
 .home-page {
   min-height: 100vh;
   padding: clamp(2rem, 4vw, 4rem) 5% 5rem;
