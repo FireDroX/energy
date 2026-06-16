@@ -41,6 +41,7 @@
           </svg>
         </a>
       </li>
+      <?php if (isset($_SESSION['user'])) { ?>
       <li>
         <a href="/roulette">
           <span>Roulette</span>
@@ -49,6 +50,7 @@
           </svg>
         </a>
       </li>
+      <?php } ?>
     </ul>
   </div>
   <ul class="monster-links">

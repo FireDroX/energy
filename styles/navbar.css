@@ -1,117 +1,138 @@
-@import url("https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap");
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: Metal Mania;
-  margin: 0;
-}
-
-body {
-  background-color: #000;
-  user-select: none;
-}
+@import url("https://fonts.googleapis.com/css2?family=Metal+Mania&family=Inter:wght@400;500;600;700;800&display=swap");
 
 .monster-navbar {
+  height: 80px;
   width: 100%;
-  background: linear-gradient(90deg, #000000, #111111, #000000);
-  border-bottom: 2px solid #ffffff;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  padding: 0.75rem 1rem;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  justify-content: space-between;
+
+  padding: 10px;
+
+  background: linear-gradient(180deg, #0d0d0d 0%, #000 100%);
+  border-bottom: 1px solid #2a2a2a;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  backdrop-filter: blur(12px);
 }
 
 .navbar-left {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  flex-direction: row;
+  gap: 3rem;
+}
+
+.monster-logo {
+  margin: 0;
 }
 
 .monster-logo a {
-  color: #ffffff;
-  font-weight: bold;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px #ffffff;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-left: 3rem;
+  gap: 12px;
+
+  color: white;
+  text-decoration: none;
+
+  font-family: "Metal Mania", cursive;
+  font-size: 2rem;
+
+  white-space: nowrap;
 }
 
 .navbar-logo {
-  position: absolute;
-  left: 4px;
-  top: 4px;
-  height: 3rem;
-  filter: invert();
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+
+  filter: invert(1) brightness(1.2)
+    drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 }
 
 .monster-links {
   display: flex;
   gap: 1rem;
+
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.monster-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  text-transform: uppercase;
+.monster-links li {
   position: relative;
-  transition: 0.3s;
 }
 
-.monster-links svg {
-  display: none;
+.monster-links a {
+  display: flex;
+  align-items: center;
+
+  color: #bfbfbf;
+  text-decoration: none;
+
+  padding: 0.75rem 1rem;
+
+  font-family: Inter, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  border-radius: 999px;
+
+  transition: all 0.25s ease;
 }
 
 .monster-links a:hover {
-  color: #ffffff;
-  text-shadow: 0 0 8px #ffffff;
+  background: white;
+  color: black;
 }
 
-.monster-links a::after {
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  left: 0;
-  bottom: -6px;
-  background: #ffffff;
-  transition: 0.3s;
-  box-shadow: 0 0 10px #ffffff;
+.navbar-right {
+  margin-left: auto;
 }
 
-.monster-links a:hover::after {
-  width: 100%;
+.navbar-right a {
+  color: white;
+  text-decoration: none;
+
+  font-family: Inter, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  padding: 0.75rem 1rem;
+
+  border: 1px solid #2a2a2a;
+  border-radius: 999px;
+
+  transition: all 0.25s ease;
+}
+
+.navbar-right a:hover {
+  background: white;
+  color: black;
 }
 
 @media (max-width: 850px) {
-  .monster-links span,
   .monster-logo span {
     display: none;
   }
 
-  .monster-logo a {
-    margin-left: 1rem;
+  .monster-navbar {
+    padding: 0 1rem;
   }
 
-  .monster-links svg {
-    display: initial;
-    color: #fff;
-    height: 20px;
+  .monster-links {
+    gap: 0.25rem;
+  }
+
+  .monster-links a {
+    padding: 0.65rem;
   }
 }
