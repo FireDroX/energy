@@ -86,9 +86,9 @@
 
   function getClassementMonsters(PDO $pdo, string $type = 'commentaires', string $periode = 'mois') {
     $dates = [
-      'jour' => "NOW() - INTERVAL 1 DAY",
-      'semaine' => "NOW() - INTERVAL 7 DAY",
-      'mois' => "NOW() - INTERVAL 30 DAY"
+      'jour' => "CURDATE()",
+      'semaine' => "DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)",
+      'mois' => "DATE_FORMAT(CURDATE(), '%Y-%m-01')"
     ];
 
     if (!isset($dates[$periode])) {
