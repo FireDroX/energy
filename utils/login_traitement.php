@@ -65,11 +65,36 @@ try {
     ];
 
     if ($keepConnect) {
+
+        $token = bin2hex(random_bytes(32));
+
+        $stmt = $pdo->prepare("
+            INSERT INTO remember_tokens (
+                user_id,
+                token_hash,
+                expires_at
+            )
+            VALUES (
+                :user_id,
+                :token_hash,
+                DATE_ADD(NOW(), INTERVAL 30 DAY)
+            )
+        ");
+
+        $stmt->execute([
+            'user_id' => $user['id_users'],
+            'token_hash' => hash('sha256', $token)
+        ]);
+
         setcookie(
-            'user_email',
-            $user['mail'],
-            time() + (86400 * 30),
-            "/"
+            'remember_token',
+            $token,
+            [
+                'expires' => time() + (86400 * 30),
+                'path' => '/',
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]
         );
     }
 
