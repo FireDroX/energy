@@ -9,12 +9,17 @@ $alerts = [
     'user_desactivated' => 'Utilisateur désactivé / modifié !',
     'user_activated' => 'Utilisateur réactivé / modifié !',
     'user_updated' => 'Utilisateur mis à jour !',
-    'user_created' => 'Utilisateur créé !'
+    'user_created' => 'Utilisateur créé !',
+    'tags_updated' => 'Tags mis à jour !',
+    'tag_created' => 'Tag créé !',
+    'monster_updated' => 'Monster mis à jour !',
+    'monster_created' => 'Monster créé !'
   ],
 
   'error' => [
     'no_access' => "Vous n'avez pas accès à cette page !",
     'database_error' => 'Erreur avec la connexion DB',
+    'invalid_params' => 'Paramètres invalides !'
   ],
 
   'warning' => [
@@ -26,7 +31,8 @@ $alerts = [
     'incorrect_password' => 'Mot de passe incorrect !',
     'no_account' => 'Aucun compte trouvé avec cet email !',
     'invalid_json' => 'La réponse doit être un JSON valide (array)',
-    'non_existant_role' => 'Ce role n\'existe pas !'
+    'non_existant_role' => 'Ce role n\'existe pas !',
+    'tag_exists' => 'Ce tag est déjà utilisé !',
   ],
 
   'info' => [

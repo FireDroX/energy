@@ -92,7 +92,6 @@ try {
         }
         const captcha = captchas.find(c => c.id_captcha == val);
         if (!captcha) return;
-        console.log(captcha);
         idInput.value = captcha.id_captcha;
         question.value = captcha.question;
         reponse.value = captcha.reponse;

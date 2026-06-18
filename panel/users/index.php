@@ -59,7 +59,7 @@ try {
   <body>
     <header><?php require_once '../../components/navbar.php'; ?></header>
     <?php require_once '../../components/alert.php' ?>
-    <main class="container-fluid admin-users">
+    <main class="container mt-4">
       <h1>Gestion des utilisateurs</h1>
       <div class="user-grid">
         <div class="panel-card">

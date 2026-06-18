@@ -1,0 +1,44 @@
+# TODO
+
+- Reparer les cookies + check de connexion et deco si cookie perimer ou pas bon
+- Gestion dans le panel
+  - Gestion des tags ✅
+  - Gestion des monsters
+  - Affichage des logs (trie par categorie)
+  - "Moderation des messages" (voir les messages qui sont report par d'autres)
+- Monsters
+  - Commenter
+  - Noter
+  - Ajouter si on a like ou pas quand on est sur search
+  - Epingler et Supprimer un message pour les contributors / admin
+- Page de profil
+  - Modification pseudo et mot de passe
+  - Ajout / modification photo de profil
+  - ON / OFF mail newsletter
+  - _(skin de pseudo debloquable avec des easter eggs + liste des easter eggs)_
+  - Liste des monsters liked / rated
+  - Export des infos de l'utilisateur en PDF (pseudo, mail, newsletter, logs concernant l'utilisateur, monsters liked / rated, _skin unlocked si on le fait_)
+- Systeme de mail (phpMailer + improVMX (smtp) + google smtp)
+  - Newsletter -> Envoyer un mail quand une nouvelle monster est ajouter a tout les utilisateurs qui ont newsletter d'activer
+  - Activation du compte utilisateur par mail avec un uuid a rentrer dans l'url (/login?key=UUID) -> UUID a mettre dans la TABLE du user a sa creation
+- Systeme de messages semi temps reel
+  - Bouton en bas a droite pour voir ses messages
+  - Envoyer un message a quelqu'un (hors compte desactiver ou fake)
+  - Boucle toute les 30s qui fait une requete api au php pour recup les messages
+    - Si taille des messages > que taille anciens messages = nouveau message
+    - Afficher une alerte "nouveau message"
+    - Alerte [sonore](https://pixabay.com/fr/sound-effects/films-et-effets-sp%C3%A9ciaux-new-notification-3-398649/) ?
+    - Notif sur le bouton (/utils/favicon.js) ✅
+  - Envoie des gifs + barre de recherche + tenor api
+- _Page easter egg_ -> success comme le site de JS
+  - Recompenses de success: skins de pseudo (une liste de class CSS voir [ce lien](https://raw.githubusercontent.com/FireDroX/memory_pkmn/refs/heads/main/client/src/utils/CustomColors.css))
+  - Eggs:
+    - Likes 10 monsters
+    - Noter 10 monsters
+    - Ce connecter 3 jours d'affiler
+    - Avoir plus de 9 notifications non lue
+    - Trouver et liker la monster secrete
+- Refonte du captcha -> utiliser des images
+  - Retirer la demande du captcha et le demander via un modal popup bootstap
+  - Decouper une forme aleatoire a une position aleatoire de l'image
+  - Drag & Drop l'image sur le trou, si precision >= 95% c'est good sinon refus

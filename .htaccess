@@ -1,4 +1,4 @@
-<FilesMatch "\.env|\.gitignore|\.htaccess|README\.md">
+<FilesMatch "\.env|\.gitignore|\.htaccess|README\.md|TODO\.md">
     Order allow,deny
     Deny from all
 </FilesMatch>
