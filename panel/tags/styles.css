@@ -37,7 +37,6 @@ main.container {
   letter-spacing: 1px;
 }
 
-.form-control,
 .form-select {
   background: #050505;
   border: 2px solid #fff;
@@ -48,7 +47,6 @@ main.container {
   box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.08);
 }
 
-.form-control:focus,
 .form-select:focus {
   background: #0d0d0d;
   color: #fff;
@@ -56,10 +54,6 @@ main.container {
   box-shadow:
     0 0 8px rgba(255, 255, 255, 0.8),
     0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-.form-control::placeholder {
-  color: #777;
 }
 
 .form-select option {
@@ -97,7 +91,7 @@ main.container {
     0 0 30px rgba(255, 255, 255, 0.5);
 }
 
-.user-grid {
+.tags-grid {
   display: grid;
   grid-template-columns: 320px 1fr;
   gap: 25px;
@@ -125,61 +119,51 @@ main.container {
   letter-spacing: 1px;
 }
 
-.status-switch {
+@media (max-width: 900px) {
+  .tags-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+#monstersTags {
+  width: min(1200px, 92%);
+  margin: 2rem auto 1rem;
+  padding: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 25px 0;
+  justify-content: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
 }
 
-.status-switch > span {
-  color: #fff;
-}
-
-.switch {
-  position: relative;
-  width: 60px;
-  height: 30px;
-}
-
-.switch input {
+#monstersTags::-webkit-scrollbar {
   display: none;
 }
 
-.slider {
-  position: absolute;
-  inset: 0;
+#monstersTags > li {
+  list-style: none;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  background: #0d0d0d;
+  color: #bfbfbf;
+  border: 1px solid #2a2a2a;
   cursor: pointer;
-  border: 2px solid #fff;
-  border-radius: 50px;
-  background: #111;
-  transition: 0.3s;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    transform 220ms ease,
+    background 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
 }
 
-.slider::before {
-  content: "";
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  left: 2px;
-  top: 2px;
-  background: #fff;
-  border-radius: 50%;
-  transition: 0.3s;
-}
-
-.switch input:checked + .slider {
-  box-shadow:
-    0 0 10px #fff,
-    0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-.switch input:checked + .slider::before {
-  transform: translateX(28px);
-}
-
-@media (max-width: 900px) {
-  .user-grid {
-    grid-template-columns: 1fr;
-  }
+#monstersTags > li:hover,
+#monstersTags > li.tag-active {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  transform: translateY(-2px);
 }

@@ -9,12 +9,14 @@ $alerts = [
     'user_desactivated' => 'Utilisateur désactivé / modifié !',
     'user_activated' => 'Utilisateur réactivé / modifié !',
     'user_updated' => 'Utilisateur mis à jour !',
-    'user_created' => 'Utilisateur créé !'
+    'user_created' => 'Utilisateur créé !',
+    'tags_updated' => 'Tags mis à jour !'
   ],
 
   'error' => [
     'no_access' => "Vous n'avez pas accès à cette page !",
     'database_error' => 'Erreur avec la connexion DB',
+    'invalid_params' => 'Paramètres invalides !'
   ],
 
   'warning' => [

@@ -2,8 +2,8 @@
 
 - Reparer les cookies + check de connexion et deco si cookie perimer ou pas bon
 - Gestion dans le panel
-  - Gestion des tags
-  - Gestion des users
+  - Gestion des tags ✅
+  - Gestion des monsters
   - Affichage des logs (trie par categorie)
   - "Moderation des messages" (voir les messages qui sont report par d'autres)
 - Monsters
@@ -15,9 +15,9 @@
   - Modification pseudo et mot de passe
   - Ajout / modification photo de profil
   - ON / OFF mail newsletter
-  - *(skin de pseudo debloquable avec des easter eggs + liste des easter eggs)*
+  - _(skin de pseudo debloquable avec des easter eggs + liste des easter eggs)_
   - Liste des monsters liked / rated
-  - Export des infos de l'utilisateur en PDF (pseudo, mail, newsletter, logs concernant l'utilisateur, monsters liked / rated, *skin unlocked si on le fait*)
+  - Export des infos de l'utilisateur en PDF (pseudo, mail, newsletter, logs concernant l'utilisateur, monsters liked / rated, _skin unlocked si on le fait_)
 - Systeme de mail (phpMailer + improVMX (smtp) + google smtp)
   - Newsletter -> Envoyer un mail quand une nouvelle monster est ajouter a tout les utilisateurs qui ont newsletter d'activer
   - Activation du compte utilisateur par mail avec un uuid a rentrer dans l'url (/login?key=UUID) -> UUID a mettre dans la TABLE du user a sa creation
@@ -30,9 +30,9 @@
     - Alerte [sonore](https://pixabay.com/fr/sound-effects/films-et-effets-sp%C3%A9ciaux-new-notification-3-398649/) ?
     - Notif sur le bouton (/utils/favicon.js) ✅
   - Envoie des gifs + barre de recherche + tenor api
-- *Page easter egg* -> success comme le site de JS
+- _Page easter egg_ -> success comme le site de JS
   - Recompenses de success: skins de pseudo (une liste de class CSS voir [ce lien](https://raw.githubusercontent.com/FireDroX/memory_pkmn/refs/heads/main/client/src/utils/CustomColors.css))
-  - Eggs: 
+  - Eggs:
     - Likes 10 monsters
     - Noter 10 monsters
     - Ce connecter 3 jours d'affiler
