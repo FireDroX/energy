@@ -1,4 +1,5 @@
-h1 {
+h1,
+.panel-card > .modal-header {
   color: #fff;
   font-size: 2rem;
   text-transform: uppercase;
@@ -37,6 +38,7 @@ main.container {
   letter-spacing: 1px;
 }
 
+.form-control,
 .form-select {
   background: #050505;
   border: 2px solid #fff;
@@ -47,6 +49,7 @@ main.container {
   box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.08);
 }
 
+.form-control:focus,
 .form-select:focus {
   background: #0d0d0d;
   color: #fff;
@@ -54,6 +57,10 @@ main.container {
   box-shadow:
     0 0 8px rgba(255, 255, 255, 0.8),
     0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.form-control::placeholder {
+  color: #777;
 }
 
 .form-select option {
@@ -160,10 +167,24 @@ main.container {
     border-color 220ms ease;
 }
 
+#monstersTags > li > button {
+  border: none;
+  background: transparent;
+  color: #bfbfbf;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 #monstersTags > li:hover,
 #monstersTags > li.tag-active {
   background: #ffffff;
   color: #000000;
   border-color: #ffffff;
   transform: translateY(-2px);
+}
+
+#monstersTags > li:hover > button {
+  color: #000000;
 }

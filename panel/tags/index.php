@@ -82,10 +82,34 @@ try {
                   <?= $t['nom'] ?>
                 </li>
               <?php } ?>
+              <li data-bs-toggle="modal" data-bs-target="#addTagModal">
+                <button type="button">
+                  +
+                </button>
+              </li>
             </ul>
           </div>
           <button type="submit" class="btn btn-primary">Sauvegarder</button>
         </form>
+      </div>
+      <div class="modal fade" id="addTagModal" tabindex="-1" aria-labelledby="addTagModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content panel-card">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addTagModalLabel">Ajouter un nouveau tag</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+              <label for="newTagName" class="form-label">Nom du tag</label>
+              <input type="text" class="form-control" id="newTagName" placeholder="Ex: Original, Ultra, Rehab...">
+              <div id="tagModalError" class="text-danger mt-2 d-none"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-primary" id="saveNewTag">Sauvegarder</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main> 
@@ -151,6 +175,44 @@ try {
         location.href = `/panel/tags?error=${encodeURIComponent(json.error)}`;
       }
     })
+
+    const addTagModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('addTagModal'));
+    const newTagInput = document.getElementById('newTagName');
+    const tagModalError = document.getElementById('tagModalError');
+
+    document.getElementById('saveNewTag').addEventListener('click', async () => {
+      const name = newTagInput.value.trim();
+
+      if (!name) {
+        tagModalError.textContent = 'Le nom du tag ne peut pas être vide.';
+        tagModalError.classList.remove('d-none');
+        return;
+      }
+
+      tagModalError.classList.add('d-none');
+
+      const res = await fetch('/api/admin/create_tag.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+
+      const json = await res.json();
+
+      if (json.success) {
+        location.href = `/panel/tags?success=${encodeURIComponent(json.message)}`;
+      } else if (json.warning) {
+        location.href = `/panel/tags?warning=${encodeURIComponent(json.warning)}`;
+      } else {
+        location.href = `/panel/tags?error=${encodeURIComponent(json.error)}`;
+      }
+    });
+
+    // Reset du modal à la fermeture
+    document.getElementById('addTagModal').addEventListener('hidden.bs.modal', () => {
+      newTagInput.value = '';
+      tagModalError.classList.add('d-none');
+    });
   </script>
 </body>
 </html>
