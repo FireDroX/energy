@@ -108,7 +108,7 @@ try {
       const activeTags = monster.tags;
 
       tags.forEach((tag) => {
-        const name = tag.textContent.trim().replaceAll(" ", "_");
+        const name = tag.textContent.trim();
         tag.className = activeTags.includes(name) 
           ? "tag tag-active" 
           : "tag tag-not-active";
