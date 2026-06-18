@@ -11,7 +11,9 @@ $alerts = [
     'user_updated' => 'Utilisateur mis à jour !',
     'user_created' => 'Utilisateur créé !',
     'tags_updated' => 'Tags mis à jour !',
-    'tag_created' => 'Tag créé !'
+    'tag_created' => 'Tag créé !',
+    'monster_updated' => 'Monster mis à jour !',
+    'monster_created' => 'Monster créé !'
   ],
 
   'error' => [
