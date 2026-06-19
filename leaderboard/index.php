@@ -2,6 +2,9 @@
 require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../components/alert.php';
 
+require_once __DIR__ . '/../utils/loggers.php';
+require_once __DIR__ . '/../utils/database.php';
+if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION', 'Utilise ' . $_SERVER['SCRIPT_NAME']);
 
 $type = $_GET['type'] ?? 'commentaires';
 $periode = $_GET['periode'] ?? 'mois';

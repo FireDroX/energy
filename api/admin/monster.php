@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../utils/session.php'; 
 require_once __DIR__ . '/../../utils/database.php'; 
+require_once __DIR__ . '/../../utils/loggers.php'; 
 
 header('Content-Type: application/json');
 
@@ -42,6 +43,7 @@ try {
     ]);
 
     echo json_encode(['success' => true, 'message' => 'monster_updated']);
+    addLog($pdo, $_SESSION['user']['id'], 'MONSTER', 'Update de  : ' . $nom);
 
   } else {
     checkInputs($nom, $image);
@@ -57,6 +59,7 @@ try {
     ]);
 
     echo json_encode(['success' => true, 'message' => 'monster_created']);
+    addLog($pdo, $_SESSION['user']['id'], 'MONSTER', 'Création de  : ' . $nom);
   }
 
 } catch (PDOException $e) {

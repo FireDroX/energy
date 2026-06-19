@@ -11,6 +11,10 @@ if (
   exit;
 }
 
+require_once __DIR__ . '/../../utils/loggers.php';
+if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION', 'Utilise ' . $_SERVER['SCRIPT_NAME']);
+
+
 try {
   $stmt = $pdo->query("SELECT * FROM monsters");
   $monsters = $stmt->fetchAll(PDO::FETCH_ASSOC);

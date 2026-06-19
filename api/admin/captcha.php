@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../utils/session.php'; 
 require_once __DIR__ . '/../../utils/database.php'; 
+require_once __DIR__ . '/../../utils/loggers.php'; 
 
 header('Content-Type: application/json');
 
@@ -39,6 +40,7 @@ try {
       $stmt = $pdo->prepare("DELETE FROM captcha WHERE id_captcha = :id");
       $stmt->execute([':id' => $id]);
       echo json_encode(['success' => true, 'message' => 'captcha_deleted']);
+      addLog($pdo, $_SESSION['user']['id'], 'CAPTCHA', 'Suppression du captcha id ' . $id);
       exit;
     }
 
@@ -57,6 +59,7 @@ try {
     ]);
 
     echo json_encode(['success' => true, 'message' => 'captcha_updated']);
+    addLog($pdo, $_SESSION['user']['id'], 'CAPTCHA', 'Update de : ' . $question . '(' . json_encode($json) . ')');
 
   } else {
     checkInputs($question, $reponse, $json);
@@ -72,6 +75,7 @@ try {
     ]);
 
     echo json_encode(['success' => true, 'message' => 'captcha_created']);
+    addLog($pdo, $_SESSION['user']['id'], 'CAPTCHA', 'Création de : ' . $question . '(' . json_encode($json) . ')');
   }
 
 } catch (PDOException $e) {

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../utils/session.php';
 require_once __DIR__ . '/../../utils/database.php';
+require_once __DIR__ . '/../../utils/loggers.php'; 
 
 header('Content-Type: application/json');
 
@@ -28,8 +29,8 @@ try {
     $stmt->execute([':nom' => $name]);
 
     if ($stmt->fetch()) {
-      echo json_encode(['warning' => 'tag_exists']);
-      exit;
+        echo json_encode(['warning' => 'tag_exists']);
+        exit;
     }
     $stmt = $pdo->prepare("INSERT INTO tags (nom) VALUES (:nom)");
     $stmt->execute([':nom' => $name]);
@@ -38,6 +39,7 @@ try {
         'success'  => true,
         'message' => 'tag_created'
     ]);
+    addLog($pdo, $_SESSION['user']['id'], 'TAG', 'Création de : ' . $name);
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode([

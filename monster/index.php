@@ -3,6 +3,9 @@ require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../utils/database.php';
 require_once __DIR__ . '/../utils/functions.php';
 
+require_once __DIR__ . '/../utils/loggers.php';
+if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION', 'Utilise ' . $_SERVER['SCRIPT_NAME']);
+
 $monsterName = $_GET['name'] ?? null;
 if ($monsterName === null) goHome(); 
 
