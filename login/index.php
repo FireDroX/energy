@@ -3,6 +3,25 @@ require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../utils/functions.php';
 require_once __DIR__ . '/../utils/database.php';
 
+if (isset($_GET['verify'])) {
+	$sql = "SELECT * FROM users WHERE uuid = :uuid";
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute([':uuid' => $_GET['verify']]);
+
+	if ($stmt->fetch(PDO::FETCH_ASSOC)) {
+		$sql = "UPDATE users SET uuid = NULL, id_role = 2 WHERE uuid = :uuid";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute([':uuid' => $_GET['verify']]);
+
+		header("Location: ../login?success=registered");
+    exit;
+	} else {
+		header("Location: ../login?warning=no_account");
+    exit;
+	}
+}
+
+
 $captcha = generateCaptcha($pdo);
 ?>
 

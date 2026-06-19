@@ -20,7 +20,7 @@
   - Export des infos de l'utilisateur en PDF (pseudo, mail, newsletter, logs concernant l'utilisateur, monsters liked / rated, _skin unlocked si on le fait_)
 - Systeme de mail (phpMailer + improVMX (smtp) + google smtp)
   - Newsletter -> Envoyer un mail quand une nouvelle monster est ajouter a tout les utilisateurs qui ont newsletter d'activer
-  - Activation du compte utilisateur par mail avec un uuid a rentrer dans l'url (/login?key=UUID) -> UUID a mettre dans la TABLE du user a sa creation
+  - Activation du compte utilisateur par mail avec un uuid a rentrer dans l'url (/login?key=UUID) -> UUID a mettre dans la TABLE du user a sa creation ✅
 - Systeme de messages semi temps reel
   - Bouton en bas a droite pour voir ses messages
   - Envoyer un message a quelqu'un (hors compte desactiver ou fake)

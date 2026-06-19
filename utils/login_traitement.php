@@ -46,6 +46,11 @@ try {
         exit;
     }
 
+    if ($user['id_role'] == 5) {
+        header("Location: ../login?warning=activated_account");
+        exit;
+    }
+
     if (!password_verify($password, $user['mdp'])) {
         header("Location: ../login?warning=incorrect_password");
         exit;
