@@ -13,6 +13,7 @@ $captcha = generateCaptcha($pdo);
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Monster | Connexion</title>
 		<link rel="stylesheet" href="/login/styles.css">
+		<link rel="stylesheet" href="/styles/home.css">
 
 		<link rel="shortcut icon" href="/favicon.png" type="image/png">
 
