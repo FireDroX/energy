@@ -8,6 +8,24 @@ if (!isset($_SESSION['user'])) {
 }
 
 $user = $_SESSION['user'];
+
+$stmt = $pdo->prepare("
+    SELECT 
+        u.id_users,
+        u.pseudo,
+        u.mail,
+        u.mdp,
+        u.created,
+        u.newsletter, 
+        r.role
+    FROM users u 
+    INNER JOIN roles r ON r.id_role = u.id_role
+    WHERE u.id_users = :id;
+");
+
+$stmt->execute(['id' => $user['id']]);
+$userData = $stmt->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -30,12 +48,12 @@ $user = $_SESSION['user'];
             <div class="account-card">
                 <div class="account-header">
                     <div class="account-avatar">
-                        <?= strtoupper(substr($user['pseudo'], 0, 1)) ?>
+                        <?= strtoupper(substr($userData['pseudo'], 0, 1)) ?>
                     </div>
                     <div>
-                        <h1><?= htmlspecialchars($user['pseudo']) ?></h1>
+                        <h1><?= htmlspecialchars($userData['pseudo']) ?></h1>
                         <p class="account-role">
-                            <?= htmlspecialchars($user['role']) ?>
+                            <?= htmlspecialchars($userData['role']) ?>
                         </p>
                     </div>
                 </div>
@@ -46,7 +64,7 @@ $user = $_SESSION['user'];
                             ID UTILISATEUR
                         </span>
                         <span class="stat-value">
-                            <?= htmlspecialchars($user['id']) ?>
+                            <?= htmlspecialchars($userData['id_users']) ?>
                         </span>
                     </div>
 
@@ -55,7 +73,7 @@ $user = $_SESSION['user'];
                             EMAIL
                         </span>
                         <span class="stat-value">
-                            <?= htmlspecialchars($user['email']) ?>
+                            <?= htmlspecialchars($userData['mail']) ?>
                         </span>
                     </div>
 
@@ -64,7 +82,7 @@ $user = $_SESSION['user'];
                             RÔLE
                         </span>
                         <span class="stat-value">
-                            <?= htmlspecialchars($user['role']) ?>
+                            <?= htmlspecialchars($userData['role']) ?>
                         </span>
                     </div>
                 </div>
