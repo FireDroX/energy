@@ -16,6 +16,7 @@ require_once __DIR__ . '/../utils/session.php';
 
     <script src="app.js" defer></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles/home.css">
   </head>
   
   <body>

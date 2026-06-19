@@ -3,7 +3,7 @@
 - Reparer les cookies + check de connexion et deco si cookie perimer ou pas bon
 - Gestion dans le panel
   - Gestion des tags ✅
-  - Gestion des monsters
+  - Gestion des monsters ✅
   - Affichage des logs (trie par categorie)
   - "Moderation des messages" (voir les messages qui sont report par d'autres)
 - Monsters

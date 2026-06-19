@@ -36,28 +36,24 @@ session_destroy();
 
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/home.css">
+    <link rel="stylesheet" href="/panel/captcha/styles.css">
 </head>
-<body class="bg-light">
-
+<body>
     <div class="container">
         <div class="row justify-content-center align-items-center vh-100">
             <div class="col-md-6">
-
-                <div class="card shadow p-4 text-center">
+                <main class="container card shadow p-4 text-center">
                     <h1 class="mb-3">Déconnexion réussie</h1>
-
-                    <p class="mb-4">
+                    <p class="mb-4 text-light">
                         Vous avez bien été déconnecté.
                     </p>
-
-                    <a href="/" class="btn btn-dark">
+                    <a href="/" class="btn btn-primary">
                         Retour à l'accueil
                     </a>
-                </div>
-
+                </main>
             </div>
         </div>
     </div>
-
 </body>
 </html>
