@@ -1,0 +1,257 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+:root {
+  --black: #000000;
+  --black-soft: #0d0d0d;
+  --card: #1a1a1a;
+  --border: #2a2a2a;
+  --white: #ffffff;
+  --muted: #bfbfbf;
+  --weak: #7a7a7a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--white);
+  font-family: "Inter", sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(255, 255, 255, 0.08),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 255, 255, 0.05),
+      transparent 22%
+    ),
+    linear-gradient(135deg, #000 0%, #0d0d0d 45%, #000 100%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.12;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.05) 0 1px,
+      transparent 1px 6px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0 1px,
+      transparent 1px 10px
+    );
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.account-card {
+  overflow: hidden;
+
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 30%),
+    var(--card);
+
+  border: 1px solid var(--border);
+  border-radius: 24px;
+
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  padding: 2rem;
+
+  border-bottom: 1px solid var(--border);
+
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 45%),
+    var(--black-soft);
+}
+
+.account-avatar {
+  width: 90px;
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--white);
+  color: var(--black);
+
+  font-family: "Anton", sans-serif;
+  font-size: 2.8rem;
+}
+
+.account-header h1 {
+  margin: 0;
+
+  color: var(--white);
+
+  font-family: "Anton", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.12);
+}
+
+.account-role {
+  margin-top: 0.4rem;
+
+  color: var(--muted);
+
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.account-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  gap: 1.5rem;
+
+  padding: 2rem;
+}
+
+.stat-box {
+  background: #111111;
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  padding: 1.4rem;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.stat-label {
+  display: block;
+
+  color: var(--weak);
+
+  font-size: 0.75rem;
+  font-weight: 900;
+
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+
+  margin-bottom: 0.8rem;
+}
+
+.stat-value {
+  color: var(--white);
+
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  word-break: break-word;
+}
+
+.account-actions {
+  display: flex;
+  gap: 1rem;
+
+  padding: 2rem;
+
+  border-top: 1px solid var(--border);
+}
+
+.btn-main,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 48px;
+
+  padding: 0.9rem 1.5rem;
+
+  border-radius: 999px;
+
+  text-decoration: none;
+
+  font-size: 0.85rem;
+  font-weight: 900;
+
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+
+  transition: 0.25s ease;
+}
+
+.btn-main {
+  background: var(--white);
+  color: var(--black);
+}
+
+.btn-main:hover {
+  background: #e5e5e5;
+  color: var(--black);
+
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  color: var(--white);
+
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  color: var(--white);
+
+  border-color: var(--white);
+
+  background: rgba(255, 255, 255, 0.05);
+
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .account-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .account-actions {
+    flex-direction: column;
+  }
+
+  .btn-main,
+  .btn-secondary {
+    width: 100%;
+  }
+}
