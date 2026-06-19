@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/database.php';
+require_once __DIR__ . '/loggers.php';
 
 if (
     !isset($_POST['pseudo']) ||
@@ -57,10 +58,18 @@ try {
         'id_role' => 2
     ]);
 
+    addLog(
+        $pdo,
+        $newUserId,
+        'REGISTER',
+        'Création du compte ' . $pseudo
+    );
+
     header("Location: ../login/?success=registered");
     exit;
 
 } catch (PDOException $e) {
     die("Erreur BDD : " . $e->getMessage());
 }
+
 ?>

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/session.php'; 
 require_once __DIR__ . '/database.php';
+require_once __DIR__ . '/loggers.php';
 
 if (
     !isset($_POST['email']) ||
@@ -86,6 +87,13 @@ try {
             'token_hash' => hash('sha256', $token)
         ]);
     }
+
+    addLog(
+        $pdo,
+        $user['id_users'],
+        'LOGIN',
+        'Connexion réussie'
+    );
 
     header("Location: ../?info=logged");
     exit;
