@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../utils/session.php'; 
 require_once __DIR__ . '/../../utils/database.php'; 
+require_once __DIR__ . '/../../utils/loggers.php'; 
 
 header('Content-Type: application/json');
 
@@ -68,6 +69,7 @@ try {
         'success' => true,
         'message' => 'user_desactivated'
       ]);
+      addLog($pdo, $_SESSION['user']['id'], 'USER', 'Désactivation / Modification de  : ' . $pseudo);
       exit;
     } else if (!is_null($prevUser['deactivated']) && $active === 1) {
       $stmt = $pdo->prepare("
@@ -92,6 +94,7 @@ try {
         'success' => true,
         'message' => 'user_activated'
       ]);
+      addLog($pdo, $_SESSION['user']['id'], 'USER', 'Activation / Modification de  : ' . $pseudo);
       exit;
     }
 
@@ -116,6 +119,7 @@ try {
       'success' => true,
       'message' => 'user_updated'
     ]);
+    addLog($pdo, $_SESSION['user']['id'], 'USER', 'Modification de  : ' . $pseudo);
     exit;
   }
 
@@ -142,6 +146,7 @@ try {
   ]);
 
   echo json_encode(['success' => true, 'message' => 'user_created']);
+  addLog($pdo, $_SESSION['user']['id'], 'USER', 'Création de  : ' . $pseudo);
 } catch (PDOException $e) {
   http_response_code(500);
   echo json_encode([

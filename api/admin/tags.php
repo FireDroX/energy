@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../utils/session.php'; 
 require_once __DIR__ . '/../../utils/database.php'; 
+require_once __DIR__ . '/../../utils/loggers.php'; 
 
 header('Content-Type: application/json');
 
@@ -53,6 +54,7 @@ try {
   }
 
   echo json_encode(['success' => true, 'message' => 'tags_updated']);
+  addLog($pdo, $_SESSION['user']['id'], 'TAG', 'Modification des tags de la monster : ' . $monsterId);
 } catch (PDOException $e) {
   http_response_code(500);
   echo json_encode([
