@@ -33,6 +33,7 @@ $alerts = [
     'invalid_json' => 'La réponse doit être un JSON valide (array)',
     'non_existant_role' => 'Ce role n\'existe pas !',
     'tag_exists' => 'Ce tag est déjà utilisé !',
+    'session_expired' => 'Session expirée !'
   ],
 
   'info' => [
