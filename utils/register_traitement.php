@@ -2,6 +2,7 @@
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/mailer.php';
+require_once __DIR__ . '/loggers.php';
 
 if (
     !isset($_POST['pseudo']) ||
@@ -68,10 +69,18 @@ try {
     $mailer = new Mailer();
     $result = $mailer->sendWelcome($user['mail'], $user['pseudo'], $user['uuid']);
 
+    addLog(
+        $pdo,
+        $newUserId,
+        'REGISTER',
+        'Création du compte ' . $pseudo
+    );
+  
     header("Location: ../login/?success=mail_sent");
     exit;
 
 } catch (PDOException $e) {
     die("Erreur BDD : " . $e->getMessage());
 }
+
 ?>
