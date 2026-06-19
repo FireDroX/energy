@@ -33,7 +33,9 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mon Compte</title>
+        <title>Monster | Mon Compte</title>
+
+        <link rel="shortcut icon" href="/favicon.png" type="image/png">
 
         <link rel="stylesheet" href="styles.css">
 
