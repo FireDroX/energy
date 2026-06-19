@@ -4,7 +4,7 @@ require_once __DIR__ . '/../utils/database.php';
 require_once __DIR__ . '/../utils/functions.php';
 
 $monsterName = $_GET['name'] ?? null;
-if ($monsterName === null) goHome();
+if ($monsterName === null) goHome(); 
 
 $monster = getMonster($pdo, $monsterName);
 if ($monster === null) goHome();
@@ -14,12 +14,33 @@ $parents = [];
 $reponses = [];
 
 foreach ($comments as $comment) {
-  if ($comment['id_parent'] === null) {
-    $parents[] = $comment;
-  } else {
-    $reponses[$comment['id_parent']][] = $comment;
-  }
+    if (empty($comment['id_parent'])) {
+        $parents[] = $comment;
+    } else {
+        $reponses[$comment['id_parent']][] = $comment;
+    }
 }
+
+$name = $_GET['name'] ?? '';
+
+$stmt = $pdo->prepare("
+    SELECT id_monsters
+    FROM monsters
+    WHERE nom = ?
+");
+$stmt->execute([$name]);
+
+$idMonster = $stmt->fetchColumn();
+
+if (!$idMonster) {
+    die('Monster introuvable');
+}
+
+$stmt = $pdo->prepare("
+    INSERT INTO monster_views (id_monsters, date_view)
+    VALUES (?, NOW())
+");
+$stmt->execute([$idMonster]);
 
 usort($parents, function ($a, $b) {
   if ($a['is_pinned'] != $b['is_pinned']) {
