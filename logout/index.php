@@ -1,34 +1,31 @@
 <?php
 require_once __DIR__ . '/../utils/session.php';
 
-if (isset($_COOKIE['remember_token'])) {
+if (isset($_SESSION['user'])) {
 
     $stmt = $pdo->prepare("
         DELETE FROM remember_tokens
-        WHERE token_hash = :token_hash
+        WHERE user_id = :user_id
     ");
 
     $stmt->execute([
-        'token_hash' => hash(
-            'sha256',
-            $_COOKIE['remember_token']
-        )
+        'user_id' => $_SESSION['user']['id']
     ]);
-
-    setcookie(
-        'remember_token',
-        '',
-        time() - 3600,
-        '/'
-    );
-
-    setcookie(
-        'user_email',
-        '',
-        time() - 3600,
-        '/'
-    );
 }
+
+setcookie(
+    'remember_token',
+    '',
+    time() - 3600,
+    '/'
+);
+
+setcookie(
+    'user_email',
+    '',
+    time() - 3600,
+    '/'
+);
 
 $_SESSION = [];
 session_destroy();
