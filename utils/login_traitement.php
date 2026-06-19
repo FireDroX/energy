@@ -85,17 +85,6 @@ try {
             'user_id' => $user['id_users'],
             'token_hash' => hash('sha256', $token)
         ]);
-
-        setcookie(
-            'remember_token',
-            $token,
-            [
-                'expires' => time() + (86400 * 30),
-                'path' => '/',
-                'httponly' => true,
-                'samesite' => 'Lax'
-            ]
-        );
     }
 
     header("Location: ../?info=logged");
