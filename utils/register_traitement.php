@@ -71,9 +71,9 @@ try {
 
     addLog(
         $pdo,
-        $newUserId,
+        $user['id_users'],
         'REGISTER',
-        'Création du compte ' . $pseudo
+        'Création du compte ' . $user['pseudo']
     );
   
     header("Location: ../login/?success=mail_sent");
