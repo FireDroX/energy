@@ -13,7 +13,8 @@ $alerts = [
     'tags_updated' => 'Tags mis à jour !',
     'tag_created' => 'Tag créé !',
     'monster_updated' => 'Monster mis à jour !',
-    'monster_created' => 'Monster créé !'
+    'monster_created' => 'Monster créé !',
+    'mail_sent' => 'Un email de confirmation vous à été envoyé !'
   ],
 
   'error' => [
@@ -33,7 +34,8 @@ $alerts = [
     'invalid_json' => 'La réponse doit être un JSON valide (array)',
     'non_existant_role' => 'Ce role n\'existe pas !',
     'tag_exists' => 'Ce tag est déjà utilisé !',
-    'session_expired' => 'Session expirée !'
+    'session_expired' => 'Session expirée !',
+    'activated_account' => 'Ce compte n\'est pas activé, vérifie ton mail !',
   ],
 
   'info' => [

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/database.php';
+require_once __DIR__ . '/mailer.php';
 
 if (
     !isset($_POST['pseudo']) ||
@@ -45,8 +46,8 @@ try {
         exit;
     }
 
-    $sql = "INSERT INTO users (pseudo, mail, mdp, id_role)
-            VALUES (:pseudo, :mail, :mdp, :id_role)";
+    $sql = "INSERT INTO users (pseudo, mail, mdp, id_role, uuid)
+            VALUES (:pseudo, :mail, :mdp, :id_role, UUID())";
 
     $stmt = $pdo->prepare($sql);
 
@@ -54,10 +55,20 @@ try {
         'pseudo' => $pseudo,
         'mail' => $email,
         'mdp' => $passwordHash,
-        'id_role' => 2
+        'id_role' => 5
     ]);
 
-    header("Location: ../login/?success=registered");
+    $id = $pdo->lastInsertId();
+
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id_users = ?");
+    $stmt->execute([$id]);
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $mailer = new Mailer();
+    $result = $mailer->sendWelcome($user['mail'], $user['pseudo'], $user['uuid']);
+
+    header("Location: ../login/?success=mail_sent");
     exit;
 
 } catch (PDOException $e) {
