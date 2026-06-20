@@ -14,7 +14,9 @@ $alerts = [
     'tag_created' => 'Tag créé !',
     'monster_updated' => 'Monster mis à jour !',
     'monster_created' => 'Monster créé !',
-    'mail_sent' => 'Un email de confirmation vous à été envoyé !'
+    'mail_sent' => 'Un email de confirmation vous à été envoyé !',
+    'newsletter_activate' => 'Activation de la newsletter',
+    'newsletter_deactivate' => 'Désactivation de la newsletter'
   ],
 
   'error' => [

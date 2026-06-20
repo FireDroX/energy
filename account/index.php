@@ -49,6 +49,8 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
     </head>
 
     <body>
+        <header><?php require_once '../components/navbar.php'; ?></header>
+        <?php require_once '../components/alert.php' ?>
         <main class="container py-5">
             <div class="account-card">
                 <div class="account-header">
@@ -92,16 +94,44 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                 </div>
 
-                <div class="account-actions">
-                    <a href="/" class="btn-main">
-                        Retour à l'accueil
-                    </a>
-                    <a href="/logout" class="btn-secondary">
-                        Déconnexion
-                    </a>
+                <div class="account-footer">
+                    <div class="account-actions">
+                        <a href="/" class="btn-main">
+                            Retour à l'accueil
+                        </a>
+                        <a href="/logout" class="btn-secondary">
+                            Déconnexion
+                        </a>
+                    </div>
+                    <div class="status-switch">
+                        <span>Newsletter (NON / OUI)</span>
+                        <label class="switch">
+                            <input type="checkbox" id="active" name="active" />
+                            <span class="slider"></span>
+                        </label>
+                    </div>
                 </div>
-
             </div>
         </main>
     </body>
+    <script defer>
+        const user = <?= json_encode($userData) ?>;
+        const slider = document.getElementById('active');
+
+        slider.checked = user.newsletter == 1;
+        slider.addEventListener("change", async () => {
+            const data = new FormData();
+            const value = slider.checked == true ? 1 : 0;
+            data.append("value", value)
+            const res = await fetch('/api/account/newsletter.php', { method: 'POST', body: data});
+            const json = await res.json();
+            if (json.success) {
+                location.href = `/account?success=${encodeURIComponent(json.message)}`;
+            } else if (json.warning) {
+                location.href = `/account?warning=${encodeURIComponent(json.warning)}`;
+            } else {
+                location.href = `/account?error=${encodeURIComponent(json.error)}`;
+            }
+        })
+    </script>
 </html>

@@ -14,12 +14,12 @@
 - Page de profil
   - Modification pseudo et mot de passe
   - Ajout / modification photo de profil
-  - ON / OFF mail newsletter
+  - ON / OFF mail newsletter ✅
   - _(skin de pseudo debloquable avec des easter eggs + liste des easter eggs)_
   - Liste des monsters liked / rated
   - Export des infos de l'utilisateur en PDF (pseudo, mail, newsletter, logs concernant l'utilisateur, monsters liked / rated, _skin unlocked si on le fait_)
-- Systeme de mail (phpMailer + improVMX (smtp) + google smtp)
-  - Newsletter -> Envoyer un mail quand une nouvelle monster est ajouter a tout les utilisateurs qui ont newsletter d'activer
+- Systeme de mail (phpMailer + improVMX (smtp) + google smtp) ✅
+  - Newsletter -> Envoyer un mail quand une nouvelle monster est ajouter a tout les utilisateurs qui ont newsletter d'activer ✅
   - Activation du compte utilisateur par mail avec un uuid a rentrer dans l'url (/login?key=UUID) -> UUID a mettre dans la TABLE du user a sa creation ✅
 - Systeme de messages semi temps reel
   - Bouton en bas a droite pour voir ses messages

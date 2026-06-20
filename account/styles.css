@@ -255,3 +255,62 @@ body::after {
     width: 100%;
   }
 }
+
+.status-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 2rem;
+}
+
+.status-switch > span {
+  color: #fff;
+}
+
+.switch {
+  position: relative;
+  width: 60px;
+  height: 30px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  background: #111;
+  transition: 0.3s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 2px;
+  top: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+  box-shadow:
+    0 0 10px #fff,
+    0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(28px);
+}
+
+.account-footer {
+  display:flex;
+  align-content: center;
+  justify-content: space-between;
+}
