@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../utils/session.php'; 
 require_once __DIR__ . '/../../utils/database.php'; 
 require_once __DIR__ . '/../../utils/loggers.php'; 
+require_once __DIR__ . '/../../utils/mailer.php'; 
 
 header('Content-Type: application/json');
 
@@ -58,8 +59,16 @@ try {
       ':image' => $image
     ]);
 
+    $stmt = $pdo->prepare("SELECT pseudo, mail FROM users WHERE newsletter = 1");
+    $stmt->execute([]);
+    
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $mailer = new Mailer();
+    $result = $mailer->sendNewsletter($users, $nom, $image);
+    
     echo json_encode(['success' => true, 'message' => 'monster_created']);
     addLog($pdo, $_SESSION['user']['id'], 'MONSTER', 'Création de  : ' . $nom);
+
   }
 
 } catch (PDOException $e) {
