@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/styles/navbar.css">
-<script src="/utils/favicon.js" defer></script>
-<script src="/utils/easter-eggs.js" defer></script>
+<script src="/utils/update_messages.js" defer></script>
+<script src="/utils/easter_eggs.js" defer></script>
 <nav class="monster-navbar">
   <div class="navbar-left">
     <h4 class="monster-logo">

@@ -111,7 +111,7 @@ $classement = getClassementMonsters($pdo, $type, $periode);
   </div>
 
 </div>
-
+<?php require_once __DIR__ . '/../components/messages.php'; ?>
 </body>
 <script defer>
   const cards = document.querySelectorAll(".ranking-card");
