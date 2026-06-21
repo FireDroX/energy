@@ -32,7 +32,7 @@ $captcha = generateCaptcha($pdo);
 
         <h1 class="login-title">Inscription</h1>
 
-        <form method="POST" action="../utils/register_traitement.php" class="login-card">
+        <form method="POST" action="../utils/login/register_traitement.php" class="login-card">
 
             <div class="mb-3">
                 <label for="pseudo" class="form-label">Pseudo</label>

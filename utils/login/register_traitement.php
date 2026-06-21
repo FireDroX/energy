@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/session.php';
-require_once __DIR__ . '/database.php';
-require_once __DIR__ . '/mailer.php';
-require_once __DIR__ . '/loggers.php';
+require_once __DIR__ . '/../session.php';
+require_once __DIR__ . '/../database.php';
+require_once __DIR__ . '/../mailer.php';
+require_once __DIR__ . '/../loggers.php';
 
 if (
     !isset($_POST['pseudo']) ||

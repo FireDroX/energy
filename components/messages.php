@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../utils/database.php';
-require_once __DIR__ . '/../utils/conversations.php';
+require_once __DIR__ . '/../utils/messages/conversations.php';
 
 if (!isset($_SESSION['user']) || !$_SESSION['user']['is_active']) {
     return;
@@ -113,4 +113,5 @@ $allUsers = $stmtUsers->fetchAll();
 </div>
 
 <link rel="stylesheet" href="/styles/messages.css">
-<script src="/utils/messages_widget.js" defer></script>
+<script src="/utils/messages/messages_widget.js" defer></script>
+<script src="/utils/messages/update_messages.js" defer></script>

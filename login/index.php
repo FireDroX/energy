@@ -49,7 +49,7 @@ $captcha = generateCaptcha($pdo);
 		<main class="login-container">
 			<h1 class="login-title">Connexion</h1>
 			
-			<form method="POST" action="../utils/login_traitement.php" class="login-card">
+			<form method="POST" action="../utils/login/login_traitement.php" class="login-card">
 				<div class="mb-3">
 					<label for="email" class="form-label">Adresse email</label>
 					<input type="email" name="email" class="form-control" id="email" required>
