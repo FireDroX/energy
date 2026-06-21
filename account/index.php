@@ -113,6 +113,7 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </main>
+    <?php require_once __DIR__ . '/../components/messages.php'; ?>
     </body>
     <script defer>
         const user = <?= json_encode($userData) ?>;

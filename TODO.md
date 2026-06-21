@@ -22,12 +22,12 @@
   - Newsletter -> Envoyer un mail quand une nouvelle monster est ajouter a tout les utilisateurs qui ont newsletter d'activer ✅
   - Activation du compte utilisateur par mail avec un uuid a rentrer dans l'url (/login?key=UUID) -> UUID a mettre dans la TABLE du user a sa creation ✅
 - Systeme de messages semi temps reel
-  - Bouton en bas a droite pour voir ses messages
-  - Envoyer un message a quelqu'un (hors compte desactiver ou fake)
-  - Boucle toute les 30s qui fait une requete api au php pour recup les messages
-    - Si taille des messages > que taille anciens messages = nouveau message
-    - Afficher une alerte "nouveau message"
-    - Alerte [sonore](https://pixabay.com/fr/sound-effects/films-et-effets-sp%C3%A9ciaux-new-notification-3-398649/) ?
+  - Bouton en bas a droite pour voir ses messages ✅
+  - Envoyer un message a quelqu'un (hors compte desactiver ou fake) ✅
+  - Boucle toute les 30s qui fait une requete api au php pour recup les messages✅
+    - Si taille des messages > que taille anciens messages = nouveau message✅
+    - Afficher une alerte "nouveau message"✅
+    - Alerte [sonore](https://pixabay.com/fr/sound-effects/films-et-effets-sp%C3%A9ciaux-new-notification-3-398649/) ?✅
     - Notif sur le bouton (/utils/favicon.js) ✅
   - Envoie des gifs + barre de recherche + tenor api
 - _Page easter egg_ -> success comme le site de JS
