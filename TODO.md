@@ -23,7 +23,7 @@
   - Activation du compte utilisateur par mail avec un uuid a rentrer dans l'url (/login?key=UUID) -> UUID a mettre dans la TABLE du user a sa creation ✅
 - Systeme de messages semi temps reel
   - Bouton en bas a droite pour voir ses messages ✅
-  - Envoyer un message a quelqu'un (hors compte desactiver ou fake)
+  - Envoyer un message a quelqu'un (hors compte desactiver ou fake) ✅
   - Boucle toute les 30s qui fait une requete api au php pour recup les messages✅
     - Si taille des messages > que taille anciens messages = nouveau message✅
     - Afficher une alerte "nouveau message"✅

@@ -111,7 +111,10 @@
   max-height: min(520px, 70vh);
   background: var(--msg-ink);
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(20, 20, 22, 0.22);
+  box-shadow:
+    0 20px 60px rgba(20, 20, 22, 0.22),
+    0 0 10px rgba(255, 255, 255, 0.7),
+    0 0 30px rgba(255, 255, 255, 0.15);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -122,9 +125,6 @@
   transition:
     opacity 0.18s ease,
     transform 0.18s ease;
-  box-shadow:
-    0 0 10px rgba(255, 255, 255, 0.7),
-    0 0 30px rgba(255, 255, 255, 0.15);
 }
 
 #msg-widget-root.is-open #msg-modal {
@@ -150,32 +150,52 @@
   letter-spacing: -0.01em;
 }
 
+#msg-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#msg-new-toggle,
 #msg-close {
   background: none;
   border: none;
   color: var(--msg-muted);
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
   display: flex;
   border-radius: 8px;
   transition:
     background 0.15s ease,
-    color 0.15s ease;
+    color 0.15s ease,
+    transform 0.15s ease;
 }
 
+#msg-new-toggle:hover,
 #msg-close:hover {
   background: var(--msg-surface);
   color: var(--msg-ink);
 }
 
+#msg-new-toggle svg,
 #msg-close svg {
   width: 18px;
   height: 18px;
 }
 
+#msg-widget-root.is-composing #msg-new-toggle {
+  background: var(--msg-ink);
+  color: #fff;
+  transform: rotate(45deg);
+}
+
 #msg-list {
   overflow-y: auto;
   flex: 1;
+}
+
+#msg-widget-root.is-composing #msg-list {
+  display: none;
 }
 
 #msg-empty {
@@ -271,7 +291,7 @@
 }
 
 .msg-item.is-unread .msg-item-preview {
-  color: var(--msg-ink);
+  color: var(--msg-muted);
 }
 
 .msg-item-you {
@@ -285,6 +305,137 @@
   border-radius: 50%;
   background: var(--msg-accent);
   margin-top: 6px;
+}
+
+#msg-new-form {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+}
+
+#msg-widget-root.is-composing #msg-new-form {
+  display: flex;
+}
+
+#msg-new-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+#msg-new-body label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--msg-muted);
+  margin-top: 10px;
+}
+
+#msg-new-body label:first-child {
+  margin-top: 0;
+}
+
+#msg-new-recipient {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--msg-line);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--msg-ink);
+  background: var(--msg-paper);
+  outline: none;
+  transition: border-color 0.15s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2387858f' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 34px;
+}
+
+#msg-new-recipient:focus {
+  border-color: var(--msg-ink);
+}
+
+#msg-new-content {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--msg-line);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--msg-ink);
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+#msg-new-content:focus {
+  border-color: var(--msg-ink);
+}
+
+#msg-new-char-count {
+  font-size: 11px;
+  color: var(--msg-muted);
+  text-align: right;
+}
+
+#msg-new-char-count.is-warning {
+  color: var(--msg-accent);
+}
+
+#msg-new-error {
+  font-size: 12px;
+  color: var(--msg-accent);
+  margin: 0;
+  min-height: 14px;
+}
+
+#msg-new-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--msg-line);
+  flex-shrink: 0;
+}
+
+#msg-new-footer button {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+
+#msg-new-cancel {
+  background: var(--msg-surface);
+  color: var(--msg-muted);
+}
+
+#msg-new-cancel:hover {
+  background: var(--msg-line);
+}
+
+#msg-new-submit {
+  background: var(--msg-ink);
+  color: #fff;
+}
+
+#msg-new-submit:hover {
+  background: var(--msg-accent);
+}
+
+#msg-new-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (max-width: 480px) {
