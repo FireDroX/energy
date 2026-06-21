@@ -1,0 +1,251 @@
+:root {
+  --conv-ink: #1c1d21;
+  --conv-paper: #ffffff;
+  --conv-line: #e8e7ea;
+  --conv-accent: #ff5d3a;
+  --conv-muted: #87858f;
+  --conv-surface: #faf9fb;
+  --conv-bubble-mine: #1c1d21;
+  --conv-bubble-mine-ink: #ffffff;
+  --conv-bubble-theirs: #f1f0f3;
+  --conv-bubble-theirs-ink: #1c1d21;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  background: var(--conv-surface);
+  color: var(--conv-ink);
+}
+
+main.container {
+  height: 80vh;
+}
+
+#conv-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--conv-line);
+  flex-shrink: 0;
+}
+
+#conv-back {
+  color: var(--conv-muted);
+  text-decoration: none;
+  display: flex;
+  padding: 6px;
+  margin-left: -6px;
+  border-radius: 8px;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+#conv-back:hover {
+  background: var(--conv-surface);
+  color: var(--conv-ink);
+}
+
+#conv-back svg {
+  width: 20px;
+  height: 20px;
+}
+
+#conv-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--conv-ink);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+#conv-name {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+}
+
+#conv-status {
+  font-size: 12px;
+  color: var(--conv-muted);
+  margin: 0;
+}
+
+#conv-thread {
+  flex: 1;
+  overflow-y: auto;
+  height: 58vh;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.conv-day-divider {
+  text-align: center;
+  font-size: 12px;
+  color: var(--conv-muted);
+  margin: 18px 0 10px;
+  position: relative;
+}
+
+.conv-day-divider:first-child {
+  margin-top: 0;
+}
+
+.conv-row {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.conv-row.is-mine {
+  justify-content: flex-end;
+}
+
+.conv-row.is-theirs {
+  justify-content: flex-start;
+}
+
+.conv-bubble-wrap {
+  display: flex;
+  flex-direction: column;
+  max-width: 72%;
+  min-width: 0;
+}
+
+.conv-bubble {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 9px 13px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  position: relative;
+}
+
+.conv-row.is-mine .conv-bubble {
+  background: var(--conv-bubble-mine);
+  color: var(--conv-bubble-mine-ink);
+  border-bottom-right-radius: 4px;
+}
+
+.conv-row.is-theirs .conv-bubble {
+  background: var(--conv-bubble-theirs);
+  color: var(--conv-bubble-theirs-ink);
+  border-bottom-left-radius: 4px;
+}
+
+.conv-time {
+  font-size: 10px;
+  color: var(--conv-muted);
+  margin-top: 3px;
+  padding: 0 4px;
+}
+
+.conv-row.is-mine .conv-time {
+  text-align: right;
+}
+
+#conv-empty {
+  margin: auto;
+  text-align: center;
+  color: var(--conv-muted);
+  font-size: 14px;
+}
+
+#conv-composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--conv-line);
+  flex-shrink: 0;
+}
+
+#conv-input {
+  flex: 1;
+  resize: none;
+  border: 1px solid var(--conv-line);
+  border-radius: 18px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-family: inherit;
+  max-height: 120px;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+#conv-input:focus {
+  border-color: var(--conv-ink);
+}
+
+#conv-send {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--conv-ink);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+}
+
+#conv-send:hover {
+  background: var(--conv-accent);
+}
+
+#conv-send:active {
+  transform: scale(0.92);
+}
+
+#conv-send:disabled {
+  background: var(--conv-line);
+  cursor: not-allowed;
+}
+
+#conv-send svg {
+  width: 17px;
+  height: 17px;
+}
+
+#conv-char-count {
+  font-size: 11px;
+  color: var(--conv-muted);
+  text-align: right;
+  padding: 2px 16px 0;
+  flex-shrink: 0;
+  min-height: 14px;
+}
+
+#conv-char-count.is-warning {
+  color: var(--conv-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
