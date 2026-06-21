@@ -11,7 +11,7 @@ if (
     !isset($_POST['confirm_password']) ||
     !isset($_POST['captcha'])
 ) {
-    header("Location: ../register?warning=missing_fields");
+    header("Location: ../../register?warning=missing_fields");
     exit;
 }
 
@@ -21,7 +21,7 @@ $password = trim($_POST['password']);
 $confirmPassword = trim($_POST['confirm_password']);
 
 if ($password !== $confirmPassword) {
-    header("Location: ../register?warning=password_mismatch");
+    header("Location: ../../register?warning=password_mismatch");
     exit;
 }
 
@@ -29,7 +29,7 @@ $captcha = trim($_POST['captcha']);
 $captcha_answer = $_SESSION['captcha_answer'];
 
 if (!in_array(strtoLower($captcha), array_map('strtoLower', $captcha_answer))) {
-    header("Location: ../register?warning=captcha_incorrect");
+    header("Location: ../../register?warning=captcha_incorrect");
     exit;
 }
 
@@ -43,7 +43,7 @@ try {
     ]);
 
     if ($checkStmt->fetch()) {
-        header("Location: ../register?warning=email_exists");
+        header("Location: ../../register?warning=email_exists");
         exit;
     }
 
@@ -76,7 +76,7 @@ try {
         'Création du compte ' . $user['pseudo']
     );
   
-    header("Location: ../login/?success=mail_sent");
+    header("Location: ../../login/?success=mail_sent");
     exit;
 
 } catch (PDOException $e) {

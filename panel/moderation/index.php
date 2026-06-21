@@ -10,6 +10,8 @@ if (
   exit;
 }
 
+header("Location: /errors/404.php");
+
 ?>
 
 <!DOCTYPE html>
