@@ -7,7 +7,7 @@ if (
     ($_SESSION['user']['role'] != 1 && $_SESSION['user']['role'] != 3) || 
     !$_SESSION['user']['is_active']
   ) {
-  header("Location: /");
+  header("Location: /errors/403.php");
   exit;
 }
 

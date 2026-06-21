@@ -1,11 +1,15 @@
-<FilesMatch "\.env|\.gitignore|\.htaccess|README\.md|TODO\.md">
+ErrorDocument 403 /errors/403.php
+ErrorDocument 404 /errors/404.php
+
+<FilesMatch "^(\.env|\.gitignore|\.htaccess|README\.md|TODO\.md)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
 RewriteEngine on
-RewriteRule ^api/$ - [R=403,L]
-RewriteRule ^assets/$ - [R=403,L]
-RewriteRule ^components/$ - [R=403,L]
-RewriteRule ^styles/$ - [R=403,L]
-RewriteRule ^utils/$ - [R=403,L]
+RewriteRule ^api/$ - [F,L]
+RewriteRule ^assets/$ - [F,L]
+RewriteRule ^components/$ - [F,L]
+RewriteRule ^styles/$ - [F,L]
+RewriteRule ^utils/$ - [F,L]
+RewriteRule ^errors/$ - [F,L]
