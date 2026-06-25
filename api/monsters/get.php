@@ -13,12 +13,16 @@ try {
             m.id_monsters,
             m.nom,
             m.image,
-            GROUP_CONCAT(t.nom) as tags,
+            GROUP_CONCAT(DISTINCT t.nom) as tags,
             ROUND(AVG(n.note), 2) as note,
             CASE
                 WHEN mf.id_users IS NULL THEN 0
                 ELSE 1
-            END AS favorite
+            END AS favorite,
+            CASE
+                WHEN md.id_users IS NULL THEN 0
+                ELSE 1
+            END AS drank
         FROM monsters m
         LEFT JOIN monster_tags mt ON m.id_monsters = mt.id_monsters
         LEFT JOIN tags t ON mt.id_tags = t.id_tags
@@ -26,8 +30,12 @@ try {
         LEFT JOIN monster_favorites mf
             ON mf.id_monsters = m.id_monsters
             AND mf.id_users = :userId
+        LEFT JOIN monster_drinks md
+            ON md.id_monsters = m.id_monsters
+            AND md.id_users = :userId
+            AND md.date_drink >= NOW() - INTERVAL 1 DAY
         GROUP BY m.id_monsters
-        ORDER BY note DESC
+        ORDER BY note DESC;
     ");
 
     $stmt->execute([
@@ -39,6 +47,7 @@ try {
     foreach ($data as &$monster) {
         $monster['tags'] = $monster['tags'] ? explode(',', $monster['tags']) : [];
         $monster['favorite'] = (bool)$monster['favorite'];
+        $monster['drank'] = (bool)$monster['drank'];
     }
 
     echo json_encode($data);

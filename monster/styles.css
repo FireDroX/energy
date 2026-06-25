@@ -187,11 +187,19 @@
   }
 }
 
-.favorite-btn {
+.interactions-container {
   position: absolute;
-  top: 12px;
   right: 12px;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 12px;
+}
 
+.favorite-btn,
+.drank-btn {
   width: 34px;
   height: 34px;
 
@@ -208,7 +216,8 @@
   transition: all 220ms ease;
 }
 
-.favorite-btn:hover {
+.favorite-btn:hover,
+.drank-btn:hover {
   transform: scale(1.08);
 
   background: #7a0000;
@@ -218,7 +227,8 @@
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.35);
 }
 
-.favorite-btn svg {
+.favorite-btn svg,
+.drank-btn svg {
   width: 18px;
   height: 18px;
 
@@ -230,11 +240,17 @@
   transition: all 220ms ease;
 }
 
-.favorite-btn:hover svg {
+.drank-btn svg {
+  stroke-width: 12;
+}
+
+.favorite-btn:hover svg,
+.drank-btn:hover svg {
   stroke: #ffffff;
 }
 
-.favorite-btn.active {
+.favorite-btn.active,
+.drank-btn.active {
   background: #7a0000;
   border-color: #ff4d4d;
 
@@ -243,9 +259,19 @@
     inset 0 0 10px rgba(255, 255, 255, 0.05);
 }
 
-.favorite-btn.active svg {
+.favorite-btn.active svg,
+.drank-btn.active svg {
   fill: #ff4d4d;
   stroke: #ff4d4d;
+}
+
+.drank-text {
+  color: #888;
+}
+
+.drank-text.active {
+  color: #ff4d4d;
+  font-weight: 700;
 }
 
 .login-popup-overlay {
