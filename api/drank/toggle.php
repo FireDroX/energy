@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../utils/session.php';
 require_once __DIR__ . '/../../utils/database.php';
+require_once __DIR__ . '/../../utils/loggers.php';
 
 header('Content-Type: application/json');
 
@@ -55,6 +56,13 @@ if ($alreadyDrank) {
         'success' => true,
         'drank' => false
     ]);
+
+    addLog(
+        $pdo,
+        $_SESSION['user']['id'],
+        'DRANK',
+        'N\'a finalement pas bu: ' . $monsterId
+    );
     exit;
 }
 
@@ -68,3 +76,10 @@ echo json_encode([
     'success' => true,
     'drank' => true
 ]);
+
+addLog(
+    $pdo,
+    $_SESSION['user']['id'],
+    'DRANK',
+    'Bois la monster: ' . $monsterId
+);

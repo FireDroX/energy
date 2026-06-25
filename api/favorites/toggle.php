@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../utils/session.php';
 require_once __DIR__ . '/../../utils/database.php';
+require_once __DIR__ . '/../../utils/loggers.php';
 
 header('Content-Type: application/json');
 
@@ -50,6 +51,13 @@ if ($stmt->fetch()) {
         'success' => true,
         'favorite' => false
     ]);
+
+    addLog(
+        $pdo,
+        $_SESSION['user']['id'],
+        'LIKES',
+        'Retire son like sur: ' . $monsterId
+    );
     exit;
 }
 
@@ -64,3 +72,10 @@ echo json_encode([
     'success' => true,
     'favorite' => true
 ]);
+
+addLog(
+    $pdo,
+    $_SESSION['user']['id'],
+    'LIKES',
+    'Ajoute un like sur: ' . $monsterId
+);
