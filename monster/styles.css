@@ -1,4 +1,5 @@
 .monster-header {
+  position: relative;
   margin-top: 2rem;
   margin-bottom: 1rem;
   display: flex;
@@ -184,4 +185,150 @@
   .monster-header h2 {
     font-size: 1.8rem;
   }
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 999px;
+
+  background: rgba(60, 0, 0, 0.9);
+  border: 1px solid #7a0000;
+
+  cursor: pointer;
+
+  transition: all 220ms ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.08);
+
+  background: #7a0000;
+
+  border-color: #ff4d4d;
+
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.35);
+}
+
+.favorite-btn svg {
+  width: 18px;
+  height: 18px;
+
+  fill: transparent;
+
+  stroke: #ff5a5a;
+  stroke-width: 2;
+
+  transition: all 220ms ease;
+}
+
+.favorite-btn:hover svg {
+  stroke: #ffffff;
+}
+
+.favorite-btn.active {
+  background: #7a0000;
+  border-color: #ff4d4d;
+
+  box-shadow:
+    0 0 12px rgba(255, 0, 0, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.favorite-btn.active svg {
+  fill: #ff4d4d;
+  stroke: #ff4d4d;
+}
+
+.login-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.login-popup {
+  width: min(440px, 100%);
+  padding: 2rem;
+  text-align: center;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 35%), #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 20px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75);
+}
+
+.login-popup h3 {
+  margin: 0 0 0.75rem;
+  color: #ffffff;
+  font-family: "Bebas Neue", "Anton", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.login-popup p {
+  margin: 0 0 1.5rem;
+  color: #bfbfbf;
+  line-height: 1.6;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.popup-login-btn,
+.popup-close-btn {
+  min-height: 44px;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition:
+    transform 220ms ease,
+    background 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
+}
+
+.popup-login-btn {
+  background: #ffffff;
+  color: #000000;
+  text-decoration: none;
+  border: 1px solid #ffffff;
+}
+
+.popup-close-btn {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #2a2a2a;
+  cursor: pointer;
+}
+
+.popup-login-btn:hover,
+.popup-close-btn:hover {
+  transform: translateY(-2px);
+}
+
+.popup-close-btn:hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
 }
