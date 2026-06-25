@@ -31,51 +31,55 @@ $userId = (int) $_SESSION['user']['id'];
 $monsterId = (int) $monsterId;
 
 $stmt = $pdo->prepare("
-    SELECT 1
-    FROM monster_favorites
-    WHERE id_users = ?
-    AND id_monsters = ?
+    SELECT COUNT(*) as amount_drank_today FROM monster_drinks md
+    INNER JOIN users u ON u.id_users = md.id_users
+    INNER JOIN monsters m ON m.id_monsters = md.id_monsters
+    WHERE u.id_users = :id AND m.id_monsters = :monster AND md.date_drink >= NOW() - INTERVAL 1 DAY
 ");
 
-$stmt->execute([$userId, $monsterId]);
+$stmt->execute([
+    ':id' => $userId,
+    ':monster' => $monsterId
+]);
 
-if ($stmt->fetch()) {
+$row = $stmt->fetch();
+$alreadyDrank = $row && (int) $row['amount_drank_today'] > 0;
+
+if ($alreadyDrank) {
     $stmt = $pdo->prepare("
-        DELETE FROM monster_favorites
-        WHERE id_users = ?
-        AND id_monsters = ?
+        DELETE FROM monster_drinks
+        WHERE id_users = ? AND id_monsters = ? AND date_drink >= NOW() - INTERVAL 1 DAY
     ");
     $stmt->execute([$userId, $monsterId]);
 
     echo json_encode([
         'success' => true,
-        'favorite' => false
+        'drank' => false
     ]);
 
     addLog(
         $pdo,
         $_SESSION['user']['id'],
-        'LIKES',
-        'Retire son like sur: ' . $monsterId
+        'DRANK',
+        'N\'a finalement pas bu: ' . $monsterId
     );
     exit;
 }
 
 $stmt = $pdo->prepare("
-    INSERT INTO monster_favorites (id_users, id_monsters)
+    INSERT INTO monster_drinks (id_users, id_monsters)
     VALUES (?, ?)
 ");
-
 $stmt->execute([$userId, $monsterId]);
 
 echo json_encode([
     'success' => true,
-    'favorite' => true
+    'drank' => true
 ]);
 
 addLog(
     $pdo,
     $_SESSION['user']['id'],
-    'LIKES',
-    'Ajoute un like sur: ' . $monsterId
+    'DRANK',
+    'Bois la monster: ' . $monsterId
 );
