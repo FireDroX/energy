@@ -135,9 +135,16 @@ function goHome() {
           </div>
           <div class="comment-container">
             <p><?= htmlspecialchars($comment['commentaire']); ?></p>
-            <svg class="comment-liked <?= $comment['liked'] ? "active" : "" ?>" viewBox="0 0 24 24">
-              <path d="M12 21s-7-4.35-10-9c-2.5-3.9-.5-9 4-9 2.4 0 4 1.6 6 3.6C14 4.6 15.6 3 18 3c4.5 0 6.5 5.1 4 9-3 4.65-10 9-10 9z"/>
-            </svg>
+            <div class="icons-container">
+              <?php if ($comment['id_users'] == $_SESSION['user']['id']) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"class="remove-comment">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+              </svg>
+              <?php } ?>
+              <svg class="comment-liked <?= $comment['liked'] ? "active" : "" ?>" viewBox="0 0 24 24">
+                <path d="M12 21s-7-4.35-10-9c-2.5-3.9-.5-9 4-9 2.4 0 4 1.6 6 3.6C14 4.6 15.6 3 18 3c4.5 0 6.5 5.1 4 9-3 4.65-10 9-10 9z"/>
+              </svg>
+            </div>      
           </div>
         </article>
         <?php if(isset($reponses[$comment['id_commentaires']])) { ?>
@@ -152,9 +159,16 @@ function goHome() {
                   </div>
                   <div class="comment-container">
                     <p><?= htmlspecialchars($reply['commentaire']); ?></p>
-                    <svg class="comment-liked <?= $reply['liked'] ? "active" : "" ?>" viewBox="0 0 24 24">
-                      <path d="M12 21s-7-4.35-10-9c-2.5-3.9-.5-9 4-9 2.4 0 4 1.6 6 3.6C14 4.6 15.6 3 18 3c4.5 0 6.5 5.1 4 9-3 4.65-10 9-10 9z"/>
-                    </svg>
+                    <div class="icons-container">
+                      <?php if ($reply['id_users'] == $_SESSION['user']['id']) { ?>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"class="remove-comment">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                      </svg>
+                      <?php } ?>
+                      <svg class="comment-liked <?= $reply['liked'] ? "active" : "" ?>" viewBox="0 0 24 24">
+                        <path d="M12 21s-7-4.35-10-9c-2.5-3.9-.5-9 4-9 2.4 0 4 1.6 6 3.6C14 4.6 15.6 3 18 3c4.5 0 6.5 5.1 4 9-3 4.65-10 9-10 9z"/>
+                      </svg>
+                    </div> 
                   </div>
                 </article>
               </div>

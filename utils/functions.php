@@ -52,6 +52,7 @@
             c.date,
             c.is_pinned,
             u.pseudo,
+            u.id_users,
             (
                 SELECT COUNT(*)
                 FROM likes l

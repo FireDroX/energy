@@ -5,6 +5,8 @@ const comments = document.querySelectorAll(".monster-comment");
 comments.forEach((comment) => {
   const commentId = comment.id;
   const likeElement = comment.querySelector(".comment-liked");
+  const removeElement = comment.querySelector(".remove-comment");
+
   likeElement.addEventListener("click", async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -29,6 +31,36 @@ comments.forEach((comment) => {
 
       if (data.success) {
         likeElement.classList.toggle("active");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  removeElement?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      const request = await fetch("/api/comment/delete.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          comment_id: commentId,
+        }),
+      });
+
+      if (request.status === 401) {
+        showLoginPopup();
+        return;
+      }
+
+      const data = await request.json();
+
+      if (data.success) {
+        location.href = `/monster/?name=${monster_name}&success=message_deleted`;
       }
     } catch (err) {
       console.error(err);
@@ -88,10 +120,6 @@ async function showCommentPopup(parentId = undefined, name = undefined) {
     .addEventListener("click", async (e) => {
       e.preventDefault();
       e.stopPropagation();
-
-      const monster_name = new URLSearchParams(window.location.search).get(
-        "name",
-      );
 
       try {
         const request = await fetch("/api/comment/send.php", {
