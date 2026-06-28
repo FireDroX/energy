@@ -28,7 +28,7 @@ async function getMonster() {
 
     const drankText = document.createElement("small");
     drankText.className = `drank-text ${res.drank ? "active" : ""}`;
-    drankText.textContent = `${res.drank ? "Bu aujourd'hui" : "Pas bu aujourd'hui"}`
+    drankText.textContent = `${res.drank ? "Bu aujourd'hui" : "Pas bu aujourd'hui"}`;
 
     div.append(drankText, drank, liked);
     section.appendChild(div);
@@ -94,7 +94,7 @@ async function getMonster() {
           drankBtn.classList.toggle("active");
           drankText.classList.toggle("active");
           res.drank = !res.drank;
-          drankText.textContent = `${res.drank ? "Bu aujourd'hui" : "Pas bu aujourd'hui"}`
+          drankText.textContent = `${res.drank ? "Bu aujourd'hui" : "Pas bu aujourd'hui"}`;
         }
       } catch (err) {
         console.error(err);

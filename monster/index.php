@@ -12,7 +12,7 @@ if ($monsterName === null) goHome();
 $monster = getMonster($pdo, $monsterName);
 if ($monster === null) goHome();
 
-$comments = getComments($pdo, $monsterName);
+$comments = getComments($pdo, $monsterName, $_SESSION['user']['id'] ?? 0);
 $parents = [];
 $reponses = [];
 
@@ -84,6 +84,7 @@ function goHome() {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
   <script src="app.js" defer></script>
+  <script src="comment.js" defer></script>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="/styles/home.css">
 </head>
@@ -91,6 +92,7 @@ function goHome() {
   <header>
     <?php require_once __DIR__ . '/../components/navbar.php'; ?>
   </header>
+  <?php require_once __DIR__ . '/../components/alert.php'; ?>
   <main class="container">
     <section class="monster-header">
       <img src=<?= $monster['image']; ?> />
@@ -115,6 +117,7 @@ function goHome() {
           <small><?= $monster['score']; ?> / 5 - (<?= $monster['nb_notes'] ?> notes) </small>
         </div>
       </div>
+      <button class="add-commentaire">+ Commentez</button>
     </section>
     <br />
     <section class="monster-commentsList">
@@ -130,19 +133,43 @@ function goHome() {
             </div>
             <small><?= $comment['nb_likes']; ?> likes</small>
           </div>
-          <p><?= htmlspecialchars($comment['commentaire']); ?></p>
+          <div class="comment-container">
+            <p><?= htmlspecialchars($comment['commentaire']); ?></p>
+            <div class="icons-container">
+              <?php if ($comment['id_users'] == $_SESSION['user']['id']) { ?>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"class="remove-comment">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+              </svg>
+              <?php } ?>
+              <svg class="comment-liked <?= $comment['liked'] ? "active" : "" ?>" viewBox="0 0 24 24">
+                <path d="M12 21s-7-4.35-10-9c-2.5-3.9-.5-9 4-9 2.4 0 4 1.6 6 3.6C14 4.6 15.6 3 18 3c4.5 0 6.5 5.1 4 9-3 4.65-10 9-10 9z"/>
+              </svg>
+            </div>      
+          </div>
         </article>
         <?php if(isset($reponses[$comment['id_commentaires']])) { ?>
           <div class="monster-comment-replies">
             <?php foreach($reponses[$comment['id_commentaires']] as $reply) { ?>
               <div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="replies-svg" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" /></svg>
                 <article id="<?= $reply['id_commentaires']; ?>" class="monster-comment">
                   <div class="">
                     <h6><?= htmlspecialchars($reply['pseudo']); ?></h6>
                     <small><?= $reply['nb_likes']; ?> likes</small>
                   </div>
-                  <p><?= htmlspecialchars($reply['commentaire']); ?></p>
+                  <div class="comment-container">
+                    <p><?= htmlspecialchars($reply['commentaire']); ?></p>
+                    <div class="icons-container">
+                      <?php if ($reply['id_users'] == $_SESSION['user']['id']) { ?>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"class="remove-comment">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                      </svg>
+                      <?php } ?>
+                      <svg class="comment-liked <?= $reply['liked'] ? "active" : "" ?>" viewBox="0 0 24 24">
+                        <path d="M12 21s-7-4.35-10-9c-2.5-3.9-.5-9 4-9 2.4 0 4 1.6 6 3.6C14 4.6 15.6 3 18 3c4.5 0 6.5 5.1 4 9-3 4.65-10 9-10 9z"/>
+                      </svg>
+                    </div> 
+                  </div>
                 </article>
               </div>
             <?php } ?>

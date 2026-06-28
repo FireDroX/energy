@@ -360,7 +360,8 @@
   border-color: var(--msg-ink);
 }
 
-#msg-new-content {
+#msg-new-content,
+#msg-content {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--msg-line);
@@ -373,17 +374,24 @@
   transition: border-color 0.15s ease;
 }
 
-#msg-new-content:focus {
+#msg-content {
+  color: #1c1d21;
+}
+
+#msg-new-content:focus,
+#msg-content:focus {
   border-color: var(--msg-ink);
 }
 
-#msg-new-char-count {
+#msg-new-char-count,
+#msg-char-count {
   font-size: 11px;
   color: var(--msg-muted);
   text-align: right;
 }
 
-#msg-new-char-count.is-warning {
+#msg-new-char-count.is-warning,
+#msg-char-count.is-warning {
   color: var(--msg-accent);
 }
 
