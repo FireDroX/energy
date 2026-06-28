@@ -16,7 +16,8 @@ $alerts = [
     'monster_created' => 'Monster créé !',
     'mail_sent' => 'Un email de confirmation vous à été envoyé !',
     'newsletter_activate' => 'Activation de la newsletter',
-    'newsletter_deactivate' => 'Désactivation de la newsletter'
+    'newsletter_deactivate' => 'Désactivation de la newsletter',
+    'message_sent' => 'Votre commentaire à bien été envoyé !'
   ],
 
   'error' => [
