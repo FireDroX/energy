@@ -12,7 +12,7 @@ if ($monsterName === null) goHome();
 $monster = getMonster($pdo, $monsterName);
 if ($monster === null) goHome();
 
-$comments = getComments($pdo, $monsterName);
+$comments = getComments($pdo, $monsterName, $_SESSION['user']['id'] ?? 0);
 $parents = [];
 $reponses = [];
 
@@ -115,6 +115,7 @@ function goHome() {
           <small><?= $monster['score']; ?> / 5 - (<?= $monster['nb_notes'] ?> notes) </small>
         </div>
       </div>
+      <button class="add-commentaire">+ Commentez</button>
     </section>
     <br />
     <section class="monster-commentsList">
@@ -130,19 +131,29 @@ function goHome() {
             </div>
             <small><?= $comment['nb_likes']; ?> likes</small>
           </div>
-          <p><?= htmlspecialchars($comment['commentaire']); ?></p>
+          <div class="comment-container">
+            <p><?= htmlspecialchars($comment['commentaire']); ?></p>
+            <svg class="comment-liked <?= $comment['liked'] ? "active" : "" ?>" viewBox="0 0 24 24">
+              <path d="M12 21s-7-4.35-10-9c-2.5-3.9-.5-9 4-9 2.4 0 4 1.6 6 3.6C14 4.6 15.6 3 18 3c4.5 0 6.5 5.1 4 9-3 4.65-10 9-10 9z"/>
+            </svg>
+          </div>
         </article>
         <?php if(isset($reponses[$comment['id_commentaires']])) { ?>
           <div class="monster-comment-replies">
             <?php foreach($reponses[$comment['id_commentaires']] as $reply) { ?>
               <div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="replies-svg" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" /></svg>
                 <article id="<?= $reply['id_commentaires']; ?>" class="monster-comment">
                   <div class="">
                     <h6><?= htmlspecialchars($reply['pseudo']); ?></h6>
                     <small><?= $reply['nb_likes']; ?> likes</small>
                   </div>
-                  <p><?= htmlspecialchars($reply['commentaire']); ?></p>
+                  <div class="comment-container">
+                    <p><?= htmlspecialchars($reply['commentaire']); ?></p>
+                    <svg class="comment-liked <?= $reply['liked'] ? "active" : "" ?>" viewBox="0 0 24 24">
+                      <path d="M12 21s-7-4.35-10-9c-2.5-3.9-.5-9 4-9 2.4 0 4 1.6 6 3.6C14 4.6 15.6 3 18 3c4.5 0 6.5 5.1 4 9-3 4.65-10 9-10 9z"/>
+                    </svg>
+                  </div>
                 </article>
               </div>
             <?php } ?>

@@ -1,5 +1,6 @@
 const section = document.querySelector(".monster-header");
 const monster_name = new URLSearchParams(window.location.search).get("name");
+const comments = document.querySelectorAll(".monster-comment");
 
 let allMonsters = [];
 
@@ -28,7 +29,7 @@ async function getMonster() {
 
     const drankText = document.createElement("small");
     drankText.className = `drank-text ${res.drank ? "active" : ""}`;
-    drankText.textContent = `${res.drank ? "Bu aujourd'hui" : "Pas bu aujourd'hui"}`
+    drankText.textContent = `${res.drank ? "Bu aujourd'hui" : "Pas bu aujourd'hui"}`;
 
     div.append(drankText, drank, liked);
     section.appendChild(div);
@@ -94,7 +95,7 @@ async function getMonster() {
           drankBtn.classList.toggle("active");
           drankText.classList.toggle("active");
           res.drank = !res.drank;
-          drankText.textContent = `${res.drank ? "Bu aujourd'hui" : "Pas bu aujourd'hui"}`
+          drankText.textContent = `${res.drank ? "Bu aujourd'hui" : "Pas bu aujourd'hui"}`;
         }
       } catch (err) {
         console.error(err);
@@ -104,6 +105,40 @@ async function getMonster() {
     console.log(err);
   }
 }
+
+comments.forEach((comment) => {
+  const commentId = comment.id;
+  const likeElement = comment.querySelector(".comment-liked");
+  likeElement.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      const request = await fetch("/api/comment/liked.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          comment_id: commentId,
+        }),
+      });
+
+      if (request.status === 401) {
+        showLoginPopup();
+        return;
+      }
+
+      const data = await request.json();
+
+      if (data.success) {
+        likeElement.classList.toggle("active");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+});
 
 function showLoginPopup() {
   const popup = document.createElement("div");

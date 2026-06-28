@@ -43,26 +43,32 @@
     return $monster;
   }
 
-  function getComments(PDO $pdo, $nom) {
+  function getComments(PDO $pdo, $nom, $userId) {
     try {
-      $stmt = $pdo->prepare("SELECT 
-          c.id_commentaires,
-          c.id_parent,
-          c.commentaire,
-          c.date,
-          c.is_pinned,
-          u.pseudo,
-          COUNT(l.id_commentaires) AS nb_likes
-      FROM monsters AS m
-      INNER JOIN monster_tags AS mt ON mt.id_monsters = m.id_monsters
-      INNER JOIN tags ON tags.id_tags = mt.id_tags
-      INNER JOIN commentaires AS c ON c.id_monsters = m.id_monsters
-      INNER JOIN users AS u ON u.id_users = c.id_users
-      LEFT JOIN likes AS l ON l.id_commentaires = c.id_commentaires
-      WHERE m.nom = :nom
-      GROUP BY c.id_commentaires"
+      $stmt = $pdo->prepare("SELECT
+            c.id_commentaires,
+            c.id_parent,
+            c.commentaire,
+            c.date,
+            c.is_pinned,
+            u.pseudo,
+            (
+                SELECT COUNT(*)
+                FROM likes l
+                WHERE l.id_commentaires = c.id_commentaires
+            ) AS nb_likes,
+            EXISTS (
+                SELECT 1
+                FROM likes l
+                WHERE l.id_commentaires = c.id_commentaires
+                  AND l.id_users = :userId
+            ) AS liked
+        FROM monsters m
+        JOIN commentaires c ON c.id_monsters = m.id_monsters
+        JOIN users u ON u.id_users = c.id_users
+        WHERE m.nom = :nom;"
       );
-      $stmt->execute(['nom' => $nom]);
+      $stmt->execute(['userId' => $userId, 'nom' => $nom]);
 
       $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
