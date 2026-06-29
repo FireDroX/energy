@@ -87,6 +87,7 @@ function goHome() {
   <script src="comment.js" defer></script>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="/styles/home.css">
+  <link rel="stylesheet" href="/styles/messages.css">
 </head>
 <body>
   <header>
