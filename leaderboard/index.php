@@ -1,21 +1,21 @@
 <?php
 require_once __DIR__ . '/../utils/session.php';
-require_once __DIR__ . '/../components/alert.php';
-
 require_once __DIR__ . '/../utils/loggers.php';
-require_once __DIR__ . '/../utils/database.php';
+require_once __DIR__ . '/../utils/database.php'
+;
 if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION', 'Utilise ' . $_SERVER['SCRIPT_NAME']);
 
-$type = $_GET['type'] ?? 'commentaires';
-$periode = $_GET['periode'] ?? 'mois';
+$typeAffichage = $_GET['type'] ?? 'commentaires';
+$periodeAffichage = $_GET['periode'] ?? 'mois';
 
-$classement = getClassementMonsters($pdo, $type, $periode);
+$classement = getClassementMonsters($pdo, $typeAffichage, $periodeAffichage);
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monster | Classement</title>
 
   <link rel="shortcut icon" href="/favicon.png" type="image/png">
@@ -26,38 +26,40 @@ $classement = getClassementMonsters($pdo, $type, $periode);
   <link rel="stylesheet" href="/styles/home.css">
 </head>
 
-<body>
+<body class="monster-lb-page">
 
   <header>
     <?php require_once __DIR__ . '/../components/navbar.php'; ?>
   </header>
-<div class="container py-5">
+  <?php require_once __DIR__ . '/../components/alert.php'; ?>
 
-  <h1 class="text-center mb-4 text-light">Classement Monster</h1>
+<div class="container py-5 monster-lb-container">
 
-  <form method="GET" class="card bg-black text-light border-secondary p-4 mb-5">
+  <h1 class="text-center mb-4 monster-lb-title">Classement <span>Monster</span></h1>
+
+  <form method="GET" class="monster-lb-filter p-4 mb-5">
     <div class="row g-3">
       <div class="col-md-5">
-        <label class="form-label">Trier par</label>
-            <select name="type" class="form-select">
-                <option value="commentaires" <?= $type === 'commentaires' ? 'selected' : '' ?>>Plus commentées</option>
-                <option value="notes" <?= $type === 'notes' ? 'selected' : '' ?>>Mieux notées</option>
-                <option value="vues" <?= $type === 'vues' ? 'selected' : '' ?>>Plus vues</option>
-                <option value="bus" <?= $type === 'bus' ? 'selected' : '' ?>>Plus bues</option>
-            </select>
+        <label class="monster-lb-label">Trier par</label>
+        <select name="type" class="monster-lb-select">
+          <option value="commentaires" <?= $typeAffichage === 'commentaires' ? 'selected' : '' ?>>Plus commentées</option>
+          <option value="notes" <?= $typeAffichage === 'notes' ? 'selected' : '' ?>>Mieux notées</option>
+          <option value="vues" <?= $typeAffichage === 'vues' ? 'selected' : '' ?>>Plus vues</option>
+          <option value="bus" <?= $typeAffichage === 'bus' ? 'selected' : '' ?>>Plus bues</option>
+        </select>
       </div>
 
       <div class="col-md-5">
-        <label class="form-label">Période</label>
-        <select name="periode" class="form-select">
-          <option value="jour" <?= $periode === 'jour' ? 'selected' : '' ?>>Aujourd'hui</option>
-          <option value="semaine" <?= $periode === 'semaine' ? 'selected' : '' ?>>Cette semaine</option>
-          <option value="mois" <?= $periode === 'mois' ? 'selected' : '' ?>>Ce mois</option>
+        <label class="monster-lb-label">Période</label>
+        <select name="periode" class="monster-lb-select">
+          <option value="jour" <?= $periodeAffichage === 'jour' ? 'selected' : '' ?>>Aujourd'hui</option>
+          <option value="semaine" <?= $periodeAffichage === 'semaine' ? 'selected' : '' ?>>Cette semaine</option>
+          <option value="mois" <?= $periodeAffichage === 'mois' ? 'selected' : '' ?>>Ce mois</option>
         </select>
       </div>
 
       <div class="col-md-2 d-flex align-items-end">
-        <button class="btn btn-success w-100">Filtrer</button>
+        <button class="monster-lb-filter-btn w-100">Filtrer</button>
       </div>
     </div>
   </form>
@@ -65,39 +67,39 @@ $classement = getClassementMonsters($pdo, $type, $periode);
   <div class="row g-4">
     <?php foreach ($classement as $i => $monster): ?>
       <div class="col-md-6">
-        <div 
-          class="card ranking-card bg-black text-light border-secondary shadow"
+        <div
+          class="monster-lb-card"
           data-monster-name="<?= $monster['nom']; ?>"
         >
-          <div class="card-body d-flex align-items-center gap-3">
-            
-            <div class="rank-number text-success">
+          <div class="monster-lb-card-body">
+
+            <div class="monster-lb-rank">
               #<?= $i + 1 ?>
             </div>
 
-            <img 
-              src="<?= htmlspecialchars($monster['image']) ?>" 
-              class="ranking-img"
+            <img
+              src="<?= htmlspecialchars($monster['image']) ?>"
+              class="monster-lb-img"
               alt="<?= htmlspecialchars($monster['nom']) ?>"
             >
 
             <div class="flex-grow-1">
-                <h4 class="mb-1">
+                <h4 class="monster-lb-name mb-1">
                     <?= htmlspecialchars(ucwords(str_replace('_', ' ', $monster['nom']))) ?>
                 </h4>
 
-                <p class="mb-0 text-secondary">
-                    <?php if ($type === 'notes'): ?>
+                <p class="monster-lb-stat mb-0">
+                    <?php if ($typeAffichage === 'notes'): ?>
                         ⭐ <?= $monster['total'] ?>/5
-                        (<?= $monster['nb_notes'] ?> vote(s))
+                        <span class="monster-lb-stat-muted">(<?= $monster['nb_notes'] ?> vote(s))</span>
 
-                    <?php elseif ($type === 'commentaires'): ?>
+                    <?php elseif ($typeAffichage === 'commentaires'): ?>
                         💬 <?= $monster['total'] ?> commentaire(s)
 
-                    <?php elseif ($type === 'vues'): ?>
+                    <?php elseif ($typeAffichage === 'vues'): ?>
                         👁️ <?= $monster['total'] ?> vue(s)
 
-                    <?php elseif ($type === 'bus'): ?>
+                    <?php elseif ($typeAffichage === 'bus'): ?>
                         🥤 <?= $monster['total'] ?> consommation(s)
 
                     <?php endif; ?>
@@ -114,7 +116,7 @@ $classement = getClassementMonsters($pdo, $type, $periode);
 <?php require_once __DIR__ . '/../components/messages.php'; ?>
 </body>
 <script defer>
-  const cards = document.querySelectorAll(".ranking-card");
+  const cards = document.querySelectorAll(".monster-lb-card");
 
   cards.forEach((card) => {
     card.addEventListener("click", () => {
