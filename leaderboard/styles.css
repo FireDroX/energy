@@ -1,122 +1,236 @@
-.leaderboard-page {
+.monster-lb-page {
   min-height: 100vh;
   background: #000000;
   color: #ffffff;
   padding-bottom: 4rem;
 }
 
-.leaderboard-container {
+.monster-lb-container {
   width: min(1200px, 92%);
   margin: auto;
 }
 
-.leaderboard-title {
+.monster-lb-title {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 3px;
+
+  font-weight: 800;
+  font-size: 1.5rem;
+
   color: #ffffff;
-  margin-bottom: 2rem;
 }
 
-.leaderboard-filter {
-  background: #0d0d0d;
+.monster-lb-filter {
+  background: linear-gradient(180deg, #0d0d0d 0%, #000 100%);
   border: 1px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
+  border-radius: 16px;
 }
 
-.leaderboard-filter label {
-  color: #ffffff;
-  font-weight: 700;
+.monster-lb-label {
+  display: block;
+  margin-bottom: 0.4rem;
+
+  color: #bfbfbf;
+
+  font-family: Inter, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.leaderboard-filter select {
+.monster-lb-select {
+  width: 100%;
+
   background: #0d0d0d;
   color: #ffffff;
+
   border: 1px solid #2a2a2a;
+  border-radius: 999px;
+
+  padding: 0.6rem 1rem;
+
+  font-family: Inter, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='%23bfbfbf' d='M6 8 0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 10px;
+
+  transition: all 0.25s ease;
 }
 
-.leaderboard-filter select:focus {
-  background: #0d0d0d;
-  color: #ffffff;
-  border-color: #e5e5e5;
+.monster-lb-select:focus {
+  outline: none;
+  border-color: #ffffff;
   box-shadow: none;
 }
 
-.leaderboard-filter button {
-  background: #ffffff;
-  color: #000000;
-  border: 1px solid #ffffff;
+.monster-lb-select option {
+  background: #0d0d0d;
+  color: #ffffff;
+}
+
+.monster-lb-filter-btn {
+  color: #ffffff;
+  background: transparent;
+
+  border: 1px solid #2a2a2a;
+  border-radius: 999px;
+
+  padding: 0.6rem 1rem;
+
+  font-family: Inter, sans-serif;
+  font-size: 0.8rem;
   font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 1px;
+
+  transition: all 0.25s ease;
 }
 
-.leaderboard-filter button:hover {
-  background: #e5e5e5;
+.monster-lb-filter-btn:hover {
+  background: #ffffff;
   color: #000000;
+  border-color: #ffffff;
 }
 
-.ranking-card {
-  background: #1a1a1a;
+.monster-lb-card {
+  background: linear-gradient(180deg, #0d0d0d 0%, #000 100%);
   border: 1px solid #2a2a2a;
-  border-radius: 12px;
-  transition: 0.2s ease;
-}
+  border-radius: 16px;
 
-.ranking-card:hover {
-  transform: translateY(-3px);
-  background: #202020;
-  border-color: #e5e5e5;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.ranking-img {
+.monster-lb-card:hover {
+  transform: translateY(-3px);
+  border-color: #ffffff;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.monster-lb-card-body {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1.25rem;
+}
+
+.monster-lb-img {
   width: 90px;
   height: 90px;
   object-fit: contain;
+  flex-shrink: 0;
+
   filter: grayscale(100%) contrast(1.1);
   transition: all 0.3s ease;
 }
 
-.ranking-card:hover .ranking-img {
+.monster-lb-card:hover .monster-lb-img {
   filter: none;
 }
 
-.rank-number {
-  color: #ffffff;
-  font-size: 2rem;
-  font-weight: bold;
+.monster-lb-rank {
   min-width: 60px;
+
+  color: #ffffff;
+
+  font-family: Inter, sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
 }
 
-.ranking-name {
+.monster-lb-name {
+  color: #ffffff;
+
+  font-family: Inter, sans-serif;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #ffffff;
+
+  overflow-wrap: break-word;
 }
 
-.ranking-stat {
+.monster-lb-stat {
   color: #bfbfbf;
+
+  font-family: Inter, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
-.ranking-stat-muted {
+.monster-lb-stat-muted {
   color: #7a7a7a;
 }
 
+
+@media (max-width: 992px) {
+  .monster-lb-title {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+  }
+}
+
 @media (max-width: 768px) {
-  .ranking-card .card-body {
-    gap: 1rem;
+  .monster-lb-container {
+    width: 94%;
   }
 
-  .ranking-img {
+  .monster-lb-filter {
+    padding: 1.25rem !important;
+    border-radius: 14px;
+  }
+
+  .monster-lb-card {
+    border-radius: 14px;
+  }
+
+  .monster-lb-card-body {
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .monster-lb-img {
     width: 70px;
     height: 70px;
   }
 
-  .rank-number {
+  .monster-lb-rank {
     font-size: 1.5rem;
     min-width: 45px;
+  }
+
+  .monster-lb-name {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .monster-lb-title {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+
+  .monster-lb-card-body {
+    flex-wrap: wrap;
+  }
+
+  .monster-lb-rank {
+    min-width: auto;
+  }
+
+  .monster-lb-img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .monster-lb-stat {
+    font-size: 0.75rem;
   }
 }
