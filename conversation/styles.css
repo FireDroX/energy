@@ -24,7 +24,17 @@ body {
 }
 
 main.container {
-  height: 80vh;
+  background: linear-gradient(
+    90deg,
+    rgba(18, 18, 18, 0.98) 0%,
+    rgba(10, 10, 10, 0.98) 100%
+  );
+  border: 2px solid #fff;
+  border-radius: 25px;
+  padding: 15px;
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.7),
+    0 0 30px rgba(255, 255, 255, 0.15);
 }
 
 #conv-header {
@@ -242,10 +252,4 @@ main.container {
 
 #conv-char-count.is-warning {
   color: var(--conv-accent);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-  }
 }

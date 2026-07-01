@@ -338,6 +338,7 @@
 }
 
 .add-commentaire {
+  line-height: 1;
   transition:
     transform 220ms ease,
     background 220ms ease,
@@ -432,7 +433,7 @@
   .monster-header {
     flex-direction: column;
     text-align: center;
-    padding-bottom: 50px;
+    padding-bottom: 60px;
   }
 
   .monster-header img {
@@ -451,5 +452,10 @@
 
   .drank-text {
     display: none;
+  }
+
+  .add-commentaire {
+    font-size: 0.75rem;
+    padding: 6px 12px;
   }
 }

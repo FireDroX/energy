@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Metal+Mania&family=Inter:wght@400;500;600;700;800&display=swap");
 
 .monster-navbar {
-  height: 80px;
+  height: 65px;
   width: 100%;
 
   display: flex;
@@ -23,7 +23,7 @@
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
 .monster-logo {
@@ -55,7 +55,7 @@
 
 .monster-links {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
 
   list-style: none;
   margin: 0;
@@ -73,7 +73,7 @@
   color: #bfbfbf;
   text-decoration: none;
 
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
 
   font-family: Inter, sans-serif;
   font-size: 0.8rem;
@@ -119,13 +119,151 @@
   color: black;
 }
 
-@media (max-width: 850px) {
-  .monster-logo span {
-    display: none;
-  }
+#navbar-mobile-dropdown {
+  display: none;
+}
 
+.monster-dropdown {
+  position: relative;
+}
+
+.monster-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #bfbfbf;
+  background: transparent;
+
+  font-family: Inter, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  padding: 0.5rem 0.75rem;
+
+  border: 1px solid transparent;
+  border-radius: 999px;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.monster-dropdown-toggle::after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 2px;
+
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+
+  transition: transform 0.25s ease;
+}
+
+.monster-dropdown-toggle:hover,
+.monster-dropdown-toggle[aria-expanded="true"] {
+  background: white;
+  color: black;
+}
+
+.monster-dropdown-toggle[aria-expanded="true"]::after {
+  transform: rotate(-135deg);
+}
+
+/* Le bouton "Navigation" mobile reprend le style navbar-right */
+.monster-dropdown--mobile .monster-dropdown-toggle {
+  color: white;
+  border: 1px solid #2a2a2a;
+  padding: 0.75rem 1rem;
+}
+
+.monster-dropdown--mobile .monster-dropdown-toggle:hover,
+.monster-dropdown--mobile .monster-dropdown-toggle[aria-expanded="true"] {
+  background: white;
+  color: black;
+  border-color: white;
+}
+
+.monster-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+
+  min-width: 200px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  margin: 0;
+  padding: 0.5rem;
+  list-style: none;
+
+  background: linear-gradient(180deg, #0d0d0d 0%, #000 100%);
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.25s ease;
+}
+
+.monster-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.monster-dropdown-item {
+  display: flex;
+  align-items: center;
+
+  color: #bfbfbf;
+  text-decoration: none;
+
+  padding: 0.6rem 0.85rem;
+
+  font-family: Inter, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  border-radius: 999px;
+
+  transition: all 0.25s ease;
+}
+
+.monster-dropdown-item:hover {
+  background: white;
+  color: black;
+}
+
+.monster-dropdown-divider {
+  height: 1px;
+  margin: 0.35rem 0.5rem;
+  background: #2a2a2a;
+  list-style: none;
+}
+
+.monster-dropdown-divider span {
+  display: none;
+}
+
+@media (max-width: 920px) {
   .monster-navbar {
     padding: 0 1rem;
+  }
+
+  .monster-logo span {
+    font-size: 1.5rem;
   }
 
   .monster-links {
@@ -134,5 +272,13 @@
 
   .monster-links a {
     padding: 0.65rem;
+  }
+
+  .monster-links {
+    display: none;
+  }
+
+  #navbar-mobile-dropdown {
+    display: block;
   }
 }
