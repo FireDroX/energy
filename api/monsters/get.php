@@ -13,16 +13,11 @@ try {
             m.id_monsters,
             m.nom,
             m.image,
-            GROUP_CONCAT(DISTINCT t.nom) as tags,
-            ROUND(AVG(n.note), 2) as note,
-            CASE
-                WHEN mf.id_users IS NULL THEN 0
-                ELSE 1
-            END AS favorite,
-            CASE
-                WHEN md.id_users IS NULL THEN 0
-                ELSE 1
-            END AS drank
+            GROUP_CONCAT(DISTINCT t.nom) AS tags,
+            ROUND(AVG(n.note), 2) AS note,
+            (mf.id_users IS NOT NULL) AS favorite,
+            (md.id_users IS NOT NULL) AS drank,
+            nu.note AS user_note
         FROM monsters m
         LEFT JOIN monster_tags mt ON m.id_monsters = mt.id_monsters
         LEFT JOIN tags t ON mt.id_tags = t.id_tags
@@ -34,6 +29,9 @@ try {
             ON md.id_monsters = m.id_monsters
             AND md.id_users = :userId
             AND md.date_drink >= NOW() - INTERVAL 1 DAY
+        LEFT JOIN notes nu
+            ON nu.id_monsters = m.id_monsters
+            AND nu.id_users = :userId
         GROUP BY m.id_monsters
         ORDER BY note DESC;
     ");

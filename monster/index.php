@@ -118,7 +118,9 @@ function goHome() {
           <small><?= $monster['score']; ?> / 5 - (<?= $monster['nb_notes'] ?> notes) </small>
         </div>
       </div>
-      <button class="add-commentaire">+ Commentez</button>
+      <div class="interactions-footer">
+        <button class="add-commentaire">+ Commentez</button>
+      </div>
     </section>
     <br />
     <section class="monster-commentsList">

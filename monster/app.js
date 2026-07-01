@@ -12,6 +12,8 @@ async function getMonster() {
 
     let res = [...allMonsters].filter((m) => m.nom == monster_name)[0];
 
+    const interactions = document.querySelector(".interactions-footer");
+
     const div = document.createElement("div");
     div.className = "interactions-container";
 
@@ -30,8 +32,54 @@ async function getMonster() {
     drankText.className = `drank-text ${res.drank ? "active" : ""}`;
     drankText.textContent = `${res.drank ? "Bu aujourd'hui" : "Pas bu aujourd'hui"}`;
 
-    div.append(drankText, drank, liked);
-    section.appendChild(div);
+    const stars = document.createElement("div");
+    stars.className = "stars-container";
+
+    for (let i = 0; i < 5; i++) {
+      const star = document.createElement("div");
+      console.log(i, res.user_note, res.user_note > i);
+
+      star.className = "star";
+      star.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class=${res.user_note > i ? "active" : "innactive"}><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" /></svg>`;
+
+      stars.appendChild(star);
+
+      star.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        try {
+          const request = await fetch("/api/monsters/rate.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              monster_id: res.id_monsters,
+              note: i + 1,
+            }),
+          });
+
+          if (request.status === 401) {
+            showLoginPopup();
+            return;
+          }
+
+          const data = await request.json();
+
+          if (data.success) {
+            location.href = `/monster/?name=${monster_name}&success=note_updated`;
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      });
+    }
+
+    div.append(liked, drank, drankText);
+
+    interactions.prepend(div, stars);
+    section.appendChild(interactions);
 
     const favoriteBtn = div.querySelector(".favorite-btn");
 
@@ -40,7 +88,7 @@ async function getMonster() {
       e.stopPropagation();
 
       try {
-        const request = await fetch("/api/favorites/toggle.php", {
+        const request = await fetch("/api/monsters/toggle_favorite.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -73,7 +121,7 @@ async function getMonster() {
       e.stopPropagation();
 
       try {
-        const request = await fetch("/api/drank/toggle.php", {
+        const request = await fetch("/api/monsters/toggle_drank.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
