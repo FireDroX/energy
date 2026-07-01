@@ -68,7 +68,7 @@ comments.forEach((comment) => {
   });
 });
 
-addComment.addEventListener("click", async () => showCommentPopup());
+addComment?.addEventListener("click", async () => showCommentPopup());
 
 replyComments.forEach((comment) => {
   const parent = comment.id;

@@ -8,7 +8,7 @@
   - "Moderation des messages" (voir les messages qui sont report par d'autres)
 - Monsters
   - Commenter ✅
-  - Noter
+  - Noter ✅
   - Ajouter si on a like ou pas quand on est sur search ✅
   - Epingler et Supprimer un message pour les contributors / admin
 - Page de profil

@@ -9,6 +9,7 @@
   border: 2px solid #ffffff;
   border-radius: 20px;
   padding: 25px;
+  padding-bottom: 70px;
   box-shadow:
     0 0 10px rgba(255, 255, 255, 0.3),
     0 0 40px rgba(255, 255, 255, 0.1);
@@ -167,31 +168,7 @@
   color: #7a7a7a;
 }
 
-@media (max-width: 768px) {
-  .monster-header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .monster-header img {
-    width: 100%;
-    max-height: 320px;
-    height: auto;
-  }
-
-  .monster-header ul {
-    justify-content: center;
-  }
-
-  .monster-header h2 {
-    font-size: 1.8rem;
-  }
-}
-
 .interactions-container {
-  position: absolute;
-  right: 12px;
-  top: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -361,9 +338,7 @@
 }
 
 .add-commentaire {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
+  line-height: 1;
   transition:
     transform 220ms ease,
     background 220ms ease,
@@ -407,4 +382,80 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
+}
+
+.stars-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star > svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2;
+}
+
+.star > svg.active {
+  stroke: #aca900;
+  fill: #aca900;
+}
+
+.star > svg.innactive {
+  stroke: #5a5a5a;
+}
+
+.star {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 220ms ease;
+}
+
+.star:hover > svg {
+  transform: scale(1.2) translateY(-2px);
+  transition: all 220ms ease;
+}
+
+.interactions-footer {
+  position: absolute;
+  bottom: 20px;
+  width: calc(100% - 50px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .monster-header {
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 60px;
+  }
+
+  .monster-header img {
+    width: 100%;
+    max-height: 320px;
+    height: auto;
+  }
+
+  .monster-header ul {
+    justify-content: center;
+  }
+
+  .monster-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .drank-text {
+    display: none;
+  }
+
+  .add-commentaire {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
 }
