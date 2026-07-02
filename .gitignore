@@ -1,6 +1,7 @@
 .env
 /assets
 /vendor
+/uploads
 
 # Build docker pour le server de backup
 build.sh
