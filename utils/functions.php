@@ -53,6 +53,7 @@
             c.is_pinned,
             u.pseudo,
             u.id_users,
+            u.avatar,
             (
                 SELECT COUNT(*)
                 FROM likes l

@@ -68,7 +68,8 @@ main.container {
   height: 20px;
 }
 
-#conv-avatar {
+#conv-avatar,
+#conv-avatar img {
   width: 38px;
   height: 38px;
   border-radius: 50%;

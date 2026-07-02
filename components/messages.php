@@ -68,7 +68,13 @@ $allUsers = $stmtUsers->fetchAll();
                     <a class="msg-item <?= $isUnread ? 'is-unread' : '' ?>"
                         href="/conversation?with=<?= (int) $conv['id_users'] ?>"
                         data-sender-id="<?= (int) $conv['id_users'] ?>">
-                        <span class="msg-item-avatar"><?= mb_strtoupper(mb_substr($conv['pseudo'], 0, 1)) ?></span>
+                        <span class="msg-item-avatar">
+                            <?php if (isset($conv['avatar'])) { ?>
+                                <img src="/uploads/avatars/<?= htmlspecialchars($conv['avatar']) ?>" alt="Avatar" class="img-fluid">
+                            <?php } else { ?>
+                                <?= mb_strtoupper(mb_substr($conv['pseudo'], 0, 1)) ?>
+                            <?php } ?>
+                        </span>
                         <span class="msg-item-body">
                             <span class="msg-item-top">
                                 <span class="msg-item-name"><?= htmlspecialchars($conv['pseudo']) ?></span>
