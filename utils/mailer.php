@@ -19,7 +19,7 @@ class Mailer {
         $this->mail->Port       = 587;
         $this->mail->CharSet    = 'UTF-8';
         $this->mail->setFrom(
-            $_ENV['MAIL_FROM_ADDRESS'],
+            $_ENV['GMAIL_USER'],
             $_ENV['MAIL_FROM_NAME']
         );
     }
@@ -53,7 +53,7 @@ class Mailer {
             try {
                 $this->mail->clearAddresses();
                 $this->mail->clearBCCs();
-                $this->mail->addAddress($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
+                $this->mail->addAddress($_ENV['GMAIL_USER'], $_ENV['MAIL_FROM_NAME']);
 
                 foreach ($batch as $recipient) {
                     $this->mail->addBCC($recipient['mail'], $recipient['pseudo'] ?? '');
