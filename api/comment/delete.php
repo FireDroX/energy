@@ -16,6 +16,7 @@ $raw = file_get_contents('php://input');
 $data = json_decode($raw, true);
 
 $commentId = $data['comment_id'] ?? $_POST['comment_id'] ?? null;
+$userId = $data['user_id'] ?? $_POST['user_id'] ?? null;
 
 if (!$commentId) {
     http_response_code(400);
@@ -27,33 +28,62 @@ if (!$commentId) {
     exit;
 }
 
-$userId = (int) $_SESSION['user']['id'];
+$loggedUserId = (int) $_SESSION['user']['id'];
 $commentId = (int) $commentId;
 
 $stmt = $pdo->prepare("
-    SELECT 1
-    FROM commentaires
-    WHERE id_users = ?
-    AND id_commentaires = ?
+    SELECT 
+        c.id_commentaires, c.commentaire, u.id_users, u.pseudo, m.nom
+    FROM commentaires c
+    INNER JOIN users u ON c.id_users = u.id_users
+    INNER JOIN monsters m ON c.id_monsters = m.id_monsters
+    WHERE id_commentaires = ?;
 ");
+$stmt->execute([$commentId]);
 
-$stmt->execute([$userId, $commentId]);
+$comment = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($stmt->fetch()) {
-    $stmt = $pdo->prepare("
-        DELETE FROM commentaires
-        WHERE id_users = ?
-        AND id_commentaires = ?
-    ");
-    $stmt->execute([$userId, $commentId]);
-
-    echo json_encode(['success' => true]);
-
-    addLog(
-        $pdo,
-        $_SESSION['user']['id'],
-        'COMMENT',
-        'Supprime son commentaire'
-    );
+if (!$comment) {
+    http_response_code(404);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Commentaire introuvable'
+    ]);
     exit;
 }
+
+$ownerId = (int) $comment['id_users'];
+
+if (
+    $ownerId !== $loggedUserId &&
+    !in_array($_SESSION['user']['role'], [1, 3])
+) {
+    http_response_code(403);
+    echo json_encode(['warning' => true]);
+    exit;
+}
+
+$stmt = $pdo->prepare("
+    DELETE FROM commentaires
+    WHERE id_commentaires = ?
+");
+$stmt->execute([$commentId]);
+
+if ($ownerId !== $loggedUserId) {
+    addLog(
+        $pdo,
+        $loggedUserId,
+        'COMMENT',
+        'Supprime le commentaire (' . htmlspecialchars($comment['commentaire']) . ') de ' . htmlspecialchars($comment['pseudo']) . ' sur la monster ' . htmlspecialchars($comment['nom'])
+    );
+} else {
+    addLog(
+        $pdo,
+        $loggedUserId,
+        'COMMENT',
+        'Supprime son commentaire (' . htmlspecialchars($comment['commentaire']) . ') sur la monster' . htmlspecialchars($comment['nom'])
+    );
+}
+
+echo json_encode(['success' => true]);
+exit;

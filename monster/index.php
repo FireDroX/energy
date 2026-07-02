@@ -118,17 +118,23 @@ function goHome() {
           <small><?= $monster['score']; ?> / 5 - (<?= $monster['nb_notes'] ?> notes) </small>
         </div>
       </div>
-      <button class="add-commentaire">+ Commentez</button>
+      <div class="interactions-footer">
+        <button class="add-commentaire">+ Commentez</button>
+      </div>
     </section>
     <br />
     <section class="monster-commentsList">
       <?php foreach($parents as $comment) { ?>
-        <article id="<?= $comment['id_commentaires']; ?>" class="monster-comment <?= $comment['is_pinned'] ? 'comment-pinned' : ''; ?>">
+        <article 
+          id="<?= $comment['id_commentaires']; ?>"
+          class="monster-comment <?= $comment['is_pinned'] ? 'comment-pinned' : ''; ?>"
+          data-user-id="<?= $comment['id_users']; ?>"
+        >
           <div class="">
             <div class="">
               <h6><?= htmlspecialchars($comment['pseudo']); ?>
-                <?php if($comment['is_pinned']) { ?>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" /></svg>
+                <?php if($comment['is_pinned'] || ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 3)) { ?>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="pin-comment <?= $comment['is_pinned'] ? 'pinned' : 'unpinned' ?>"><path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" /></svg>
                 <?php } ?>
               </h6>
             </div>
@@ -137,7 +143,11 @@ function goHome() {
           <div class="comment-container">
             <p><?= htmlspecialchars($comment['commentaire']); ?></p>
             <div class="icons-container">
-              <?php if (isset($_SESSION['user']) && $comment['id_users'] == $_SESSION['user']['id']) { ?>
+              <?php if (isset($_SESSION['user']) && (
+                $comment['id_users'] == $_SESSION['user']['id'] || 
+                $_SESSION['user']['role'] == 1 || 
+                $_SESSION['user']['role'] == 3
+              )) { ?>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"class="remove-comment">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
               </svg>
@@ -153,7 +163,11 @@ function goHome() {
             <?php foreach($reponses[$comment['id_commentaires']] as $reply) { ?>
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="replies-svg" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" /></svg>
-                <article id="<?= $reply['id_commentaires']; ?>" class="monster-comment">
+                <article 
+                  id="<?= $reply['id_commentaires']; ?>"
+                  class="monster-comment"
+                  data-user-id="<?= $reply['id_users']; ?>"
+                >
                   <div class="">
                     <h6><?= htmlspecialchars($reply['pseudo']); ?></h6>
                     <small><?= $reply['nb_likes']; ?> likes</small>
@@ -161,7 +175,11 @@ function goHome() {
                   <div class="comment-container">
                     <p><?= htmlspecialchars($reply['commentaire']); ?></p>
                     <div class="icons-container">
-                      <?php if (isset($_SESSION['user']) && $reply['id_users'] == $_SESSION['user']['id']) { ?>
+                      <?php if (isset($_SESSION['user']) && (
+                        $reply['id_users'] == $_SESSION['user']['id'] || 
+                        $_SESSION['user']['role'] == 1 || 
+                        $_SESSION['user']['role'] == 3
+                      )) { ?>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"class="remove-comment">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                       </svg>
