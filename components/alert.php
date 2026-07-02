@@ -21,6 +21,8 @@ $alerts = [
     'message_deleted' => 'Votre commentaire à bien été supprimé !',
     'note_updated' => 'Votre note à bien été mise à jour !',
     'note_created' => 'Votre note à bien été créée !',
+    'comment_pinned' => 'Commentaire épinglé !',
+    'comment_unpinned' => 'Commentaire désépinglé !',
   ],
 
   'error' => [
@@ -42,6 +44,7 @@ $alerts = [
     'tag_exists' => 'Ce tag est déjà utilisé !',
     'session_expired' => 'Session expirée !',
     'activated_account' => 'Ce compte n\'est pas activé, vérifie ton mail !',
+    'forbidden' => 'Vous n\'êtes pas autorisé à faire ceci !',
   ],
 
   'info' => [
