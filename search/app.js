@@ -56,7 +56,7 @@ const getMonsters = async () => {
         e.stopPropagation();
 
         try {
-          const request = await fetch("/api/favorites/toggle.php", {
+          const request = await fetch("/api/monsters/toggle_favorite.php", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

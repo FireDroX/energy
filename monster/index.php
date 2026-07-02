@@ -100,9 +100,12 @@ function goHome() {
       <div>
         <h2><?= formatName($monsterName); ?></h2>
         <ul>
-          <?php foreach(explode(",", $monster['tags']) as $tag) { ?>
+          <?php if ($monster['tags'] === null) { ?>
+            <li>Aucun tag</li>
+          
+          <?php } else { foreach(explode(",", $monster['tags']) as $tag) { ?>
             <li><?= $tag; ?></li>
-          <?php } ?>
+          <?php }} ?>
         </ul>
         <div class="monster-score">
           <div class="progress">
@@ -115,7 +118,7 @@ function goHome() {
               aria-valuemax="5"
             ></div>
           </div>
-          <small><?= $monster['score']; ?> / 5 - (<?= $monster['nb_notes'] ?> notes) </small>
+          <small><?= isset($monster['score']) ? $monster['score'] : 'N/A'; ?> / 5 - (<?= $monster['nb_notes'] ?> notes) </small>
         </div>
       </div>
       <div class="interactions-footer">
