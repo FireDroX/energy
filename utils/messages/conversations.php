@@ -2,13 +2,13 @@
 
 function getConversationsForUser(PDO $pdo, int $userId): array {
     $sql = "
-        SELECT u.id_users, u.pseudo,
-               m.contenu AS dernier_message,
-               m.date_envoie AS derniere_date,
-               m.sender_id
+        SELECT u.id_users, u.pseudo, u.avatar,
+            m.contenu AS dernier_message,
+            m.date_envoie AS derniere_date,
+            m.sender_id
         FROM messages m
         JOIN users u
-          ON u.id_users = IF(m.sender_id = :user_id, m.receiver_id, m.sender_id)
+            ON u.id_users = IF(m.sender_id = :user_id, m.receiver_id, m.sender_id)
         WHERE m.id_messages IN (
             SELECT MAX(id_messages)
             FROM messages

@@ -234,7 +234,8 @@
   color: var(--msg-ink);
 }
 
-.msg-item-avatar {
+.msg-item-avatar,
+.msg-item-avatar img {
   flex-shrink: 0;
   width: 38px;
   height: 38px;

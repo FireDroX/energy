@@ -18,7 +18,7 @@ if ($otherId <= 0 || $otherId === $userId) {
     exit;
 }
 
-$stmtUser = $pdo->prepare('SELECT id_users, pseudo FROM users WHERE id_users = :id');
+$stmtUser = $pdo->prepare('SELECT id_users, pseudo, avatar FROM users WHERE id_users = :id');
 $stmtUser->execute(['id' => $otherId]);
 $otherUser = $stmtUser->fetch();
 
@@ -90,7 +90,13 @@ function formatGroupDate(string $dateText): string
                     <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </a>
-            <div id="conv-avatar"><?= mb_strtoupper(mb_substr($otherUser['pseudo'], 0, 1)) ?></div>
+            <div id="conv-avatar">
+                <?php if (isset($otherUser['avatar'])) { ?>
+                    <img src="/uploads/avatars/<?= htmlspecialchars($otherUser['avatar']) ?>" alt="Avatar" class="img-fluid">
+                <?php } else { ?>
+                    <?= mb_strtoupper(mb_substr($otherUser['pseudo'], 0, 1)) ?>
+                <?php } ?>
+            </div>
             <div>
                 <p id="conv-name"><?= htmlspecialchars($otherUser['pseudo']) ?></p>
                 <p id="conv-status">Conversation</p>
