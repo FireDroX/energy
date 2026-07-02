@@ -20,7 +20,8 @@ $stmt = $pdo->prepare("
         u.mdp,
         u.created,
         u.newsletter, 
-        r.role
+        r.role,
+        u.avatar
     FROM users u 
     INNER JOIN roles r ON r.id_role = u.id_role
     WHERE u.id_users = :id;
@@ -52,16 +53,41 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
         <main class="container py-5">
             <div class="account-card">
                 <div class="account-header">
-                    <div class="account-avatar">
-                        <?= strtoupper(substr($userData['pseudo'], 0, 1)) ?>
+
+                    <form action="upload_avatar.php"
+                        method="POST"
+                        enctype="multipart/form-data">
+
+                        <label for="avatar-upload" class="account-avatar avatar-upload">
+
+                            <?php if (!empty($userData['avatar'])): ?>
+                                <img src="/uploads/avatars/<?= htmlspecialchars($userData['avatar']) ?>" alt="Avatar">
+                            <?php else: ?>
+                                <?= strtoupper(substr($userData['pseudo'], 0, 1)) ?>
+                            <?php endif; ?>
+
+                            <div class="avatar-overlay">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+
+                        </label>
+
+                        <input
+                            id="avatar-upload"
+                            type="file"
+                            name="avatar"
+                            accept=".jpg,.jpeg,.png,.webp"
+                            onchange="this.form.submit();">
+
+                    </form>
+
+                        <div>
+                            <h1><?= htmlspecialchars($userData['pseudo']) ?></h1>
+                            <p class="account-role">
+                                <?= htmlspecialchars($userData['role']) ?>
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <h1><?= htmlspecialchars($userData['pseudo']) ?></h1>
-                        <p class="account-role">
-                            <?= htmlspecialchars($userData['role']) ?>
-                        </p>
-                    </div>
-                </div>
 
                 <div class="account-stats">
                     <div class="stat-box">
@@ -91,6 +117,12 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
                         </span>
                     </div>
                 </div>
+
+            <div class="account-download">
+                <a href="export_pdf.php" class="btn-download">
+                    📄 Télécharger mes informations (PDF)
+                </a>
+            </div>
 
                 <div class="account-footer">
                     <div class="account-actions">

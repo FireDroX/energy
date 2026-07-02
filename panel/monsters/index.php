@@ -71,9 +71,17 @@ try {
         <button type="submit" class="btn btn-primary">
           Sauvegarder
         </button>
+        <a
+            id="downloadPdf"
+            href="#"
+            class="btn btn-secondary"
+            style="display:none;">
+            Télécharger le PDF
+        </a>
       </form>
     </main>
     <script>
+      const downloadPdf = document.getElementById('downloadPdf');
       const monsters = <?= json_encode($monsters) ?>;
 
       const select = document.getElementById('monsterSelect');
@@ -110,6 +118,36 @@ try {
         } else {
           location.href = `/panel/monsters?error=${encodeURIComponent(json.error)}`;
         }
+        
+      });
+
+      select.addEventListener('change', () => {
+          const val = select.value;
+
+          if (val === "new") {
+              idInput.value = 0;
+              nom.value = "Placeholder";
+              image.value = "https://example.com/";
+
+              downloadPdf.style.display = "none";
+              downloadPdf.href = "#";
+
+              return;
+          }
+
+          const monster = monsters.find(c => c.id_monsters == val);
+
+          if (!monster) {
+              downloadPdf.style.display = "none";
+              return;
+          }
+
+          idInput.value = monster.id_monsters;
+          nom.value = monster.nom;
+          image.value = monster.image;
+
+          downloadPdf.href = `/panel/pdf/export_monster_pdf.php?id=${monster.id_monsters}`;
+          downloadPdf.style.display = "inline-block";
       });
     </script>
   </body>
