@@ -7,6 +7,7 @@ comments.forEach((comment) => {
   const userId = comment.dataset.userId;
   const likeElement = comment.querySelector(".comment-liked");
   const removeElement = comment.querySelector(".remove-comment");
+  const pinComment = comment.querySelector(".pin-comment");
 
   likeElement.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -65,6 +66,36 @@ comments.forEach((comment) => {
         location.href = `/monster/?name=${monster_name}&success=message_deleted`;
       } else if (data.warning) {
         location.href = `/monster/?name=${monster_name}&warning=forbidden`;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  pinComment?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      const request = await fetch("/api/comment/pin.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          comment_id: commentId,
+        }),
+      });
+
+      if (request.status === 401) {
+        showLoginPopup();
+        return;
+      }
+
+      const data = await request.json();
+
+      if (data.success) {
+        location.href = `/monster/?name=${monster_name}&success=${data.message}`;
       }
     } catch (err) {
       console.error(err);
