@@ -4,6 +4,7 @@ const comments = document.querySelectorAll(".monster-comment");
 
 comments.forEach((comment) => {
   const commentId = comment.id;
+  const userId = comment.dataset.userId;
   const likeElement = comment.querySelector(".comment-liked");
   const removeElement = comment.querySelector(".remove-comment");
 
@@ -19,6 +20,7 @@ comments.forEach((comment) => {
         },
         body: JSON.stringify({
           comment_id: commentId,
+          user_id: userId,
         }),
       });
 
@@ -61,6 +63,8 @@ comments.forEach((comment) => {
 
       if (data.success) {
         location.href = `/monster/?name=${monster_name}&success=message_deleted`;
+      } else if (data.warning) {
+        location.href = `/monster/?name=${monster_name}&warning=forbidden`;
       }
     } catch (err) {
       console.error(err);

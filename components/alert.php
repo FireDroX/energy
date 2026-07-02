@@ -42,6 +42,7 @@ $alerts = [
     'tag_exists' => 'Ce tag est déjà utilisé !',
     'session_expired' => 'Session expirée !',
     'activated_account' => 'Ce compte n\'est pas activé, vérifie ton mail !',
+    'forbidden' => 'Vous n\'êtes pas autorisé à faire ceci !',
   ],
 
   'info' => [
