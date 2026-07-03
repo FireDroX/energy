@@ -1,56 +1,25 @@
-let croppie;
-
 const input = document.getElementById("avatar-upload");
-const container = document.getElementById("avatar-crop");
+const fileName = document.getElementById("selected-file");
+const preview = document.getElementById("avatar-preview");
+const placeholder = document.getElementById("avatar-placeholder");
 
-croppie = new Croppie(container, {
-  viewport: {
-    width: 220,
-    height: 220,
-    type: "circle",
-  },
+input.addEventListener("change", () => {
+  if (!input.files.length) {
+    return;
+  }
 
-  boundary: {
-    width: 320,
-    height: 320,
-  },
+  const file = input.files[0];
 
-  enableZoom: true,
-  showZoomer: true,
-  enableOrientation: false,
-});
+  fileName.textContent = file.name;
 
-input.addEventListener("change", function (e) {
   const reader = new FileReader();
 
-  reader.onload = function (event) {
-    croppie.bind({
-      url: event.target.result,
-    });
+  reader.onload = function (e) {
+    preview.src = e.target.result;
+    preview.hidden = false;
+
+    placeholder.hidden = true;
   };
 
-  reader.readAsDataURL(e.target.files[0]);
-});
-
-document.getElementById("save-avatar").addEventListener("click", async () => {
-  const blob = await croppie.result({
-    type: "blob",
-    size: {
-      width: 256,
-      height: 256,
-    },
-    format: "webp",
-    quality: 1,
-  });
-
-  const data = new FormData();
-
-  data.append("avatar", blob, "avatar.webp");
-
-  await fetch("upload_avatar.php", {
-    method: "POST",
-    body: data,
-  });
-
-  location.reload();
+  reader.readAsDataURL(file);
 });
