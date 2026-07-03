@@ -13,9 +13,9 @@
 
                 <div class="footer-links">
                     <a href="/index.php">Accueil</a>
-                    <a href="/monster">Monsters</a>
-                    <a href="/about.php">À propos</a>
-                    <a href="/contact.php">Contact</a>
+                    <a href="/search">Monsters</a>
+                    <a href="/about">À propos</a>
+                    <a href="/contact">Contact</a>
                 </div>
             </div>
         </footer>
