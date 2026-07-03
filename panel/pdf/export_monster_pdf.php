@@ -399,7 +399,7 @@ $html = '
         </div>
 
         <div class="footer">
-            Export généré par ' . e($currentUser['pseudo']) . ' depuis le panel administrateur Monster Energy Carousel.
+            Export généré par ' . e($currentUser['pseudo']) . ' depuis le panel administrateur Monster Energy - Review.
         </div>
     </div>
 </body>
