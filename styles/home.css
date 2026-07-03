@@ -116,8 +116,7 @@ body::after {
   text-align: center;
 }
 
-.home-section-header::before {
-  content: "Ton verdict ?";
+#verdict-secret {
   display: inline-flex;
   margin-bottom: 0.85rem;
   padding: 0.45rem 0.8rem;
@@ -129,6 +128,7 @@ body::after {
   font-weight: 900;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  cursor: default;
 }
 
 .home-section-header h2 {
