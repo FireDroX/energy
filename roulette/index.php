@@ -73,15 +73,10 @@ if ($mode === 'never_tried' && $userId) {
 
             <div class="roulette-container">
 
-                <div id="roulette-slot">
-                    <span class="roulette-placeholder">
-                        🎲
-                    </span>
+                <div id="roulette-slot"></div>
+                <div class="roulette-controls">
+                    <button id="spinBtn">Lancer la roulette</button>
                 </div>
-
-                <button id="spinBtn" class="roulette-btn">
-                    Lancer la roulette
-                </button>
 
                 <select name="mode" id="select-roulette">
                     <option value="all" <?= $mode === 'all' ? 'selected' : '' ?>>
@@ -103,7 +98,6 @@ if ($mode === 'never_tried' && $userId) {
     </main>
 
     <div id="roulette-popup" class="roulette-popup">
-
         <div class="roulette-popup-card">
 
             <button id="popup-close" class="popup-close">
@@ -121,7 +115,6 @@ if ($mode === 'never_tried' && $userId) {
             <h3 id="popup-name"></h3>
 
         </div>
-
     </div>
 
     <script>const monsters = <?= json_encode($allMonsters) ?>;</script>
