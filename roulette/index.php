@@ -127,5 +127,6 @@ if ($mode === 'never_tried' && $userId) {
     <script>const monsters = <?= json_encode($allMonsters) ?>;</script>
     <script src="/roulette/app.js"></script>
     <?php require_once __DIR__ . '/../components/messages.php'; ?>
+    <?php require_once __DIR__ . '/../components/footer.php'; ?>
     </body>
 </html>

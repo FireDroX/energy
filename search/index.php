@@ -39,5 +39,6 @@ if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION'
     <br />
     <section id="monstersCaroussel"></section>
     <?php require_once __DIR__ . '/../components/messages.php'; ?>
+    <?php require_once __DIR__ . '/../components/footer.php'; ?>
   </body>
 </html>
