@@ -8,7 +8,7 @@ const selectRoulette = document.getElementById("select-roulette");
 
 selectRoulette.addEventListener("change", (e) => {
   document.location.href = `/roulette?mode=${e.target.value}`;
-})
+});
 
 button.addEventListener("click", async () => {
   if (!monsters || monsters.length === 0) {
@@ -57,7 +57,7 @@ button.addEventListener("click", async () => {
 
   popupImg.addEventListener("click", () => {
     location.href = `/monster?name=${finalMonster.nom}`;
-  })
+  });
 });
 
 popupClose.addEventListener("click", () => {

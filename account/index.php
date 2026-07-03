@@ -45,9 +45,6 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" rel="stylesheet">
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
     </head>
 
     <body>
@@ -152,13 +149,14 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
                                 </button>
                             </div>
 
-                            <div class="modal-body text-center">
-                                <div class="crop-container">
-                                    <div id="avatar-crop"></div>
-                                </div>
-
-                                <label class="btn btn-light mt-3" for="avatar-upload">
-                                    Choisir une image
+                            <div class="avatar-select">
+                                <label for="avatar-upload" class="avatar-file-label">
+                                    <img
+                                        id="avatar-preview"
+                                        src=""
+                                        alt="Prévisualisation"
+                                        hidden>
+                                        <span id="avatar-placeholder"> Cliquez pour choisir une image </span>
                                 </label>
 
                                 <input
@@ -167,21 +165,24 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
                                     name="avatar"
                                     accept=".jpg,.jpeg,.png,.webp"
                                     hidden>
+
+                                <p id="selected-file">
+                                    Aucun fichier sélectionné.
+                                </p>
                             </div>
 
                             <div class="modal-footer">
                                 <button
                                     type="button"
-                                    class="btn btn-secondary"
+                                    class="avatar-btn avatar-btn-cancel"
                                     data-bs-dismiss="modal">
                                     Annuler
                                 </button>
 
                                 <button
-                                    id="save-avatar"
-                                    type="button"
-                                    class="btn btn-light">
-                                    Confirmer
+                                    type="submit"
+                                    class="avatar-btn avatar-btn-save">
+                                    Enregistrer
                                 </button>
                             </div>
 
