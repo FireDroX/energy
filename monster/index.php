@@ -136,13 +136,13 @@ function goHome() {
           <div class="">
             <div class="">
               <h6>
-                <div class="user-avatar">
+                <span class="user-avatar">
                   <?php if (isset($comment['avatar'])) { ?>
                       <img src="/uploads/avatars/<?= htmlspecialchars($comment['avatar']) ?>" alt="Avatar" class="img-fluid">
                   <?php } else { ?>
                       <?= mb_strtoupper(mb_substr($comment['pseudo'], 0, 1)) ?>
                   <?php } ?>
-                </div>
+                </span>
                 <?= htmlspecialchars($comment['pseudo']); ?>
                 <?php if($comment['is_pinned'] || 
                 (isset($_SESSION['user']) && ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 3))) { ?>
@@ -181,7 +181,16 @@ function goHome() {
                   data-user-id="<?= $reply['id_users']; ?>"
                 >
                   <div class="">
-                    <h6><?= htmlspecialchars($reply['pseudo']); ?></h6>
+                    <h6>
+                      <span class="user-avatar">
+                        <?php if (isset($reply['avatar'])) { ?>
+                            <img src="/uploads/avatars/<?= htmlspecialchars($reply['avatar']) ?>" alt="Avatar" class="img-fluid">
+                        <?php } else { ?>
+                            <?= mb_strtoupper(mb_substr($reply['pseudo'], 0, 1)) ?>
+                        <?php } ?>
+                      </span>
+                      <?= htmlspecialchars($reply['pseudo']); ?>
+                    </h6>
                     <small><?= $reply['nb_likes']; ?> likes</small>
                   </div>
                   <div class="comment-container">
