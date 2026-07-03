@@ -23,6 +23,7 @@ $topMonsters = array_slice($topMonsters, 0, 3);
     <link rel="stylesheet" href="/styles/home.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/easter-egg/terminal/terminal.css">
   </head>
 
   <body>
@@ -35,6 +36,7 @@ $topMonsters = array_slice($topMonsters, 0, 3);
     <main class="home-page">
       <section class="home-top">
         <div class="home-section-header">
+          <span id="verdict-secret">Ton Verdict ?</span>
           <h2>Top 3 du mois</h2>
         </div>
 
@@ -81,6 +83,59 @@ $topMonsters = array_slice($topMonsters, 0, 3);
       </section>
     </main>
 
+    <div id="terminal-modal" class="terminal-modal">
+
+        <div class="terminal-window">
+
+            <div class="terminal-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+
+                <span class="terminal-title">
+                    MonsterOS - v1.0
+                </span>
+            </div>
+
+            <div id="terminal-output"></div>
+
+            <div class="terminal-input">
+
+                <span class="prompt">
+                    <?= htmlspecialchars($_SESSION['user']['pseudo']) ?>@monster:~$
+                </span>
+
+                <input
+                    id="terminal-command"
+                    type="text"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="charging-screen" class="charging-screen">
+        <div class="charging-content">
+
+            <h1>CHARGING CAFFEINE...</h1>
+
+            <div id="charging-timer">
+                05:00
+            </div>
+
+            <div id="charging-progress">
+                <div id="charging-progress-bar"></div>
+            </div>
+
+            <div id="charging-percent">
+                0%
+            </div>
+        </div>
+    </div>
+
     <?php require_once __DIR__ . '/components/messages.php'; ?>
     <?php require_once __DIR__ . '/components/footer.php'; ?>
   </body>
@@ -93,4 +148,5 @@ $topMonsters = array_slice($topMonsters, 0, 3);
       })
     })
   </script>
+  <script src="/easter-egg/terminal/terminal.js"></script>
 </html>
