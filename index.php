@@ -81,8 +81,8 @@ $topMonsters = array_slice($topMonsters, 0, 3);
       </section>
     </main>
 
-    <footer></footer>
     <?php require_once __DIR__ . '/components/messages.php'; ?>
+    <?php require_once __DIR__ . '/components/footer.php'; ?>
   </body>
   <script defer>
     const cards = document.querySelectorAll(".podium-card");

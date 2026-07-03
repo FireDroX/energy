@@ -114,6 +114,7 @@ $classement = getClassementMonsters($pdo, $typeAffichage, $periodeAffichage);
 
 </div>
 <?php require_once __DIR__ . '/../components/messages.php'; ?>
+<?php require_once __DIR__ . '/../components/footer.php'; ?>
 </body>
 <script defer>
   const cards = document.querySelectorAll(".monster-lb-card");
