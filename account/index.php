@@ -45,6 +45,9 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" rel="stylesheet">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
     </head>
 
     <body>
@@ -54,32 +57,21 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
             <div class="account-card">
                 <div class="account-header">
 
-                    <form action="upload_avatar.php"
-                        method="POST"
-                        enctype="multipart/form-data">
+                    <div
+                        class="account-avatar avatar-upload"
+                        data-bs-toggle="modal"
+                        data-bs-target="#avatarModal">
 
-                        <label for="avatar-upload" class="account-avatar avatar-upload">
+                        <?php if (!empty($userData['avatar'])): ?>
+                            <img src="/uploads/avatars/<?= htmlspecialchars($userData['avatar']) ?>" alt="Avatar">
+                        <?php else: ?>
+                            <?= strtoupper(substr($userData['pseudo'], 0, 1)) ?>
+                        <?php endif; ?>
 
-                            <?php if (!empty($userData['avatar'])): ?>
-                                <img src="/uploads/avatars/<?= htmlspecialchars($userData['avatar']) ?>" alt="Avatar">
-                            <?php else: ?>
-                                <?= strtoupper(substr($userData['pseudo'], 0, 1)) ?>
-                            <?php endif; ?>
-
-                            <div class="avatar-overlay">
-                                <i class="fa-solid fa-camera"></i>
-                            </div>
-
-                        </label>
-
-                        <input
-                            id="avatar-upload"
-                            type="file"
-                            name="avatar"
-                            accept=".jpg,.jpeg,.png,.webp"
-                            onchange="this.form.submit();">
-
-                    </form>
+                        <div class="avatar-overlay">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                    </div>
 
                         <div>
                             <h1><?= htmlspecialchars($userData['pseudo']) ?></h1>
@@ -142,9 +134,67 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="avatarModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-dark text-white">
+
+                        <form action="upload_avatar.php"
+                            method="POST"
+                            enctype="multipart/form-data">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">Modifier la photo de profil</h5>
+
+                                <button
+                                    type="button"
+                                    class="btn-close btn-close-white"
+                                    data-bs-dismiss="modal">
+                                </button>
+                            </div>
+
+                            <div class="modal-body text-center">
+                                <div class="crop-container">
+                                    <div id="avatar-crop"></div>
+                                </div>
+
+                                <label class="btn btn-light mt-3" for="avatar-upload">
+                                    Choisir une image
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="avatar-upload"
+                                    name="avatar"
+                                    accept=".jpg,.jpeg,.png,.webp"
+                                    hidden>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                    Annuler
+                                </button>
+
+                                <button
+                                    id="save-avatar"
+                                    type="button"
+                                    class="btn btn-light">
+                                    Confirmer
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
         </main>
+
     <?php require_once __DIR__ . '/../components/messages.php'; ?>
     </body>
+    <script src="app.js" defer></script>
     <script defer>
         const user = <?= json_encode($userData) ?>;
         const slider = document.getElementById('active');
