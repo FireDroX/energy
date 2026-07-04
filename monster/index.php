@@ -39,11 +39,18 @@ if (!$idMonster) {
     die('Monster introuvable');
 }
 
-$stmt = $pdo->prepare("
-    INSERT INTO monster_views (id_monsters, date_view)
-    VALUES (?, NOW())
-");
-$stmt->execute([$idMonster]);
+if (isset($_SESSION['user'])) {
+  require_once __DIR__ . '/../account/colors/unlock_egg.php';
+
+  $stmt = $pdo->prepare("
+      INSERT INTO monster_views (id_users, id_monsters, date_view)
+      VALUES (?, ?, NOW())
+  ");
+  $stmt->execute([$_SESSION['user']['id'], $idMonster]);
+
+  getEasterEgg($pdo, $_SESSION['user']['id'], 'looked_at_all');
+  getEasterEgg($pdo, $_SESSION['user']['id'], 'view_100');
+}
 
 usort($parents, function ($a, $b) {
   if ($a['is_pinned'] != $b['is_pinned']) {
@@ -88,6 +95,7 @@ function goHome() {
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="/styles/home.css">
   <link rel="stylesheet" href="/styles/messages.css">
+  <link rel="stylesheet" href="/account/colors/colors.css">
 </head>
 <body>
   <header>
@@ -136,14 +144,19 @@ function goHome() {
           <div class="">
             <div class="">
               <h6>
-                <div class="user-avatar">
+                <span class="user-avatar">
                   <?php if (isset($comment['avatar'])) { ?>
                       <img src="/uploads/avatars/<?= htmlspecialchars($comment['avatar']) ?>" alt="Avatar" class="img-fluid">
                   <?php } else { ?>
                       <?= mb_strtoupper(mb_substr($comment['pseudo'], 0, 1)) ?>
                   <?php } ?>
-                </div>
-                <?= htmlspecialchars($comment['pseudo']); ?>
+                </span>
+                <span
+                    data-name="<?= htmlspecialchars($comment['pseudo']) ?>"
+                    class="<?= htmlspecialchars($comment['color_selected']) ?>"
+                >
+                    <?= htmlspecialchars($comment['pseudo']) ?>
+                </span>
                 <?php if($comment['is_pinned'] || 
                 (isset($_SESSION['user']) && ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 3))) { ?>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="pin-comment <?= $comment['is_pinned'] ? 'pinned' : 'unpinned' ?>"><path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" /></svg>
@@ -181,7 +194,21 @@ function goHome() {
                   data-user-id="<?= $reply['id_users']; ?>"
                 >
                   <div class="">
-                    <h6><?= htmlspecialchars($reply['pseudo']); ?></h6>
+                    <h6>
+                      <span class="user-avatar">
+                        <?php if (isset($reply['avatar'])) { ?>
+                            <img src="/uploads/avatars/<?= htmlspecialchars($reply['avatar']) ?>" alt="Avatar" class="img-fluid">
+                        <?php } else { ?>
+                            <?= mb_strtoupper(mb_substr($reply['pseudo'], 0, 1)) ?>
+                        <?php } ?>
+                      </span>
+                      <span
+                          data-name="<?= htmlspecialchars($reply['pseudo']) ?>"
+                          class="<?= htmlspecialchars($reply['color_selected']) ?>"
+                      >
+                          <?= htmlspecialchars($reply['pseudo']) ?>
+                      </span>
+                    </h6>
                     <small><?= $reply['nb_likes']; ?> likes</small>
                   </div>
                   <div class="comment-container">

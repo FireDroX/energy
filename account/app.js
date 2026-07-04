@@ -23,3 +23,8 @@ input.addEventListener("change", () => {
 
   reader.readAsDataURL(file);
 });
+
+const changeColor = document.querySelector(".change-color");
+changeColor.addEventListener("click", () => {
+  location.href = "/account/colors/";
+})

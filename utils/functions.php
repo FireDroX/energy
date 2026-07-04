@@ -54,6 +54,7 @@
             u.pseudo,
             u.id_users,
             u.avatar,
+            u.color_selected,
             (
                 SELECT COUNT(*)
                 FROM likes l

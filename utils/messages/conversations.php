@@ -2,7 +2,7 @@
 
 function getConversationsForUser(PDO $pdo, int $userId): array {
     $sql = "
-        SELECT u.id_users, u.pseudo, u.avatar,
+        SELECT u.id_users, u.pseudo, u.avatar, u.color_selected,
             m.contenu AS dernier_message,
             m.date_envoie AS derniere_date,
             m.sender_id

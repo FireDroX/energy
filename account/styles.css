@@ -525,3 +525,10 @@ body::after {
   align-content: center;
   justify-content: space-between;
 }
+
+.change-color {
+  width: 48px;
+  height: 48px;
+  fill: white;
+  cursor: pointer;
+}

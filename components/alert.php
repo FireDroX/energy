@@ -23,6 +23,7 @@ $alerts = [
     'note_created' => 'Votre note à bien été créée !',
     'comment_pinned' => 'Commentaire épinglé !',
     'comment_unpinned' => 'Commentaire désépinglé !',
+    'color_changed' => 'Couleur changéé !'
   ],
 
   'error' => [
@@ -45,6 +46,7 @@ $alerts = [
     'session_expired' => 'Session expirée !',
     'activated_account' => 'Ce compte n\'est pas activé, vérifie ton mail !',
     'forbidden' => 'Vous n\'êtes pas autorisé à faire ceci !',
+    'color_not_unlocked' => 'Vous n\'avez pas cette couleurs !'
   ],
 
   'info' => [

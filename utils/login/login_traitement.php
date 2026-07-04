@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../session.php'; 
 require_once __DIR__ . '/../database.php';
 require_once __DIR__ . '/../loggers.php';
+require_once __DIR__ . '/../../account/colors/unlock_egg.php';
 
 if (
     !isset($_POST['email']) ||
@@ -101,6 +102,9 @@ try {
     );
 
     header("Location: ../../?info=logged");
+
+    getEasterEgg($pdo, $user['id_users'], 'midnight');
+
     exit;
 
 } catch (PDOException $e) {
