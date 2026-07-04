@@ -77,7 +77,10 @@ $allUsers = $stmtUsers->fetchAll();
                         </span>
                         <span class="msg-item-body">
                             <span class="msg-item-top">
-                                <span class="msg-item-name"><?= htmlspecialchars($conv['pseudo']) ?></span>
+                                <span
+                                    class="msg-item-name <?= htmlspecialchars($conv['color_selected']) ?>"
+                                    data-name="<?= htmlspecialchars($conv['pseudo']) ?>"
+                                ><?= htmlspecialchars($conv['pseudo']) ?></span>
                                 <span class="msg-item-time" data-date="<?= htmlspecialchars($conv['derniere_date']) ?>"></span>
                             </span>
                             <span class="msg-item-preview">
@@ -119,5 +122,6 @@ $allUsers = $stmtUsers->fetchAll();
 </div>
 
 <link rel="stylesheet" href="/styles/messages.css">
+<link rel="stylesheet" href="/account/colors/colors.css">
 <script src="/utils/messages/messages_widget.js" defer></script>
 <script src="/utils/messages/update_messages.js" defer></script>

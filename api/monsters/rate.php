@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../utils/session.php';
 require_once __DIR__ . '/../../utils/database.php';
 require_once __DIR__ . '/../../utils/loggers.php';
+require_once __DIR__ . '/../../account/colors/unlock_egg.php';
 
 header('Content-Type: application/json');
 
@@ -82,3 +83,5 @@ addLog(
     'NOTES',
     'Ajoute une note sur: ' . $monsterId
 );
+getEasterEgg($pdo, $userId, 'rate_10');
+getEasterEgg($pdo, $userId, 'rate_20');

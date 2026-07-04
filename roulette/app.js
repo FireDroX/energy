@@ -6,6 +6,8 @@ const popupName = document.getElementById("popup-name");
 const popupClose = document.getElementById("popup-close");
 const selectRoulette = document.getElementById("select-roulette");
 
+const mode = new URLSearchParams(window.location.search).get("mode");
+
 selectRoulette.addEventListener("change", (e) => {
   document.location.href = `/roulette?mode=${e.target.value}`;
 });
@@ -15,6 +17,19 @@ button.addEventListener("click", async () => {
     showRouletteEmptyPopup("Tu n'as aucune Monster favorite pour le moment.");
     return;
   }
+
+  fetch("/account/colors/unlock_egg.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      nom:
+        mode == "never_tried"
+          ? "roulette_not_drank"
+          : mode == "favorites"
+            ? "roulette_liked"
+            : "roulette_all",
+    }),
+  });
 
   button.disabled = true;
   slot.classList.remove("winner-animation");

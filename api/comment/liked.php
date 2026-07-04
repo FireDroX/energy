@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../utils/session.php';
 require_once __DIR__ . '/../../utils/database.php';
 require_once __DIR__ . '/../../utils/loggers.php';
+require_once __DIR__ . '/../../account/colors/unlock_egg.php';
 
 header('Content-Type: application/json');
 
@@ -79,3 +80,4 @@ addLog(
     'COMMENT',
     'Ajoute un like sur: ' . $commentId
 );
+getEasterEgg($pdo, $userId, 'liked_50_comments');

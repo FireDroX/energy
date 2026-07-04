@@ -18,7 +18,7 @@ if ($otherId <= 0 || $otherId === $userId) {
     exit;
 }
 
-$stmtUser = $pdo->prepare('SELECT id_users, pseudo, avatar FROM users WHERE id_users = :id');
+$stmtUser = $pdo->prepare('SELECT id_users, pseudo, avatar, color_selected FROM users WHERE id_users = :id');
 $stmtUser->execute(['id' => $otherId]);
 $otherUser = $stmtUser->fetch();
 
@@ -78,6 +78,7 @@ function formatGroupDate(string $dateText): string
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="/styles/home.css">
+    <link rel="stylesheet" href="/account/colors/colors.css">
 </head>
 <body>
     <header><?php require_once '../components/navbar.php'; ?></header>
@@ -98,7 +99,11 @@ function formatGroupDate(string $dateText): string
                 <?php } ?>
             </div>
             <div>
-                <p id="conv-name"><?= htmlspecialchars($otherUser['pseudo']) ?></p>
+                <p
+                    id="conv-name"
+                    class="<?= htmlspecialchars($otherUser['color_selected']) ?>"
+                    data-name="<?= htmlspecialchars($otherUser['pseudo']) ?>"
+                ><?= htmlspecialchars($otherUser['pseudo']) ?></p>
                 <p id="conv-status">Conversation</p>
             </div>
         </header>

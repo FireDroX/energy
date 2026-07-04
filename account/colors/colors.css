@@ -1,0 +1,315 @@
+.easterEgg-color-1 {
+  color: #fff;
+  text-shadow:
+    -2px 0 rgba(0, 255, 255, 0.6),
+    2px 0 rgba(255, 0, 200, 0.6),
+    0 0 8px rgba(255, 255, 255, 0.4);
+  animation: rgbFlicker 3s infinite;
+}
+
+.easterEgg-color-2 {
+  color: #eafff0;
+  text-shadow:
+    0 0 4px #00ff88,
+    0 0 10px #00ff88,
+    0 0 22px #00c96b,
+    2px 2px 0 #000;
+}
+
+.easterEgg-color-3 {
+  color: #fff3e0;
+  text-shadow:
+    0 0 4px #ffb100,
+    0 0 12px #ff7a00,
+    0 0 24px #b34e00,
+    2px 2px 0 #000;
+}
+
+.easterEgg-color-4 {
+  color: #eafcff;
+  text-shadow:
+    0 0 4px #00e5ff,
+    0 0 12px #00c3ff,
+    0 0 22px #0077ff,
+    2px 2px 0 #000;
+}
+
+.easterEgg-color-5 {
+  background-image: radial-gradient(circle, #fff 15%, #ff2fe0 50%, #7a00b8 85%);
+  filter: drop-shadow(0px 0px 0.1px #ff2fe0) drop-shadow(0px 0px 6px #a600ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: rgbFlicker 4s infinite;
+}
+
+.easterEgg-color-6 {
+  background-image: linear-gradient(90deg, #ff003c, #ff5e7e, #ff003c, #ff5e7e);
+  background-size: 300% 100%;
+  filter: drop-shadow(0px 0px 0.1px #ff5e7e) drop-shadow(0px 0px 5px #ff003c);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: scanShift 2.5s linear infinite;
+}
+
+.easterEgg-color-7 {
+  background-image: linear-gradient(90deg, #f6ff00, #fff, #f6ff00, #fff);
+  background-size: 300% 100%;
+  filter: drop-shadow(0px 0px 0.1px #fff) drop-shadow(0px 0px 5px #f6ff00);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: scanShift 2.5s linear infinite;
+}
+
+.easterEgg-color-8 {
+  background-image: linear-gradient(90deg, #003b00, #00ff41, #003b00, #00ff41);
+  background-size: 300% 100%;
+  filter: drop-shadow(0px 0px 0.1px #00ff41) drop-shadow(0px 0px 5px #009929);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: scanShift 3s linear infinite;
+}
+
+.easterEgg-color-9 {
+  background-image: linear-gradient(90deg, #00fff7, #0033ff, #00fff7, #0033ff);
+  background-size: 300% 100%;
+  filter: drop-shadow(0px 0px 0.1px #00fff7) drop-shadow(0px 0px 5px #0033ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: scanShift 2.5s linear infinite;
+}
+
+.easterEgg-color-glitch {
+  position: relative;
+  color: transparent;
+  z-index: 1;
+  animation: shift 1s ease-in-out infinite alternate;
+}
+
+.easterEgg-color-glitch:before,
+.easterEgg-color-glitch:after {
+  display: block;
+  content: attr(data-name);
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.85;
+}
+
+.easterEgg-color-glitch:before {
+  animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  color: #00fff7;
+  z-index: -1;
+}
+
+.easterEgg-color-glitch:after {
+  animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both
+    infinite;
+  color: #ff00c8;
+  z-index: -2;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 1px);
+  }
+  40% {
+    transform: translate(-2px, -1px);
+  }
+  60% {
+    transform: translate(2px, 1px);
+  }
+  80% {
+    transform: translate(2px, -1px);
+  }
+  to {
+    transform: translate(0);
+  }
+}
+
+@keyframes shift {
+  0%,
+  40%,
+  44%,
+  58%,
+  61%,
+  65%,
+  69%,
+  73%,
+  100% {
+    transform: skewX(0deg);
+  }
+  41% {
+    transform: skewX(10deg);
+  }
+  42% {
+    transform: skewX(-10deg);
+  }
+  59% {
+    transform: skewX(40deg) skewY(10deg);
+  }
+  60% {
+    transform: skewX(-40deg) skewY(-10deg);
+  }
+  63% {
+    transform: skewX(10deg) skewY(-5deg);
+  }
+  70% {
+    transform: skewX(-50deg) skewY(-20deg);
+  }
+  71% {
+    transform: skewX(10deg) skewY(-10deg);
+  }
+}
+
+.easterEgg-color-10 {
+  color: #d9ffe0;
+  text-shadow:
+    0 0 4px #00ff41,
+    0 0 10px #00ff41,
+    0 0 20px #00c92e,
+    2px 2px 0 #000;
+  animation: rgbFlicker 5s infinite;
+}
+
+.easterEgg-color-11 {
+  background-image: linear-gradient(90deg, #8f00ff, #c77dff, #8f00ff, #c77dff);
+  background-size: 300% 100%;
+  filter: drop-shadow(0px 0px 0.1px #c77dff) drop-shadow(0px 0px 5px #8f00ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: scanShift 3s linear infinite;
+}
+
+.easterEgg-color-12 {
+  background-image: linear-gradient(90deg, #ff3c00, #ffb800, #ff3c00, #ffb800);
+  background-size: 300% 100%;
+  filter: drop-shadow(0px 0px 0.1px #ffb800) drop-shadow(0px 0px 5px #ff3c00);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: scanShift 2.5s linear infinite;
+}
+
+.easterEgg-color-13 {
+  background-image: linear-gradient(
+    100deg,
+    #7a7a7a 0%,
+    #ffffff 20%,
+    #00fff7 40%,
+    #ff00c8 60%,
+    #ffffff 80%,
+    #7a7a7a 100%
+  );
+  background-size: 250% 100%;
+  filter: drop-shadow(0px 0px 0.1px #fff) drop-shadow(0px 0px 4px #b5b5b5);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: scanShift 4s linear infinite;
+}
+
+.easterEgg-color-14 {
+  background-image: linear-gradient(90deg, #0033ff, #00e5ff, #0033ff, #00e5ff);
+  background-size: 300% 100%;
+  filter: drop-shadow(0px 0px 0.1px #00e5ff) drop-shadow(0px 0px 5px #0033ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: scanShift 2.5s linear infinite;
+}
+
+.easterEgg-color-15 {
+  background-image: linear-gradient(90deg, #ff00c8, #7b2fff, #00e5ff, #ff00c8);
+  background-size: 300% 100%;
+  filter: drop-shadow(0px 0px 0.1px #fff) drop-shadow(0px 0px 4px #7b2fff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: khaosShift 3s linear infinite;
+}
+
+@keyframes khaosShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
+}
+
+.easterEgg-color-pulse {
+  color: #fff;
+  animation: energyPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes energyPulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 4px #00ff41,
+      0 0 10px #00ff41,
+      0 0 18px #00c92e;
+  }
+  50% {
+    text-shadow:
+      0 0 8px #00ff41,
+      0 0 20px #00ff41,
+      0 0 36px #00c92e,
+      0 0 50px #00c92e;
+  }
+}
+
+.easterEgg-color-black-gold {
+  background-image: linear-gradient(
+    90deg,
+    #1a1a1a,
+    #bf953f,
+    #fcf6ba,
+    #b38728,
+    #1a1a1a
+  );
+  background-size: 300% 100%;
+  filter: drop-shadow(0px 0px 0.1px #fcf6ba) drop-shadow(0px 0px 4px #b38728);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: scanShift 4s linear infinite;
+}
+
+@keyframes scanShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
+}
+
+@keyframes rgbFlicker {
+  0%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.6;
+  }
+  94% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 0.75;
+  }
+  96% {
+    opacity: 1;
+  }
+}

@@ -79,6 +79,14 @@ async function checkNewMessages() {
         window.msgWidget.refreshList();
       }
     }
+
+    await fetch("/account/colors/unlock_egg.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nom: "lot_of_notifications",
+      }),
+    });
   } catch (error) {
     console.error("Erreur lors de la vérification des messages :", error);
   }

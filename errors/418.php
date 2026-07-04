@@ -1,4 +1,10 @@
-<?php require_once __DIR__ . '/../utils/session.php'; ?>
+<?php 
+require_once __DIR__ . '/../utils/session.php';
+require_once __DIR__ . '/../account/colors/unlock_egg.php';
+
+if (isset($_SESSION['user'])) getEasterEgg($pdo, $_SESSION['user']['id'], 'im_a_teapot');
+
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
