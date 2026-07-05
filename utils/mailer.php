@@ -8,6 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class Mailer {
     private PHPMailer $mail;
+    private string $logDir;
     public function __construct() {
         $this->mail = new PHPMailer(true);
         $this->mail->isSMTP();
@@ -22,6 +23,27 @@ class Mailer {
             $_ENV['GMAIL_USER'],
             $_ENV['MAIL_FROM_NAME']
         );
+
+        $this->logDir = __DIR__ . '/../uploads/logs';
+    }
+
+    private function logError(string $type, string $message): void {
+        try {
+            if (!is_dir($this->logDir)) {
+                mkdir($this->logDir, 0775, true);
+            }
+
+            $safeType = preg_replace('/[^a-zA-Z0-9_-]/', '_', $type);
+            $date     = date('Y-m-d');
+            $filename = "{$safeType}_{$date}.txt";
+            $filepath = $this->logDir . '/' . $filename;
+
+            $line = '[' . date('Y-m-d H:i:s') . '] ' . $message . PHP_EOL;
+
+            file_put_contents($filepath, $line, FILE_APPEND | LOCK_EX);
+        } catch (\Throwable $e) {
+            error_log('Impossible d\'écrire le log d\'erreur mail : ' . $e->getMessage());
+        }
     }
 
     public function sendWelcome(string $toEmail, string $toName, string $uuid): bool {
@@ -31,10 +53,11 @@ class Mailer {
             $this->mail->isHTML(true);
             $this->mail->Subject = 'Activation de compte';
             $this->mail->Body    = $this->welcomeTemplate($toName, $uuid);
-            $this->mail->AltBody = "";
+            $this->mail->AltBody = "Bienvenue $toName, active ton compte ici : https://monsters.addrien.fr/login?verify=$uuid";
+            $this->mail->addReplyTo($_ENV['GMAIL_USER'], $_ENV['MAIL_FROM_NAME']);
             return $this->mail->send();
         } catch (Exception $e) {
-            error_log('Erreur email bienvenue : ' . $this->mail->ErrorInfo);
+            $this->logError('welcome', 'Erreur email bienvenue (' . $toEmail . ') : ' . $this->mail->ErrorInfo);
             return false;
         }
     }
@@ -69,7 +92,7 @@ class Mailer {
                 sleep(2);
 
             } catch (Exception $e) {
-                error_log('Erreur newsletter (batch) : ' . $this->mail->ErrorInfo);
+                $this->logError('newsletter', 'Erreur newsletter (batch de ' . count($batch) . ' destinataires) : ' . $this->mail->ErrorInfo);
             }
         }
 
@@ -86,7 +109,22 @@ class Mailer {
             <meta name='supported-color-schemes' content='dark'>
           </head>
           <body style='margin:0;padding:0;background:transparent;font-family:Arial,sans-serif;' bgcolor='transparent'>
-            <img src='https://monsters.addrien.fr/favicon.png' width='2' height='1' style='display:block;border:0;' alt='' />
+            <div style='position:relative;'>
+              <div style='
+                position:absolute;
+                top:15px;
+                left:15px;
+                width:40px;
+                height:40px;
+                background:#ffffff;
+                border-radius:50%;
+                box-shadow:0 0 8px rgba(255,255,255,.6);
+                text-align:center;
+                line-height:40px;
+                z-index:10;'>
+                <img src='https://monsters.addrien.fr/favicon.png' width='28' height='28'
+                  style='display:inline-block;vertical-align:middle;border:0;border-radius:50%;' alt='Monsters' />
+              </div>
             <table width='100%' cellpadding='0' cellspacing='0' style='background:transparent;padding:40px 0;' bgcolor='transparent'>
               <tr>
                 <td align='center'>
@@ -181,6 +219,7 @@ class Mailer {
                 </td>
               </tr>
             </table>
+            </div>
           </body>
         </html>";
     }
