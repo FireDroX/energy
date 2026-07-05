@@ -33,10 +33,10 @@ if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION'
     </div>
     <div class="cards">
       <a href="https://github.com/FireDroX" target="_blank" rel="noopener noreferrer">
-        <img src="https://gitfut.com/FireDroX.png" alt="Adrien" height="300px" />
+        <img src="https://gitfut.com/FireDroX.png" alt="Adrien" height="200px" />
       </a>
       <a href="https://github.com/XeTr0S" target="_blank" rel="noopener noreferrer">
-        <img src="https://gitfut.com/XeTr0S.png?country=KH" alt="Hassrol" height="300px" />
+        <img src="https://gitfut.com/XeTr0S.png?country=KH" alt="Hassrol" height="200px" />
       </a>
     </div>
 
@@ -67,10 +67,22 @@ if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION'
 
         <div class="stat-circle">
             <div class="circle circle-orange">
-                <span>TO DO</span>
+                <span>
+                  <?php 
+                    $total = 0;
+                    try {
+                        $stmt = $pdo->prepare("SELECT SUM(prix) as total FROM coffee.argent;");
+                        $stmt->execute();
+                        $total = $stmt->fetch(PDO::FETCH_COLUMN);
+                    } catch (PDOException $e) {
+                        $total = 0;
+                    }
+                    echo ($total ? $total : 0) . " €";
+                  ?>
+                </span>
             </div>
 
-            <h4>Monster achetées</h4>
+            <h4>Argent dépensée</h4>
         </div>
 
     </section>
