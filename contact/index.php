@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../utils/loggers.php';
 require_once __DIR__ . '/../utils/database.php';
+$gitStats = require_once __DIR__ . '/../utils/git-stats.php';
 if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION', 'Utilise ' . $_SERVER['SCRIPT_NAME']);
 ?>
 
@@ -38,6 +39,41 @@ if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION'
         <img src="https://gitfut.com/XeTr0S.png?country=KH" alt="Hassrol" height="300px" />
       </a>
     </div>
+
+    <section class="dev-stats">
+        <div class="stat-circle">
+            <div class="circle circle-green">
+                <span><?= number_format($gitStats['commits']) ?></span>
+            </div>
+
+            <h4>Commits</h4>
+        </div>
+
+        <div class="stat-circle">
+            <div class="circle circle-blue">
+                <span><?= number_format($gitStats['added']) ?></span>
+            </div>
+
+            <h4>Lignes ajoutées</h4>
+        </div>
+
+        <div class="stat-circle">
+            <div class="circle circle-red">
+                <span><?= number_format($gitStats['deleted']) ?></span>
+            </div>
+
+            <h4>Lignes supprimées</h4>
+        </div>
+
+        <div class="stat-circle">
+            <div class="circle circle-orange">
+                <span>TO DO</span>
+            </div>
+
+            <h4>Monster achetées</h4>
+        </div>
+
+    </section>
 
   </main>
 
