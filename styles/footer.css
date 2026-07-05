@@ -38,7 +38,7 @@ footer {
   color: #7a7a7a;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   footer {
     padding: 20px;
   }
@@ -49,9 +49,17 @@ footer {
     text-align: center;
   }
 
+  .footer-content p {
+    font-size: 12px;
+  }
+
   .footer-links {
     margin-left: 0;
     justify-content: center;
     flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 10px;
   }
 }

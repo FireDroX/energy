@@ -14,7 +14,7 @@
                 <div class="footer-links">
                     <a href="/index.php">Accueil</a>
                     <a href="/search">Monsters</a>
-                    <a href="/about">À propos</a>
+                    <a href="/legal">Mentions & confidentialité</a>
                     <a href="/contact">Contact</a>
                 </div>
             </div>
