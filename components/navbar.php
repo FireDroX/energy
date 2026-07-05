@@ -37,6 +37,7 @@
   </div>
   <?php } else { ?>
     <li><a href="/login"><span>Login</span></a></li>
+    <li><a class="dropdown-item monster-dropdown-item" href="/register"><span>Sign in</span></a></li>
   <?php } ?>
   </ul>
   <div class="dropdown monster-dropdown monster-dropdown--mobile" id="navbar-mobile-dropdown">
@@ -65,6 +66,7 @@
         <li><a class="dropdown-item monster-dropdown-item" href="/logout"><span>Déconnexion</span></a></li>
       <?php } else { ?>
         <li><a class="dropdown-item monster-dropdown-item" href="/login"><span>Login</span></a></li>
+        <li><a class="dropdown-item monster-dropdown-item" href="/register"><span>Sign in</span></a></li>
       <?php } ?>
     </ul>
   </div>
