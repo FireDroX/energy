@@ -1,25 +1,37 @@
 <?php
 
-function git($cmd){
-    $output = shell_exec($cmd . " 2>&1");
+$url = "https://api.github.com/repos/FireDroX/energy/stats/contributors";
 
-    return $output !== null ? trim($output) : "";
+$options = [
+    "http" => [
+        "header" => "User-Agent: Monster-Website\r\n"
+    ]
+];
+
+$context = stream_context_create($options);
+
+$json = file_get_contents($url, false, $context);
+
+$data = json_decode($json, true);
+
+$totalCommits = 0;
+$totalAdded = 0;
+$totalDeleted = 0;
+
+foreach ($data as $contributor) {
+
+    $totalCommits += $contributor["total"];
+
+    foreach ($contributor["weeks"] as $week) {
+        $totalAdded += $week["a"];
+        $totalDeleted += $week["d"];
+    }
+
 }
 
-$commits = (int) git("git rev-list --count HEAD");
-
-$contributors = count(array_filter(explode("\n", git("git shortlog -sn"))));
-$log = git("git log --shortstat");
-
-preg_match_all('/(\d+) insertion/', $log, $insertions);
-preg_match_all('/(\d+) deletion/', $log, $deletions);
-
-$added = array_sum($insertions[1]);
-$deleted = array_sum($deletions[1]);
-
 return [
-    "commits" => $commits,
-    "contributors" => $contributors,
-    "added" => $added,
-    "deleted" => $deleted
+    "commits" => $totalCommits,
+    "added" => $totalAdded,
+    "deleted" => $totalDeleted
 ];
+?>
