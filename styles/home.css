@@ -118,7 +118,7 @@ body::after {
 
 #verdict-secret {
   display: inline-flex;
-  margin-bottom: 0.85rem;
+  margin: 0.85rem;
   padding: 0.45rem 0.8rem;
   border: 1px solid var(--border);
   border-radius: 999px;
