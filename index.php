@@ -23,7 +23,7 @@ $topMonsters = array_slice($topMonsters, 0, 3);
     <link rel="stylesheet" href="/styles/home.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="/easter-egg/terminal/terminal.css">
+    <link rel="stylesheet" href="/console/terminal/terminal.css">
   </head>
 
   <body>
@@ -154,5 +154,5 @@ $topMonsters = array_slice($topMonsters, 0, 3);
       })
     })
   </script>
-  <script src="/easter-egg/terminal/terminal.js"></script>
+  <script src="/console/terminal/terminal.js"></script>
 </html>
