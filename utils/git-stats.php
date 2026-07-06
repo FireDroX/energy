@@ -1,6 +1,6 @@
 <?php
 
-$cacheFile = __DIR__ . "/uploads/github-statistique/github_stats.json";
+$cacheFile = __DIR__ . "/../uploads/uploads/github-statistique/github_stats.json";
 
 if (!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > 3600) {
 
