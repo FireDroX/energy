@@ -87,6 +87,10 @@ async function startCharging() {
   const interval = setInterval(() => {
     totalSeconds--;
 
+    if (totalSeconds < 0) {
+      totalSeconds = 0;
+    }
+
     const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
     const seconds = String(totalSeconds % 60).padStart(2, "0");
 
@@ -95,14 +99,18 @@ async function startCharging() {
     const progress = ((maxSeconds - totalSeconds) / maxSeconds) * 100;
 
     bar.style.width = progress + "%";
-    percent.textContent = Math.floor(progress) + "%";
+    percent.textContent = Math.round(progress) + "%";
 
-    if (totalSeconds <= 0) {
+    if (totalSeconds === 0) {
+      bar.style.width = "100%";
+      percent.textContent = "100%";
+      timer.textContent = "00:00";
+
       clearInterval(interval);
 
-      document.getElementById("charging-screen").classList.remove("show");
-
-      alert("Developer mode enabled!");
+      setTimeout(() => {
+        document.getElementById("charging-screen").classList.remove("show");
+      }, 500);
     }
-  }, 1000);
+  }, 10);
 }

@@ -101,8 +101,14 @@ $topMonsters = array_slice($topMonsters, 0, 3);
 
             <div class="terminal-input">
 
+                <?php
+                $username = isset($_SESSION['user'])
+                    ? htmlspecialchars($_SESSION['user']['pseudo'])
+                    : 'guest';
+                ?>
+
                 <span class="prompt">
-                    <?= htmlspecialchars($_SESSION['user']['pseudo']) ?>@monster:~$
+                    <?= $username ?>@monster:~$
                 </span>
 
                 <input
