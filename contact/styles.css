@@ -40,7 +40,8 @@ main.container {
 
 .dev-stats {
   width: 100%;
-  margin-top: 80px;
+  margin-top: 20px;
+  margin-bottom: 80px;
 
   display: flex;
   justify-content: center;
