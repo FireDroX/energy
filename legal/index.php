@@ -40,7 +40,7 @@ if (isset($_SESSION['user'])) addLog($pdo, $_SESSION['user']['id'], 'NAVIGATION'
                     <p>Projet réalisé par :</p>
 
                     <p>• Hassrol YA</p>
-                    <p>• Adrien Pourlier</p>
+                    <p>• Adrien POURLIER    </p>
 
                     <p>Formation : Bachelor Informatique ESGI</p>
 
