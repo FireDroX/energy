@@ -92,6 +92,18 @@ try {
             'user_id' => $user['id_users'],
             'token_hash' => hash('sha256', $token)
         ]);
+
+        setcookie(
+            'remember_token',
+            $token,
+            [
+                'expires'  => time() + (((60 * 60) * 24) * 30),
+                'path'     => '/',
+                'httponly' => true,
+                'secure'   => true,
+                'samesite' => 'Lax'
+            ]
+        );
     }
 
     addLog(
