@@ -1,37 +1,48 @@
 <?php
 
-$url = "https://api.github.com/repos/FireDroX/energy/stats/contributors";
+$cacheFile = __DIR__ . "/../uploads/github_stats.json";
 
-$options = [
-    "http" => [
-        "header" => "User-Agent: Monster-Website\r\n"
-    ]
-];
+if (!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > 3600) {
 
-$context = stream_context_create($options);
+    $url = "https://api.github.com/repos/FireDroX/energy/stats/contributors";
 
-$json = file_get_contents($url, false, $context);
+    $options = [
+        "http" => [
+            "header" => "User-Agent: Monster-Website\r\n"
+        ]
+    ];
 
-$data = json_decode($json, true);
+    $context = stream_context_create($options);
+    $json = @file_get_contents($url, false, $context);
 
-$totalCommits = 0;
-$totalAdded = 0;
-$totalDeleted = 0;
+    if ($json !== false) {
 
-foreach ($data as $contributor) {
+        $data = json_decode($json, true);
 
-    $totalCommits += $contributor["total"];
+        $totalCommits = 0;
+        $totalAdded = 0;
+        $totalDeleted = 0;
 
-    foreach ($contributor["weeks"] as $week) {
-        $totalAdded += $week["a"];
-        $totalDeleted += $week["d"];
+        foreach ($data as $contributor) {
+
+            $totalCommits += $contributor["total"];
+
+            foreach ($contributor["weeks"] as $week) {
+                $totalAdded += $week["a"];
+                $totalDeleted += $week["d"];
+            }
+        }
+
+        $stats = [
+            "commits" => $totalCommits,
+            "added" => $totalAdded,
+            "deleted" => $totalDeleted
+        ];
+
+        file_put_contents($cacheFile, json_encode($stats));
     }
-
 }
 
-return [
-    "commits" => $totalCommits,
-    "added" => $totalAdded,
-    "deleted" => $totalDeleted
-];
+$stats = json_decode(file_get_contents($cacheFile), true);
+return $stats;
 ?>
