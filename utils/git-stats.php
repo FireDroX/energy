@@ -2,7 +2,7 @@
 
 $cacheFile = __DIR__ . "/../uploads/github_stats.json";
 
-if (!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > 3600) {
+if (!file_exists($cacheFile) || (time() - $stats["timestamp"]) > 3600) {
 
     $url = "https://api.github.com/repos/FireDroX/energy/stats/contributors";
 
@@ -34,15 +34,28 @@ if (!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > 3600) {
         }
 
         $stats = [
-            "commits" => $totalCommits,
-            "added" => $totalAdded,
-            "deleted" => $totalDeleted
+            "commits"  => $totalCommits,
+            "added"    => $totalAdded,
+            "deleted"  => $totalDeleted,
+            "timestamp"=> time()
         ];
 
-        file_put_contents($cacheFile, json_encode($stats));
+        file_put_contents(
+            $cacheFile,
+            json_encode($stats, JSON_PRETTY_PRINT)
+        );
     }
 }
 
-$stats = json_decode(file_get_contents($cacheFile), true);
-return $stats;
+if (file_exists($cacheFile)) {
+    return json_decode(file_get_contents($cacheFile), true);
+}
+
+return [
+    "commits" => 0,
+    "added" => 0,
+    "deleted" => 0,
+    "timestamp" => 0
+];
+
 ?>
