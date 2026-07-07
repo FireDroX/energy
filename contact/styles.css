@@ -85,10 +85,6 @@ main.container {
 
 .circle:hover {
   transform: scale(1.08);
-
-  box-shadow:
-    0 0 35px rgba(0, 255, 106, 0.45),
-    inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
 .circle::before {
@@ -124,14 +120,38 @@ main.container {
   --color: #00ff6a;
 }
 
+.circle-green:hover {
+  box-shadow:
+    0 0 35px #00ff6a,
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
 .circle-blue {
   --color: #00bfff;
+}
+
+.circle-blue:hover {
+  box-shadow:
+    0 0 35px #00bfff,
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
 .circle-red {
   --color: #ff4444;
 }
 
+.circle-red:hover {
+  box-shadow:
+    0 0 35px #ff4444,
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
 .circle-orange {
   --color: #ffb300;
+}
+
+.circle-orange:hover {
+  box-shadow:
+    0 0 35px #ffb300,
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
