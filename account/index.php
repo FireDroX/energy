@@ -119,7 +119,7 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
             <div class="account-download">
                 <a href="export_pdf.php" class="btn-download">
-                    📄 Télécharger mes informations (PDF)
+                    Télécharger mes informations (PDF)
                 </a>
             </div>
 
