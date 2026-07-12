@@ -173,7 +173,7 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
                                     type="file"
                                     id="avatar-upload"
                                     name="avatar"
-                                    accept=".jpg,.jpeg,.png,.webp"
+                                    accept=".jpg,.jpeg,.png,.webp,.gif"
                                     hidden>
 
                                 <p id="selected-file">
