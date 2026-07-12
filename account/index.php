@@ -119,7 +119,7 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 
             <div class="account-download">
                 <a href="export_pdf.php" class="btn-download">
-                    📄 Télécharger mes informations (PDF)
+                    Télécharger mes informations (PDF)
                 </a>
             </div>
 
@@ -173,7 +173,7 @@ $userData = $stmt->fetch(PDO::FETCH_ASSOC);
                                     type="file"
                                     id="avatar-upload"
                                     name="avatar"
-                                    accept=".jpg,.jpeg,.png,.webp"
+                                    accept=".jpg,.jpeg,.png,.webp,.gif"
                                     hidden>
 
                                 <p id="selected-file">

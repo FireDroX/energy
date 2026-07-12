@@ -1,7 +1,4 @@
 <?php
-
-session_start();
-
 require_once __DIR__ . '/../utils/session.php';
 require_once __DIR__ . '/../utils/loggers.php';
 require_once '../vendor/autoload.php';
@@ -32,6 +29,58 @@ $stmt = $pdo->prepare("
 $stmt->execute([$userId]);
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$stmt = $pdo->prepare("
+    SELECT 
+        m.nom,
+        COALESCE(ROUND(AVG(n.note), 2), 'Non noté') AS note,
+        mf.id_monsters
+    FROM monster_favorites mf
+    LEFT JOIN monsters m ON m.id_monsters = mf.id_monsters
+    LEFT JOIN notes n ON n.id_monsters = m.id_monsters
+    WHERE mf.id_users = ?
+    GROUP BY mf.id_monsters
+    ORDER BY m.nom ASC
+");
+$stmt->execute([$userId]);
+$favorites = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $pdo->prepare("
+    SELECT 
+        c.commentaire,
+        m.nom as monster_name,
+        c.date
+    FROM commentaires c
+    LEFT JOIN monsters m ON m.id_monsters = c.id_monsters
+    WHERE c.id_users = ?
+    ORDER BY c.date DESC
+");
+$stmt->execute([$userId]);
+$comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $pdo->prepare("
+    SELECT 
+        e.nom,
+        e.description
+    FROM user_eggs ue
+    LEFT JOIN easter_eggs e ON e.id_egg = ue.id_egg
+    WHERE ue.id_users = ?
+");
+$stmt->execute([$userId]);
+$eggs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $pdo->prepare("
+    SELECT 
+        (SELECT COUNT(*) FROM monster_favorites WHERE id_users = ?) as total_likes,
+        (SELECT COUNT(*) FROM notes WHERE id_users = ?) as total_ratings,
+        (SELECT COUNT(*) FROM commentaires WHERE id_users = ? AND id_parent IS NULL) as total_comments,
+        (SELECT COUNT(*) FROM commentaires WHERE id_users = ? AND id_parent IS NOT NULL) as total_replies,
+        (SELECT COUNT(*) FROM monster_drinks WHERE id_users = ?) as total_drank,
+        (SELECT COUNT(*) FROM monster_views WHERE id_users = ?) as total_views,
+        (SELECT COUNT(*) FROM likes WHERE id_users = ?) as total_comment_likes
+");
+$stmt->execute([$userId, $userId, $userId, $userId, $userId, $userId, $userId]);
+$stats = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $html = '
 <!DOCTYPE html>
@@ -74,6 +123,7 @@ $html = '
 
     .section {
         margin-top: 20px;
+        page-break-inside: avoid;
     }
 
     .section-title {
@@ -88,6 +138,7 @@ $html = '
     .info-table {
         width: 100%;
         border-collapse: collapse;
+        margin-bottom: 16px;
     }
 
     .info-table th,
@@ -103,12 +154,74 @@ $html = '
         color: #ffffff;
     }
 
+    .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .stat-box {
+        border: 1px solid #d0d0d0;
+        padding: 12px;
+        border-radius: 6px;
+        background: #f9f9f9;
+    }
+
+    .stat-label {
+        font-size: 10px;
+        color: #666666;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .stat-value {
+        font-size: 18px;
+        font-weight: bold;
+        color: #111111;
+    }
+
+    .list-section {
+        margin-bottom: 16px;
+    }
+
+    .item {
+        border-left: 3px solid #d0d0d0;
+        padding: 8px 0 8px 12px;
+        margin-bottom: 8px;
+    }
+
+    .item-title {
+        font-weight: bold;
+        color: #111111;
+    }
+
+    .item-subtitle {
+        color: #666666;
+        font-size: 11px;
+    }
+
+    .item-content {
+        color: #333333;
+        font-size: 11px;
+        margin-top: 4px;
+    }
+
+    .empty-section {
+        color: #999999;
+        font-style: italic;
+    }
+
     .footer {
         margin-top: 28px;
         padding-top: 12px;
         border-top: 1px solid #d0d0d0;
         color: #777777;
         font-size: 10px;
+    }
+
+    .page-break {
+        page-break-after: always;
     }
 </style>
 </head>
@@ -157,6 +270,116 @@ $html = '
             </tr>
         </table>
     </div>
+
+    <div class="section">
+        <h2 class="section-title">Statistiques</h2>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Monsters likés</div>
+                <div class="stat-value">' . htmlspecialchars($stats['total_likes']) . '</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-label">Monsters notés</div>
+                <div class="stat-value">' . htmlspecialchars($stats['total_ratings']) . '</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-label">Commentaires écrit</div>
+                <div class="stat-value">' . htmlspecialchars($stats['total_comments']) . '</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-label">Réponses écrites</div>
+                <div class="stat-value">' . htmlspecialchars($stats['total_replies']) . '</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-label">Monsters bus</div>
+                <div class="stat-value">' . htmlspecialchars($stats['total_drank']) . '</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-label">Pages vues</div>
+                <div class="stat-value">' . htmlspecialchars($stats['total_views']) . '</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-label">Likes sur commentaires</div>
+                <div class="stat-value">' . htmlspecialchars($stats['total_comment_likes']) . '</div>
+            </div>
+
+            <div class="stat-box">
+                <div class="stat-label">Easter-eggs débloqués</div>
+                <div class="stat-value">' . count($eggs) . '</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section page-break">
+        <h2 class="section-title">Monsters likés</h2>
+
+        <div class="list-section">';
+
+if (!empty($favorites)) {
+    foreach ($favorites as $fav) {
+        $html .= '
+            <div class="item">
+                <div class="item-title">' . htmlspecialchars($fav['nom'] ?? 'Sans nom') . '</div>
+                <div class="item-subtitle">Note moyenne: ' . htmlspecialchars($fav['note']) . '/5</div>
+            </div>';
+    }
+} else {
+    $html .= '<div class="empty-section">Aucun monster liké</div>';
+}
+
+$html .= '
+        </div>
+    </div>';
+
+if (!empty($comments)) {
+    $html .= '
+    <div class="section page-break">
+        <h2 class="section-title">Commentaires</h2>
+
+        <div class="list-section">';
+
+    foreach ($comments as $comment) {
+        $html .= '
+            <div class="item">
+                <div class="item-title">' . htmlspecialchars($comment['monster_name'] ?? 'Sans monster') . '</div>
+                <div class="item-subtitle">Écrit le: ' . htmlspecialchars($comment['date'] ?? 'Date inconnue') . '</div>
+                <div class="item-content">' . htmlspecialchars($comment['commentaire']) . '</div>
+            </div>';
+    }
+
+    $html .= '
+        </div>
+    </div>';
+}
+
+if (!empty($eggs)) {
+    $html .= '
+    <div class="section page-break">
+        <h2 class="section-title">Easter-eggs débloqués</h2>
+
+        <div class="list-section">';
+
+    foreach ($eggs as $egg) {
+        $html .= '
+            <div class="item">
+                <div class="item-title">' . htmlspecialchars($egg['nom']) . '</div>
+                <div class="item-content">' . htmlspecialchars($egg['description'] ?? '') . '</div>
+            </div>';
+    }
+
+    $html .= '
+        </div>
+    </div>';
+}
+
+$html .= '
 
     <div class="footer">
         Export généré par ' . htmlspecialchars($user['pseudo']) . ' depuis Monster Energy - Review.

@@ -46,7 +46,11 @@ $alerts = [
     'session_expired' => 'Session expirée !',
     'activated_account' => 'Ce compte n\'est pas activé, vérifie ton mail !',
     'forbidden' => 'Vous n\'êtes pas autorisé à faire ceci !',
-    'color_not_unlocked' => 'Vous n\'avez pas cette couleurs !'
+    'color_not_unlocked' => 'Vous n\'avez pas cette couleurs !',
+    'avatar_oversized' => 'L\'image dépasse 2 Mo.',
+    'avatar_invalid_format' => 'Format d\'image non autorisé.',
+    'avatar_unreadable' => 'Impossible de lire l\'image.',
+    'avatar_no_file' => 'Aucun fichier sélectionné.'
   ],
 
   'info' => [
