@@ -10,6 +10,7 @@ $alerts = [
     'user_activated' => 'Utilisateur réactivé / modifié !',
     'user_updated' => 'Utilisateur mis à jour !',
     'user_created' => 'Utilisateur créé !',
+    'avatar_deleted' => 'Avatar supprimé !',
     'tags_updated' => 'Tags mis à jour !',
     'tag_created' => 'Tag créé !',
     'monster_updated' => 'Monster mis à jour !',
