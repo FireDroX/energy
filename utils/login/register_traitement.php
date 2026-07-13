@@ -83,8 +83,18 @@ try {
         'Création du compte ' . $user['pseudo']
     );
 
-    $stmt = $pdo->prepare("INSERT INTO messages (contenu, sender_id, receiver_id) VALUES (:msg, 1, :id)");
-    $stmt->execute([':msg' => 'Bienvenue sur notre site de Monsters! Explorez les collections, participez aux classements et découvrez des saveurs uniques. Activez la newsletter dans les paramètres de votre compte pour recevoir les nouveautés directement.', ':id' => $user['id_users']]);
+    $stmt = $pdo->prepare("
+        INSERT INTO messages (contenu, sender_id, receiver_id) VALUES 
+        (:msg1, 1, :id),
+        (:msg2, 1, :id),
+        (:msg3, 1, :id);
+    ");
+    $stmt->execute([
+        ':msg1' => 'Bienvenue ' . htmlspecialchars($pseudo) . ' !',
+        ':msg2' => 'Explore les collections, participe aux classements et découvrez des saveurs uniques.',
+        ':msg3' => 'Active la newsletter dans les paramètres de ton compte pour recevoir les nouveautés directement par mail.',
+        ':id' => $user['id_users']
+    ]);
 
     header("Location: ../../login/?success=mail_sent");
     exit;
