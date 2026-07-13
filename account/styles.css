@@ -465,6 +465,10 @@ body::after {
   .btn-secondary {
     width: 100%;
   }
+
+  .status-switch {
+    flex-direction: column;
+  }
 }
 
 .status-switch {
