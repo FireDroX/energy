@@ -19,27 +19,30 @@ if (!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > 3600) {
 
         $data = json_decode($json, true);
 
-        $totalCommits = 0;
-        $totalAdded = 0;
-        $totalDeleted = 0;
+        if (is_array($data) && !empty($data)) {
 
-        foreach ($data as $contributor) {
+            $totalCommits = 0;
+            $totalAdded = 0;
+            $totalDeleted = 0;
 
-            $totalCommits += $contributor["total"];
+            foreach ($data as $contributor) {
 
-            foreach ($contributor["weeks"] as $week) {
-                $totalAdded += $week["a"];
-                $totalDeleted += $week["d"];
+                $totalCommits += $contributor["total"];
+
+                foreach ($contributor["weeks"] as $week) {
+                    $totalAdded += $week["a"];
+                    $totalDeleted += $week["d"];
+                }
             }
+
+            $stats = [
+                "commits" => $totalCommits,
+                "added" => $totalAdded,
+                "deleted" => $totalDeleted
+            ];
+
+            file_put_contents($cacheFile, json_encode($stats));
         }
-
-        $stats = [
-            "commits" => $totalCommits,
-            "added" => $totalAdded,
-            "deleted" => $totalDeleted
-        ];
-
-        file_put_contents($cacheFile, json_encode($stats));
     }
 }
 
