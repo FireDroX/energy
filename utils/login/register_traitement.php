@@ -47,8 +47,17 @@ try {
         exit;
     }
 
+    $mailer = new Mailer();
+    
+    $tempUuid = bin2hex(random_bytes(16));
+    $result = $mailer->sendWelcome($email, $pseudo, $tempUuid);
+    
+    if (!$result) {
+        throw new Exception('Erreur lors de l\'envoi du mail de confirmation');
+    }
+
     $sql = "INSERT INTO users (pseudo, mail, mdp, id_role, uuid)
-            VALUES (:pseudo, :mail, :mdp, :id_role, UUID())";
+            VALUES (:pseudo, :mail, :mdp, :id_role, :uuid)";
 
     $stmt = $pdo->prepare($sql);
 
@@ -56,7 +65,8 @@ try {
         'pseudo' => $pseudo,
         'mail' => $email,
         'mdp' => $passwordHash,
-        'id_role' => 5
+        'id_role' => 5,
+        'uuid' => $tempUuid
     ]);
 
     $id = $pdo->lastInsertId();
@@ -66,21 +76,21 @@ try {
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $mailer = new Mailer();
-    $result = $mailer->sendWelcome($user['mail'], $user['pseudo'], $user['uuid']);
-
     addLog(
         $pdo,
         $user['id_users'],
         'REGISTER',
         'Création du compte ' . $user['pseudo']
     );
-  
+
     header("Location: ../../login/?success=mail_sent");
     exit;
-
+} catch (Exception $e) {
+    header("Location: ../../register/?error=mail_send_failed");
+    exit;
 } catch (PDOException $e) {
-    die("Erreur BDD : " . $e->getMessage());
+    header("Location: ../../register/?error=database_error");
+    exit;
 }
 
 ?>
