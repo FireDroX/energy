@@ -29,7 +29,8 @@ $alerts = [
   'error' => [
     'no_access' => "Vous n'avez pas accès à cette page !",
     'database_error' => 'Erreur avec la connexion DB',
-    'invalid_params' => 'Paramètres invalides !'
+    'invalid_params' => 'Paramètres invalides !',
+    'mail_send_failed' => 'Erreur avec l\'envoie de l\'email'
   ],
 
   'warning' => [
