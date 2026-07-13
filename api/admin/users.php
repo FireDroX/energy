@@ -21,6 +21,7 @@ $mail = trim($_POST['mail'] ?? '');
 $mdp = trim($_POST['mdp'] ?? '');
 $role = isset($_POST['id_role']) ? (int) $_POST['id_role'] : 0;
 $active = isset($_POST['active']) ? (int) $_POST['active'] : 1;
+$deleteAvatar = isset($_POST['delete_avatar']) ? (int) $_POST['delete_avatar'] : 0;
 
 function checkInputs($p, $m, $r, $pdo) {
   if ($p === '' || $m === '') {
@@ -39,6 +40,38 @@ function checkInputs($p, $m, $r, $pdo) {
 }
 
 try {
+  if ($deleteAvatar === 1) {
+    if ($id <= 0) {
+      http_response_code(400);
+      echo json_encode(['warning' => 'invalid_params']);
+      exit;
+    }
+
+    $stmt = $pdo->prepare("SELECT avatar FROM users WHERE id_users = :id");
+    $stmt->execute([':id' => $id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+      http_response_code(404);
+      echo json_encode(['warning' => 'missing_fields']);
+      exit;
+    }
+
+    if (!empty($user['avatar'])) {
+      $avatarPath = __DIR__ . '/../../uploads/avatars/' . $user['avatar'];
+      if (file_exists($avatarPath)) {
+        unlink($avatarPath);
+      }
+    }
+
+    $stmt = $pdo->prepare("UPDATE users SET avatar = NULL WHERE id_users = :id");
+    $stmt->execute([':id' => $id]);
+
+    echo json_encode(['success' => true, 'message' => 'avatar_deleted']);
+    addLog($pdo, $_SESSION['user']['id'], 'USER', 'Suppression d\'avatar pour ID: ' . $id);
+    exit;
+  }
+
   if ($id > 0) {
     $stmt = $pdo->prepare("SELECT * FROM users WHERE id_users = :id");
     $stmt->execute([':id' => $id]);

@@ -22,7 +22,8 @@ try {
       u.mail,
       u.mdp,
       u.id_role,
-      u.deactivated
+      u.deactivated,
+      u.avatar
     FROM users u
     ORDER BY u.created DESC;
   ");
@@ -37,7 +38,8 @@ try {
     'mail' => 'mail@example.com',
     'mdp' => 'hashed_password',
     'id_role' => 1,
-    'role' => 'User'
+    'role' => 'User',
+    'avatar' => NULL
   ]];
 }
 ?>
@@ -87,6 +89,14 @@ try {
           </div>
         </div>
         <div class="panel-card">
+          <div class="account-avatar-container" id="avatarContainer">
+            <div class="account-avatar" id="avatarDisplay">
+              ?
+              <div class="avatar-overlay">
+                <i class="fa-solid fa-camera"></i>
+              </div>
+            </div>
+          </div>
           <h2>Informations</h2>
           <form id="userForm">
             <input type="hidden" name="id_user" id="id_user" value="0" />
@@ -162,7 +172,54 @@ try {
         mdp.value = user.mdp
         id_role.value = user.id_role;
         slider.checked = user.deactivated == null;
+        updateAvatarDisplay(user);
       });
+
+      function updateAvatarDisplay(user) {
+        const avatarDiv = document.getElementById('avatarDisplay');
+        
+        if (user.avatar) {
+          avatarDiv.classList.add('has-avatar');
+          avatarDiv.innerHTML = `
+            <img src="/uploads/avatars/${encodeURIComponent(user.avatar)}" alt="Avatar">
+            <div class="avatar-overlay">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          `;
+          avatarDiv.onclick = deleteAvatar;
+        } else {
+          avatarDiv.classList.remove('has-avatar');
+          avatarDiv.innerHTML = user.pseudo ? strtoupper(user.pseudo.charAt(0)) : '?';
+          avatarDiv.innerHTML += '<div class="avatar-overlay"><i class="fa-solid fa-camera"></i></div>';
+          avatarDiv.onclick = null;
+        }
+      }
+
+      async function deleteAvatar(e) {
+        e.stopPropagation();
+        const userId = idInput.value;
+        if (!userId || userId == 0) return;
+        
+        if (!confirm('Êtes-vous sûr de vouloir supprimer cet avatar ?')) return;
+        
+        const formData = new FormData();
+        formData.append('id_user', userId);
+        formData.append('delete_avatar', 1);
+        
+        const res = await fetch('/api/admin/users.php', { method: 'POST', body: formData });
+        const json = await res.json();
+        if (json.success) {
+          location.href = `/panel/users?success=${encodeURIComponent(json.message)}`;
+        } else if (json.warning) {
+          location.href = `/panel/users?warning=${encodeURIComponent(json.warning)}`;
+        } else {
+          location.href = `/panel/users?error=${encodeURIComponent(json.error)}`;
+        }
+      }
+
+      function strtoupper(str) {
+        return str.charAt(0).toUpperCase();
+      }
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
