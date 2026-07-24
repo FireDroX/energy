@@ -86,16 +86,12 @@ if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0777, true);
 }
 
-// Preserve GIF format for animated GIFs
 $fileName = uniqid('avatar_', true) . ($extension === 'gif' ? '.gif' : '.webp');
 
-// For GIFs, skip resizing to preserve animation
 if ($extension === 'gif') {
-    // Copy GIF directly with minimal processing
     $newPath = $uploadDir . $fileName;
     copy($_FILES['avatar']['tmp_name'], $newPath);
 } else {
-    // For other formats, resize and convert to WebP
     $taille = 256;
 
     $largeur = imagesx($source);
