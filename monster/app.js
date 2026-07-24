@@ -67,7 +67,7 @@ async function getMonster() {
           const data = await request.json();
 
           if (data.success) {
-            location.href = `/monster/?name=${monster_name}&success=note_updated`;
+            location.href = `/monster/?name=${monster_name}&success=${data.message}`;
           }
         } catch (err) {
           console.error(err);

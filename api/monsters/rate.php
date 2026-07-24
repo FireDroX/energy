@@ -34,35 +34,58 @@ $monsterId = (int) $monsterId;
 $note = (int) $note;
 
 $stmt = $pdo->prepare("
-    SELECT 1
+    SELECT *
     FROM notes
     WHERE id_users = ?
     AND id_monsters = ?
 ");
 
 $stmt->execute([$userId, $monsterId]);
+$old = $stmt->fetch();
 
-if ($stmt->fetch()) {
-    $stmt = $pdo->prepare("
-        UPDATE notes
-        SET note = ?, date_note = NOW()        
-        WHERE id_users = ?
-        AND id_monsters = ?
-    ");
-    $stmt->execute([$note, $userId, $monsterId]);
+if ($old) {
+    if ((int) $old['note'] == $note) {
+        $stmt = $pdo->prepare("
+            DELETE FROM notes       
+            WHERE id_users = ?
+            AND id_monsters = ?
+        ");
+        $stmt->execute([$userId, $monsterId]);
 
-    echo json_encode([
-        'success' => true,
-        'message' => 'note_updated'
-    ]);
+        echo json_encode([
+            'success' => true,
+            'message' => 'note_deleted'
+        ]);
 
-    addLog(
-        $pdo,
-        $_SESSION['user']['id'],
-        'NOTES',
-        'Met à jour sa note sur: ' . $monsterId
-    );
-    exit;
+        addLog(
+            $pdo,
+            $_SESSION['user']['id'],
+            'NOTES',
+            'Supprime sa note sur: ' . $monsterId
+        );
+        exit;
+    } else {
+        $stmt = $pdo->prepare("
+            UPDATE notes
+            SET note = ?, date_note = NOW()        
+            WHERE id_users = ?
+            AND id_monsters = ?
+        ");
+        $stmt->execute([$note, $userId, $monsterId]);
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'note_updated'
+        ]);
+
+        addLog(
+            $pdo,
+            $_SESSION['user']['id'],
+            'NOTES',
+            'Met à jour sa note sur: ' . $monsterId
+        );
+        exit;
+    }
 }
 
 $stmt = $pdo->prepare("

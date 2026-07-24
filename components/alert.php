@@ -22,6 +22,7 @@ $alerts = [
     'message_deleted' => 'Votre commentaire à bien été supprimé !',
     'note_updated' => 'Votre note à bien été mise à jour !',
     'note_created' => 'Votre note à bien été créée !',
+    'note_deleted' => 'Votre note à bien été supprimée !',
     'comment_pinned' => 'Commentaire épinglé !',
     'comment_unpinned' => 'Commentaire désépinglé !',
     'color_changed' => 'Couleur changéé !'
